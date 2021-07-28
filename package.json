@@ -1,7 +1,7 @@
 {
   "name": "@lockevn/moredash",
   "description": "share lib for common helper functions, work in node and browser",
-  "version": "1.8.2",  
+  "version": "1.8.3",  
 
   "author": "lockevn",
   "license": "See LICENSE",  
@@ -16,8 +16,7 @@
   
   "main": "index.js",
   "files": [
-    "lib/",
-    "services/",
+    "src/",
     "index.js"
   ],
   "scripts": {
