@@ -1,19 +1,16 @@
 {
   "name": "@lockevn/moredash",
   "description": "share lib for common helper functions, work in node and browser",
-  "version": "1.8.3",  
-
+  "version": "1.8.4",
   "author": "lockevn",
-  "license": "See LICENSE",  
-  
+  "license": "See LICENSE",
   "keywords": [
     "node",
     "browser",
     "lib",
-    "util",  
+    "util",
     "lockevn"
-  ],  
-  
+  ],
   "main": "index.js",
   "files": [
     "src/",
@@ -24,7 +21,6 @@
     "testmocha": "mocha test/**/*.spec.js  --timeout 30000 --exit",
     "format": "prettier --write \"**/*.js\""
   },
-  
   "dependencies": {
     "date-fns": "^2.22.1",
     "date-fns-tz": "^1.1.4",
@@ -34,12 +30,14 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@babel/core": "^7.14.8",
+    "@babel/preset-env": "^7.14.8",
+    "babel-jest": "^27.0.6",
     "jest": "^25.5.4",
     "nodemon": "^2.0.6",
     "prettier": "^1.19.1",
     "supertest": "^4.0.2"
   },
-
   "jest": {
     "verbose": true,
     "moduleFileExtensions": [
