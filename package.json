@@ -1,0 +1,54 @@
+{
+  "name": "@lockevn/moredash",
+  "description": "share lib for common helper functions, work in node and browser",
+  "version": "1.8.2",  
+
+  "author": "lockevn",
+  "license": "See LICENSE",  
+  
+  "keywords": [
+    "node",
+    "browser",
+    "lib",
+    "util",  
+    "lockevn"
+  ],  
+  
+  "main": "index.js",
+  "files": [
+    "lib/",
+    "services/",
+    "index.js"
+  ],
+  "scripts": {
+    "test": "jest",
+    "testmocha": "mocha test/**/*.spec.js  --timeout 30000 --exit",
+    "format": "prettier --write \"**/*.js\""
+  },
+  
+  "dependencies": {
+    "date-fns": "^2.22.1",
+    "date-fns-tz": "^1.1.4",
+    "axios": "^0.18.0",
+    "decimal.js": "^10.2.1",
+    "deepmerge": "^4.2.2",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "jest": "^25.5.4",
+    "nodemon": "^2.0.6",
+    "prettier": "^1.19.1",
+    "supertest": "^4.0.2"
+  },
+
+  "jest": {
+    "verbose": true,
+    "moduleFileExtensions": [
+      "js",
+      "json"
+    ],
+    "rootDir": "src",
+    "testRegex": ".spec.js$",
+    "coverageDirectory": "../coverage"
+  }
+}
