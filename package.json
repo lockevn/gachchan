@@ -1,7 +1,7 @@
 {
-  "name": "@lockevn/moredash",
+  "name": "@lockevn/gachchan",
   "description": "share lib for common helper functions, work in node and browser",
-  "version": "1.8.5",
+  "version": "1.8.7",
   "author": "lockevn",
   "license": "See LICENSE",
   "keywords": [
@@ -11,14 +11,15 @@
     "util",
     "lockevn"
   ],
-  "main": "index.js",
   "files": [
     "src/",
     "index.js"
   ],
+  "main": "dist/index_bundle.js",
   "scripts": {
+    "build": "webpack",
     "test": "jest",
-    "testmocha": "mocha test/**/*.spec.js  --timeout 30000 --exit",
+    "lint": "npx     eslint --fix ./src",
     "format": "prettier --write \"**/*.js\""
   },
   "dependencies": {
@@ -37,6 +38,12 @@
     "babel-jest": "^27.0.6",
     "jest": "^25.5.4",
     "nodemon": "^2.0.6",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "eslint": "^7.31.0",
+    "eslint-webpack-plugin": "^3.0.1",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
     "prettier": "^1.19.1"
   },
   "jest": {

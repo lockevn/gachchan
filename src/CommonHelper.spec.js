@@ -1,8 +1,8 @@
-import CommonHelper from "./CommonHelper";
+import lib from ".."
 
 describe("CommonHelper", () => {
-  beforeAll(async () => {});
+  beforeAll(async () => {})
   it("ToActualNumber", () => {
-    expect(CommonHelper.hello("1100")).toBe("Hello 1100");
-  });
-});
+    expect(lib.CommonHelper.hello("1100")).toBe("Hello 1100")
+  })
+})
