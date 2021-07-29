@@ -1,4 +1,3 @@
- import capital from './capital';
- import Tom from './Tom';
+import CommonHelper from "./CommonHelper"
 
-export default {Tom, capital}
+export default { CommonHelper }
