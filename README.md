@@ -1,6 +1,7 @@
-# gachchan
+# gachchan (ALPHA)
 
 Helper functions I found useful
+Still in ALPHA mode, I'll contribute my (working) code to this lib with fully unit test (weekly).
 
 ## Project setup
 
@@ -12,6 +13,14 @@ Building JavaScript Library in ES6 using Webpack and Babel
 3. Install dependencies using `npm i`
 4. Run `npm run build`
 5. A Bundled file `index will be generated in`dist/` directory.
+
+
+## Publish npm via Github Packages
+
+see https://windix.medium.com/host-and-publish-npm-package-on-github-bb419a2acfd3
+
+> You cannot delete a public package yourself (similarly, npmjs only supports to delete a public package within 72 hours).
+
 
 ## Run
 

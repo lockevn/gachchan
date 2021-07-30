@@ -17,6 +17,10 @@
     "index.js"
   ],
   "main": "dist/index.js",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+
   "scripts": {
     "build": "webpack",
     "test": "jest",
@@ -30,6 +34,7 @@
     "deepmerge": "^4.2.2",
     "lodash": "^4.17.21"
   },
+  "peerDependencies": {},
   "devDependencies": {
     "@babel/core": "^7.14.8",
     "@babel/plugin-proposal-decorators": "^7.14.5",
