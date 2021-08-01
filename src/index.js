@@ -1,3 +1,3 @@
-import CommonHelper from "./CommonHelper"
+import CommonHelper from "./helper/CommonHelper"
 
 export default { CommonHelper }

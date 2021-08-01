@@ -369,17 +369,35 @@ export default class CommonHelper {
   }
 
   /**
+   * return percent of portion to full, 25 50 ==> 50
+   * @param {*} portion
+   * @param {*} full
+   * @param {*} fractationDigits
+   * @returns number
+   */
+  static Percent(portion, full, fractationDigits) {
+    let ret = (100 * portion) / full
+
+    if (fractationDigits > 0) {
+      ret = CommonHelper.FormatNumber(ret, fractationDigits)
+    }
+    return ret
+  }
+
+  /**
    * from 100 to 110, the diff is 10, and is 10%. Return 10
    * @param {*} from
    * @param {*} to
    * @returns null if from to is not number
    */
-  static CalculateDiffInPercent(from, to) {
+  static DiffInPercent(from, to, fractationDigits) {
+    let ret = null
+
     if (_isNumber(from) && _isNumber(to)) {
-      return (100 * (to - from)) / from
+      ret = CommonHelper.Percent(to - from, from, fractationDigits)
     }
 
-    return null
+    return ret
   }
 
   /**

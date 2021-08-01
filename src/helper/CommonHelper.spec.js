@@ -1,4 +1,4 @@
-import CommonHelper from "./CommonHelper"
+import { CommonHelper } from "../../dist"
 
 describe("CommonHelper", () => {
   beforeAll(async () => {})
@@ -62,21 +62,29 @@ describe("CommonHelper", () => {
     expect(CommonHelper.HasAnyOfIntersection([1, 2, 3], [3, 4])).toBe(true)
   })
 
-  it("CalculateDiffInPercent", () => {
-    expect(CommonHelper.CalculateDiffInPercent(null, 90)).toBe(null)
-    expect(CommonHelper.CalculateDiffInPercent("ATC", 90)).toBe(null)
-    expect(CommonHelper.CalculateDiffInPercent(10, "ATC")).toBe(null)
+  it("Percent", () => {
+    expect(CommonHelper.Percent(25, 50)).toBe(50)
+    expect(CommonHelper.Percent(25, 25)).toBe(100)
+    expect(CommonHelper.Percent(2, 3, 2)).toBe(66.67)
+  })
 
-    expect(CommonHelper.CalculateDiffInPercent(NaN, 10)).toBe(NaN)
+  it("DiffInPercent", () => {
+    expect(CommonHelper.DiffInPercent(null, 90)).toBe(null)
+    expect(CommonHelper.DiffInPercent("ATC", 90)).toBe(null)
+    expect(CommonHelper.DiffInPercent(10, "ATC")).toBe(null)
 
-    expect(CommonHelper.CalculateDiffInPercent(100, 110)).toBe(10)
-    expect(CommonHelper.CalculateDiffInPercent(100, 90)).toBe(-10)
+    expect(CommonHelper.DiffInPercent(NaN, 10)).toBe(NaN)
+
+    expect(CommonHelper.DiffInPercent(100, 110)).toBe(10)
+    expect(CommonHelper.DiffInPercent(100, 90)).toBe(-10)
   })
 
   it("ToNumberString", () => {
-    expect(CommonHelper.ToNumberString(22.2222, 2, true, false, "%")).toBe("000000")
+    expect(CommonHelper.ToNumberString(22.2222, 2, true, false, "%")).toBe("+22.22%")
+    expect(CommonHelper.ToNumberString(22.2222, 2, false, false, "%")).toBe("22.22%")
+    expect(CommonHelper.ToNumberString(-22.2222, 2, false, false, "%")).toBe("-22.22%")
     expect(CommonHelper.ToNumberString(0, 2, true, false, "%")).toBe("")
-    expect(CommonHelper.ToNumberString(0, 2, true, true, "%")).toBe("0")
+    expect(CommonHelper.ToNumberString(0, 2, true, true, "%")).toBe("0%")
   })
 
   it("GetCurrentHoursMinutesSecondsString", () => {

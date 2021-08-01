@@ -1,7 +1,7 @@
 {
   "name": "@lockevn/gachchan",
   "description": "share lib for common helper functions, work in node and browser",
-  "version": "1.9.2",
+  "version": "1.9.3",
   "author": "lockevn",
   "license": "See LICENSE",
   "keywords": [
@@ -22,9 +22,10 @@
   },
   "scripts": {
     "build": "webpack",
-    "test": "jest",
+    "test": "npm run build & jest",
     "lint": "npx     eslint --fix ./src",
-    "format": "prettier --write \"**/*.js\""
+    "format": "prettier --write \"**/*.js\"",
+    "push": "npm run build & git push origin master --force"
   },
   "dependencies": {
     "date-fns": "^2.22.1",
