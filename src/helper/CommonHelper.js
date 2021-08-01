@@ -52,24 +52,6 @@ export default class CommonHelper {
   }
 
   /**
-   * format number to string
-   * @param {*} val
-   * @param {*} decimalFixed
-   * @param {*} showPrefixSign
-   * @returns
-   */
-  static ToNumberString(val, decimalFixed = 2, showPrefixSign = false, showZeroVal = true, suffix = "") {
-    if (val == 0 && !showZeroVal) {
-      return ""
-    }
-
-    const prefixSign = showPrefixSign && val > 0 ? "+" : ""
-    const val2Digits = CommonHelper.FormatNumber(val, decimalFixed)
-
-    return prefixSign + val2Digits + suffix
-  }
-
-  /**
    * change 1 to 1️⃣ (unicode square box character)
    * @param {*} numberString
    * @returns
@@ -400,34 +382,25 @@ export default class CommonHelper {
     return ret
   }
 
-  /**
-   * Display 0.54345 as 0.5
-   *
-   * @param {*} val
-   * @param {*} showPercentSign show result with % suffix
-   * @returns Return null if val is null or undefined
-   */
-  static PercentValueFormatter(val, showPercentSign = false) {
-    if (val == null || val === undefined) {
-      return ""
-    }
-
-    let valAsNum
-    if (typeof val == "string") {
-      valAsNum = +val
-    } else {
-      valAsNum = val
-    }
-
-    let ret = _isNumber(valAsNum) ? new Decimal(valAsNum).toDP(1) : null
-    if (ret != null && showPercentSign) {
-      ret = ret.toFixed(1) + "%"
-    }
-
-    return ret
-  }
-
   // =========== ===================== ===========
   // =========== string representation ===========
   // =========== ===================== ===========
+
+  /**
+   * format number to string (usage of PercentValueFormatter can use this)
+   * @param {*} val
+   * @param {*} decimalFixed
+   * @param {*} showPrefixSign
+   * @returns string
+   */
+  static ToNumberString(val, decimalFixed = 2, showPrefixSign = false, showZeroVal = true, suffix = "") {
+    if (val == 0 && !showZeroVal) {
+      return ""
+    }
+
+    const prefixSign = showPrefixSign && val > 0 ? "+" : ""
+    const val2Digits = CommonHelper.FormatNumber(val, decimalFixed)
+
+    return prefixSign + val2Digits + suffix
+  }
 }
