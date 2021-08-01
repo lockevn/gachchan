@@ -90,24 +90,6 @@ export default class CommonHelper {
   }
 
   /**
-   * display 1000000 as 1tr, 1000 as 1k
-   * Also round the number after converting (100400 ==> 100k, 100500 ==> 101k)
-   * vi-VN default thounsand separator is ,
-   * @param {string} numberString original number (string) to format. This string must be able to convert to number.
-   * @param {string} unit dividen divide number to this
-   * @param {string} unit default is "tr" (triệu đồng VN)
-   * @param {string} locale "vi-VN"
-   */
-  static FormatNumberToUnit(numberString, unitDividen = 1000000, fractationDigits = 0, unit = "tr", locale = "vi-VN") {
-    // empty string, or text string which is not a number, return
-    if (!numberString) return
-    if (!+numberString) return
-
-    let unitNumbers = (+numberString / unitDividen).toFixed(fractationDigits)
-    return new Intl.NumberFormat(locale).format(+unitNumbers) + unit
-  }
-
-  /**
    * display 1000000 as 1tr
    */
   static FormatNumberToMillions(numberString) {
@@ -392,5 +374,25 @@ export default class CommonHelper {
     const prefixSign = showPrefixSign && val > 0 ? "+" : ""
 
     return prefixSign + CommonHelper.FormatNumber(val, decimalFixed) + suffix
+  }
+
+  /**
+   * display 1000000 as 1tr, 1000 as 1k
+   * Also round the number after converting (100400 ==> 100k, 100500 ==> 101k)
+   * vi-VN default thounsand separator is ,
+   * @param {number | string} numberString original number (string) to format. This string must be able to convert to number.
+   * @param {number} unitDividen dividen divide number to this
+   * @param {number} fractationDigits default is 0 (1000 --> 1,000). if 1, 1000,1 --> 1,000.1
+   * @param {string} unit default is "tr" (triệu đồng VN)
+   * @param {string} locale "en-US" "vi-VN"
+   * @returns string
+   */
+  static NumberToUnitString(numberString, unitDividen = 1000000, fractationDigits = 0, unit = "tr", locale = "en-US") {
+    // empty string, or text string which is not a number, return
+    if (!numberString) return
+    if (!+numberString) return
+
+    let unitNumbers = (+numberString / unitDividen).toFixed(fractationDigits)
+    return new Intl.NumberFormat(locale).format(+unitNumbers) + unit
   }
 }

@@ -36,3 +36,7 @@ just put "gachchan": "git+https://github.com/lockevn/gachchan.git#master" into y
 > if you have problem on Heroku (might be a problem with package-lock.json), don't commit the package-lock.json to project repo https://stackoverflow.com/questions/64526838/build-fails-with-host-key-verification-failed-while-installing-node-modules
 
 If we setup this lib as private project, see this to consume https://lockevn.medium.com/consume-private-github-repository-as-npm-package-80733cd135a1
+
+# (NOT AVAILABLE) build this as github npm pacakge, and consume in other proj
+
+https://www.matthaliski.com/blog/using-private-npm-packages-with-rails-heroku-and-github/

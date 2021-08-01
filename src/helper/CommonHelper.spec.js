@@ -103,10 +103,7 @@ describe("CommonHelper", () => {
     expect(CommonHelper.IsIn_ATO_Sessions("1100")).toBe(false)
   })
 
-  it("IsIn_ATC_Sessions", () => {
-    expect(CommonHelper.IsIn_ATC_Sessions("1100")).toBe(false)
-
-    expect(CommonHelper.IsIn_ATC_Sessions("1430")).toBe(true)
-    expect(CommonHelper.IsIn_ATC_Sessions("1445")).toBe(true)
+  it("NumberToUnitString", () => {
+    expect(CommonHelper.NumberToUnitString(10000, 1000, 0, "k")).toBe("10k")
   })
 })
