@@ -5,14 +5,16 @@ const Decimal = require("decimal.js")
 
 export default class CommonHelper {
   /**
-   * if val can be treated as real actual number (0, 1, 1.1, -1), return val as number
-   * anything else (NaN, string "ABC") will be convert to 0
+   * If val can be treated/seen as real actual number (0, 1, 1.1, -1), return val as number.
+   * Anything else (NaN, string "ABC") will be convert to 0
+   * @param {*} val
+   * @returns number
    */
   static ToActualNumber(val) {
     let ret = 0
 
     const convertedToNumberVal = +val
-    // because isNumber(NaN) == true
+    // note that isNumber(NaN) == true
     if (_isNumber(convertedToNumberVal) && !isNaN(convertedToNumberVal)) {
       ret = convertedToNumberVal
     }
@@ -94,6 +96,7 @@ export default class CommonHelper {
   }
 
   /**
+   * // TODO: move to StockHelper
    * StockCompany represent 1000000 (1 million) as 1,000,000
    * We need to convert it to 1000000
    * @param {*} numberString
@@ -116,6 +119,7 @@ export default class CommonHelper {
     //   // is number, do nothing
     // }
 
+    // TODO: return ToActualNumber()
     return +ret
   }
 

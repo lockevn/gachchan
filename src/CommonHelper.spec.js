@@ -9,6 +9,7 @@ describe("CommonHelper", () => {
     expect(CommonHelper.ToActualNumber(-1)).toBe(-1)
     expect(CommonHelper.ToActualNumber(-1.1)).toBe(-1.1)
 
+    // not a actual number, should be 0
     expect(CommonHelper.ToActualNumber("")).toBe(0)
     expect(CommonHelper.ToActualNumber("ATC")).toBe(0)
     expect(CommonHelper.ToActualNumber("0")).toBe(0)
@@ -16,6 +17,20 @@ describe("CommonHelper", () => {
     expect(CommonHelper.ToActualNumber(NaN)).toBe(0)
     expect(CommonHelper.ToActualNumber(undefined)).toBe(0)
     expect(CommonHelper.ToActualNumber(null)).toBe(0)
+  })
+
+  it("FormatNumber", () => {
+    expect(CommonHelper.FormatNumber(19.103857566765578635)).toBe(19)
+    expect(CommonHelper.FormatNumber("19.103857566765578635")).toBe(19)
+    expect(CommonHelper.FormatNumber("19.103857566765578635", 2)).toBe(19.1)
+  })
+
+  it("RepresentNumberInIconicDigit", () => {
+    expect(CommonHelper.RepresentNumberInIconicDigit(undefined)).toBe("")
+    expect(CommonHelper.RepresentNumberInIconicDigit(null)).toBe("")
+    expect(CommonHelper.RepresentNumberInIconicDigit("")).toBe("")
+    expect(CommonHelper.RepresentNumberInIconicDigit("1")).toBe("1️⃣")
+    expect(CommonHelper.RepresentNumberInIconicDigit("0123456789")).toBe("0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣")
   })
 
   it("StandardizeVolNumber", () => {
@@ -30,14 +45,6 @@ describe("CommonHelper", () => {
 
     expect(CommonHelper.StandardizeVolNumber(1000)).toBe(1000)
     expect(CommonHelper.StandardizeVolNumber(1000.11)).toBe(1000.11)
-  })
-
-  it("RepresentNumberInIconicDigit", () => {
-    expect(CommonHelper.RepresentNumberInIconicDigit(undefined)).toBe("")
-    expect(CommonHelper.RepresentNumberInIconicDigit(null)).toBe("")
-    expect(CommonHelper.RepresentNumberInIconicDigit("")).toBe("")
-    expect(CommonHelper.RepresentNumberInIconicDigit("1")).toBe("1️⃣")
-    expect(CommonHelper.RepresentNumberInIconicDigit("0123456789")).toBe("0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣")
   })
 
   it("HasAnyOfIntersection", () => {
