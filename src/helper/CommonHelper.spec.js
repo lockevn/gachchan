@@ -25,14 +25,6 @@ describe("CommonHelper", () => {
     expect(CommonHelper.FormatNumber("19.103857566765578635", 2)).toBe(19.1)
   })
 
-  it("RepresentNumberInIconicDigit", () => {
-    expect(CommonHelper.RepresentNumberInIconicDigit(undefined)).toBe("")
-    expect(CommonHelper.RepresentNumberInIconicDigit(null)).toBe("")
-    expect(CommonHelper.RepresentNumberInIconicDigit("")).toBe("")
-    expect(CommonHelper.RepresentNumberInIconicDigit("1")).toBe("1️⃣")
-    expect(CommonHelper.RepresentNumberInIconicDigit("0123456789")).toBe("0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣")
-  })
-
   it("StandardizeVolNumber", () => {
     expect(CommonHelper.StandardizeVolNumber("")).toBe("")
 
@@ -91,9 +83,34 @@ describe("CommonHelper", () => {
     expect(CommonHelper.ToNumberString(undefined, 2)).toBe("")
   })
 
+  it("RepresentNumberInIconicDigit", () => {
+    expect(CommonHelper.RepresentNumberInIconicDigit(undefined)).toBe("")
+    expect(CommonHelper.RepresentNumberInIconicDigit(null)).toBe("")
+    expect(CommonHelper.RepresentNumberInIconicDigit("")).toBe("")
+    expect(CommonHelper.RepresentNumberInIconicDigit("1")).toBe("1️⃣")
+    expect(CommonHelper.RepresentNumberInIconicDigit("0123456789")).toBe("0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣")
+  })
+
+  it("GetCurrentHoursMinutesString", () => {
+    expect(CommonHelper.GetCurrentHoursMinutesString(new Date(2000, 1, 1, 1, 1, 59))).toBe("0101")
+  })
   it("GetCurrentHoursMinutesSecondsString", () => {
     expect(CommonHelper.GetCurrentHoursMinutesSecondsString(new Date(2017, 4, 10))).toBe("000000")
     expect(CommonHelper.GetCurrentHoursMinutesSecondsString(new Date(2017, 4, 10, 11, 59, 59))).toBe("115959")
+  })
+
+  it("IsInWorkingHours", () => {
+    expect(CommonHelper.IsInWorkingHours("0845")).toBe(true)
+    expect(CommonHelper.IsInWorkingHours("0914")).toBe(true)
+    expect(CommonHelper.IsInWorkingHours("1130")).toBe(true)
+
+    expect(CommonHelper.IsInWorkingHours("1131")).toBe(false)
+    expect(CommonHelper.IsInWorkingHours("1259")).toBe(false)
+
+    expect(CommonHelper.IsInWorkingHours("1300")).toBe(true)
+    expect(CommonHelper.IsInWorkingHours("1445")).toBe(true)
+
+    expect(CommonHelper.IsInWorkingHours("1446")).toBe(false)
   })
 
   it("IsIn_ATO_Sessions", () => {
@@ -103,7 +120,30 @@ describe("CommonHelper", () => {
     expect(CommonHelper.IsIn_ATO_Sessions("1100")).toBe(false)
   })
 
+  it("IsIn_ATC_Sessions", () => {
+    expect(CommonHelper.IsIn_ATC_Sessions("1430")).toBe(true)
+    expect(CommonHelper.IsIn_ATC_Sessions("1445")).toBe(true)
+
+    expect(CommonHelper.IsIn_ATC_Sessions("1446")).toBe(false)
+  })
+
+  it("IsInWorkingDays", () => {
+    expect(CommonHelper.IsInWorkingDays(new Date(2021, 6, 31))).toBe(false) // last sat of July
+    expect(CommonHelper.IsInWorkingDays(new Date(2021, 7, 1))).toBe(false) // first sunday of August
+    expect(CommonHelper.IsInWorkingDays(new Date(2021, 7, 2))).toBe(true) // monday
+  })
+
   it("NumberToUnitString", () => {
     expect(CommonHelper.NumberToUnitString(10000, 1000, 0, "k")).toBe("10k")
+  })
+
+  it("JoinPaths", () => {
+    expect(CommonHelper.JoinPaths()).toBe("")
+    expect(CommonHelper.JoinPaths(1, 2, 3)).toBe("1/2/3")
+    expect(CommonHelper.JoinPaths("/1/", "/2/", 3)).toBe("/1/2/3")
+  })
+
+  it("GetRandomArrayElement", () => {
+    // expect(CommonHelper.GetRandomArrayElement()).toBe("")
   })
 })

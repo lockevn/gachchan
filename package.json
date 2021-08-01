@@ -1,11 +1,12 @@
 {
   "name": "@lockevn/gachchan",
   "description": "share lib for common helper functions, work in node and browser",
-  "version": "1.9.5",
+  "version": "2.0.0",
   "author": "lockevn",
   "license": "See LICENSE",
   "keywords": [
     "CommonHelper from xc-api",
+    "CommonHelper from xcap-portal",
     "node",
     "browser",
     "lib",
@@ -22,11 +23,11 @@
   },
   "scripts": {
     "build": "webpack",
-    "test": "jest",
-    "testbundle": "npm run build & jest",
+    "test": "npm run build & jest",
+    "test:cov": "npm run build & jest --coverage",
     "lint": "npx     eslint --fix ./src",
     "format": "prettier --write \"**/*.js\"",
-    "push": "npm run build & git push origin master --force"
+    "push": "git push origin master --force"
   },
   "dependencies": {
     "date-fns": "^2.22.1",

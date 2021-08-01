@@ -1,7 +1,10 @@
-# gachchan (ALPHA)
+# gachchan (BETA)
 
-Helper functions I found useful
-Still in ALPHA mode, I'll contribute my (working) code to this lib with fully unit test (weekly).
+> Helper functions I found useful
+
+> Still in BETA mode (adding and refining package structure will be performed)
+
+> Weekly push (working) code to this lib with fully unit test.
 
 ## Project setup
 
@@ -37,6 +40,6 @@ just put "gachchan": "git+https://github.com/lockevn/gachchan.git#master" into y
 
 If we setup this lib as private project, see this to consume https://lockevn.medium.com/consume-private-github-repository-as-npm-package-80733cd135a1
 
-# (NOT AVAILABLE) build this as github npm pacakge, and consume in other proj
+# (NOT AVAILABLE) build this as github npm package, and consume in other proj
 
 https://www.matthaliski.com/blog/using-private-npm-packages-with-rails-heroku-and-github/

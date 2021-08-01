@@ -1,0 +1,10 @@
+{
+  "files.exclude": {
+    // "**/package-lock.json": true
+    "dist/**": true
+  },
+  "search.exclude": {
+    "**/package-lock.json": true,
+    "dist/**": true
+  }
+}

@@ -36,32 +36,6 @@ export default class CommonHelper {
   }
 
   /**
-   * change 1 to 1️⃣ (unicode square box character)
-   * @param {*} numberString
-   * @returns
-   */
-  static RepresentNumberInIconicDigit(numberString) {
-    if (!numberString) {
-      return ""
-    }
-
-    let ret = numberString.toString()
-    ret = ret
-      .replace("0", "0️⃣")
-      .replace("1", "1️⃣")
-      .replace("2", "2️⃣")
-      .replace("3", "3️⃣")
-      .replace("4", "4️⃣")
-      .replace("5", "5️⃣")
-      .replace("6", "6️⃣")
-      .replace("7", "7️⃣")
-      .replace("8", "8️⃣")
-      .replace("9", "9️⃣")
-
-    return ret
-  }
-
-  /**
    * // TODO: move to StockHelper
    * StockCompany represent 1000000 (1 million) as 1,000,000
    * We need to convert it to 1000000
@@ -87,20 +61,6 @@ export default class CommonHelper {
 
     // TODO: return ToActualNumber()
     return +ret
-  }
-
-  /**
-   * display 1000000 as 1tr
-   */
-  static FormatNumberToMillions(numberString) {
-    return CommonHelper.FormatNumberToUnit(numberString)
-  }
-
-  /**
-   * display 1000000 as 1.000k
-   */
-  static FormatNumberToThousands(numberString) {
-    return CommonHelper.FormatNumberToUnit(numberString, 1000, "k")
   }
 
   /**
@@ -165,6 +125,54 @@ export default class CommonHelper {
   }
 
   /**
+   * continuous checkWorkingHours and call callbackFn with interval
+   * @param {*} callbackFn
+   * @param {*} interval
+   */
+  static ContinuousExecuteInWorkingHours(callbackFn, interval) {
+    if (!callbackFn) {
+      return
+    }
+
+    let timerId = setInterval(async () => {
+      // only perform callback in trading hours
+      if (CommonHelper.IsInWorkingHours() && CommonHelper.IsInWorkingDays()) {
+        await callbackFn()
+      } else {
+        // console.debug(now, "out of trading hour, I don't refresh signal to save network consumption")
+      }
+    }, interval)
+
+    return timerId
+  }
+
+  /**
+   * change 1 to 1️⃣ (unicode square box character)
+   * @param {*} numberString
+   * @returns string
+   */
+  static RepresentNumberInIconicDigit(numberString) {
+    if (!numberString) {
+      return ""
+    }
+
+    let ret = numberString.toString()
+    ret = ret
+      .replace("0", "0️⃣")
+      .replace("1", "1️⃣")
+      .replace("2", "2️⃣")
+      .replace("3", "3️⃣")
+      .replace("4", "4️⃣")
+      .replace("5", "5️⃣")
+      .replace("6", "6️⃣")
+      .replace("7", "7️⃣")
+      .replace("8", "8️⃣")
+      .replace("9", "9️⃣")
+
+    return ret
+  }
+
+  /**
    * if now is 14:22, this return 1422.
    * 9:40AM ==> 0940
    * 16:03 (PM) ==> 1603
@@ -204,32 +212,13 @@ export default class CommonHelper {
   }
 
   /**
-   * continuous checkWorkingHours and call callbackFn with interval
-   * @param {*} callbackFn
-   * @param {*} interval
-   */
-  static ContinuousExecuteInWorkingHours(callbackFn, interval) {
-    if (!callbackFn) {
-      return
-    }
-
-    setInterval(async () => {
-      // only perform callback in trading hours
-      if (IsInWorkingHours() && IsInWorkingDays()) {
-        await callbackFn()
-      } else {
-        // console.debug(now, "out of trading hour, I don't refresh signal to save network consumption")
-      }
-    }, interval)
-  }
-
-  /**
    *
    * @param {String} now hhhmm string, like "1130" or "0959"
+   * @returns boolean
    */
   static IsInWorkingHours(now) {
     if (!now) {
-      now = GetCurrentHoursMinutesString()
+      now = CommonHelper.GetCurrentHoursMinutesString()
     }
 
     if (("0845" <= now && now <= "1130") || ("1300" <= now && now <= "1445")) {
@@ -245,7 +234,7 @@ export default class CommonHelper {
    */
   static IsIn_ATO_Sessions(now) {
     if (!now) {
-      now = GetCurrentHoursMinutesString()
+      now = CommonHelper.GetCurrentHoursMinutesString()
     }
 
     if ("0845" <= now && now <= "0915") {
@@ -260,7 +249,7 @@ export default class CommonHelper {
    */
   static IsIn_ATC_Sessions(now) {
     if (!now) {
-      now = GetCurrentHoursMinutesString()
+      now = CommonHelper.GetCurrentHoursMinutesString()
     }
 
     if ("1430" <= now && now <= "1445") {
@@ -272,7 +261,7 @@ export default class CommonHelper {
 
   /**
    * return true if current moment is Monday to Friday
-   * @param {*} now
+   * @param {Date} now
    */
   static IsInWorkingDays(now) {
     if (!now) {
@@ -287,6 +276,12 @@ export default class CommonHelper {
     }
   }
 
+  /**
+   * return current date time in full format, in specific culture (language) and timezone
+   * @param {*} culture
+   * @param {*} timezone
+   * @returns
+   */
   static GetDatetimeNowString(culture = "vi-VN", timezone = "Asia/Saigon") {
     return new Intl.DateTimeFormat(culture, { timezone, dateStyle: "full", timeStyle: "long", hour12: false }).format(new Date())
     // _calculatedCWData_lastUpdated = new Date().toLocaleString("vi-VN", { timezone: "Asia/Saigon", hour12: false })
@@ -353,15 +348,28 @@ export default class CommonHelper {
   // =========== ===================== ===========
 
   /**
+   * join all arguments with "/" seperator.
+   * E.g.: JoinPaths("a", b, c)
+   * @returns String
+   */
+  static JoinPaths() {
+    const parts = Array.prototype.slice.call(arguments) // make array from arguments
+
+    var separator = "/"
+    var replace = new RegExp(separator + "{1,}", "g")
+    return parts.join(separator).replace(replace, separator)
+  }
+
+  /**
    * empty string, null, NaN, undefined return ""
    *  or text string which is not a number, return ""
    * format number to string (usage of PercentValueFormatter can use this)
    * @param {*} val
-   * @param {*} decimalFixed
+   * @param {*} fractationDigits
    * @param {*} showPrefixSign
    * @returns string
    */
-  static ToNumberString(val, decimalFixed = 2, showPrefixSign = false, showZeroVal = true, suffix = "") {
+  static ToNumberString(val, fractationDigits = 2, showPrefixSign = false, showZeroVal = true, suffix = "") {
     if (val == 0 && !showZeroVal) {
       return ""
     }
@@ -373,7 +381,7 @@ export default class CommonHelper {
 
     const prefixSign = showPrefixSign && val > 0 ? "+" : ""
 
-    return prefixSign + CommonHelper.FormatNumber(val, decimalFixed) + suffix
+    return prefixSign + CommonHelper.FormatNumber(val, fractationDigits) + suffix
   }
 
   /**
@@ -387,7 +395,7 @@ export default class CommonHelper {
    * @param {string} locale "en-US" "vi-VN"
    * @returns string
    */
-  static NumberToUnitString(numberString, unitDividen = 1000000, fractationDigits = 0, unit = "tr", locale = "en-US") {
+  static NumberToUnitString(numberString, unitDividen = 1, fractationDigits = 0, unit = "", locale = "en-US") {
     // empty string, or text string which is not a number, return
     if (!numberString) return
     if (!+numberString) return
