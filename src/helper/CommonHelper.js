@@ -27,28 +27,12 @@ export default class CommonHelper {
    * if provided a string ("AT, ATC, ATO") return as is
    * vi-VN default thounsand separator is ,
    * @param {string} numberString
-   * @param {number} decimalFixed number of decimal digit
+   * @param {number} fractationDigits number of decimal digit
    * @param {string} locale
-   * @returns {number}
+   * @returns number
    */
-  static FormatNumber(numberString, decimalFixed = 0) {
-    if (numberString === "ATO" || numberString === "ATC") {
-      return numberString
-    }
-
-    return new Decimal(numberString || 0).toDP(decimalFixed).toNumber()
-
-    // // empty string, or text string which is not a number, return
-    // if (!numberString) return numberString
-    // if (!+numberString) return numberString
-
-    // let ret = +numberString
-    // if (decimalFixed >= 0) {
-    //   ret = ret.toFixed(decimalFixed)
-    // }
-
-    // return new Intl.NumberFormat(locale).format(ret)
-    // // → '3,500' if in US English locale
+  static FormatNumber(numberString, fractationDigits = 0) {
+    return new Decimal(numberString || 0).toDP(fractationDigits).toNumber()
   }
 
   /**
@@ -387,6 +371,8 @@ export default class CommonHelper {
   // =========== ===================== ===========
 
   /**
+   * empty string, null, NaN, undefined return ""
+   *  or text string which is not a number, return ""
    * format number to string (usage of PercentValueFormatter can use this)
    * @param {*} val
    * @param {*} decimalFixed
@@ -398,9 +384,13 @@ export default class CommonHelper {
       return ""
     }
 
-    const prefixSign = showPrefixSign && val > 0 ? "+" : ""
-    const val2Digits = CommonHelper.FormatNumber(val, decimalFixed)
+    if (!val && val !== 0) {
+      // NaN, undefined, null, ""
+      return ""
+    }
 
-    return prefixSign + val2Digits + suffix
+    const prefixSign = showPrefixSign && val > 0 ? "+" : ""
+
+    return prefixSign + CommonHelper.FormatNumber(val, decimalFixed) + suffix
   }
 }

@@ -85,6 +85,10 @@ describe("CommonHelper", () => {
     expect(CommonHelper.ToNumberString(-22.2222, 2, false, false, "%")).toBe("-22.22%")
     expect(CommonHelper.ToNumberString(0, 2, true, false, "%")).toBe("")
     expect(CommonHelper.ToNumberString(0, 2, true, true, "%")).toBe("0%")
+
+    expect(CommonHelper.ToNumberString(NaN, 2)).toBe("")
+    expect(CommonHelper.ToNumberString(null, 2)).toBe("")
+    expect(CommonHelper.ToNumberString(undefined, 2)).toBe("")
   })
 
   it("GetCurrentHoursMinutesSecondsString", () => {
