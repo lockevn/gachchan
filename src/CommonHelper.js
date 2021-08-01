@@ -64,7 +64,7 @@ export default class CommonHelper {
     }
 
     const prefixSign = showPrefixSign && val > 0 ? "+" : ""
-    const val2Digits = FormatNumber(val, decimalFixed)
+    const val2Digits = CommonHelper.FormatNumber(val, decimalFixed)
 
     return prefixSign + val2Digits + suffix
   }
@@ -145,14 +145,14 @@ export default class CommonHelper {
    * display 1000000 as 1tr
    */
   static FormatNumberToMillions(numberString) {
-    return FormatNumberToUnit(numberString)
+    return CommonHelper.FormatNumberToUnit(numberString)
   }
 
   /**
    * display 1000000 as 1.000k
    */
   static FormatNumberToThousands(numberString) {
-    return FormatNumberToUnit(numberString, 1000, "k")
+    return CommonHelper.FormatNumberToUnit(numberString, 1000, "k")
   }
 
   /**
@@ -369,7 +369,7 @@ export default class CommonHelper {
   }
 
   /**
-   * from 100 to 110, the diff is 10, and is 10%. Return 10%
+   * from 100 to 110, the diff is 10, and is 10%. Return 10
    * @param {*} from
    * @param {*} to
    * @returns null if from to is not number
@@ -408,4 +408,8 @@ export default class CommonHelper {
 
     return ret
   }
+
+  // =========== ===================== ===========
+  // =========== string representation ===========
+  // =========== ===================== ===========
 }

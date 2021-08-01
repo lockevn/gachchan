@@ -62,6 +62,23 @@ describe("CommonHelper", () => {
     expect(CommonHelper.HasAnyOfIntersection([1, 2, 3], [3, 4])).toBe(true)
   })
 
+  it("CalculateDiffInPercent", () => {
+    expect(CommonHelper.CalculateDiffInPercent(null, 90)).toBe(null)
+    expect(CommonHelper.CalculateDiffInPercent("ATC", 90)).toBe(null)
+    expect(CommonHelper.CalculateDiffInPercent(10, "ATC")).toBe(null)
+
+    expect(CommonHelper.CalculateDiffInPercent(NaN, 10)).toBe(NaN)
+
+    expect(CommonHelper.CalculateDiffInPercent(100, 110)).toBe(10)
+    expect(CommonHelper.CalculateDiffInPercent(100, 90)).toBe(-10)
+  })
+
+  it("ToNumberString", () => {
+    expect(CommonHelper.ToNumberString(22.2222, 2, true, false, "%")).toBe("000000")
+    expect(CommonHelper.ToNumberString(0, 2, true, false, "%")).toBe("")
+    expect(CommonHelper.ToNumberString(0, 2, true, true, "%")).toBe("0")
+  })
+
   it("GetCurrentHoursMinutesSecondsString", () => {
     expect(CommonHelper.GetCurrentHoursMinutesSecondsString(new Date(2017, 4, 10))).toBe("000000")
     expect(CommonHelper.GetCurrentHoursMinutesSecondsString(new Date(2017, 4, 10, 11, 59, 59))).toBe("115959")
