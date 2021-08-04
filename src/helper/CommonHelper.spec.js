@@ -55,6 +55,10 @@ describe("CommonHelper", () => {
 
     expect(CommonHelper.HasAnyOfIntersection(["GOOD", "PERFECT"], ["POTENTIAL", "GOOD"])).toBe(true)
 
+    // auto flatten
+    expect(CommonHelper.HasAnyOfIntersection("PERFECT", ["potential", "good", "perfect"])).toBe(true)
+    expect(CommonHelper.HasAnyOfIntersection(["potential", "good", "perfect"], "PERFECT")).toBe(true)
+
     // ignore casing when compare
     expect(CommonHelper.HasAnyOfIntersection([1, 2, 3, "GOOD", "PERFECT"], ["potential", "good"])).toBe(true)
     expect(CommonHelper.HasAnyOfIntersection([1, 2, 3, "GOOD", "PERFECT"], ["potential", "good"], false)).toBe(false)

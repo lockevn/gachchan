@@ -304,18 +304,21 @@ export default class CommonHelper {
    * E.g.: [a,b,c], a ==> true
    * E.g.: [a,b,c], [a] ==> true
    * E.g.: [a,b,c], [A], true ==> true, a==A because of ignoreCase
-   * @param {*} list
+   * @param {*} firstList
    * @param {*} otherList accept single value or array
    * @param {*} ignoreCase for string value (of either side), ignore case when comparing
    * @returns boolean true if there is an intersection
    */
-  static HasAnyOfIntersection(list, otherList = "", ignoreCase = true) {
+  static HasAnyOfIntersection(firstList, otherList = "", ignoreCase = true) {
+    if (!firstList || !otherList) return false
+
+    const arrFirsts = _flatten([firstList]) // [""]   ==> [""], [[1,2]]   ==> [1,2]
     const arrEvaluations = _flatten([otherList]) // [""]   ==> [""], [[1,2]]   ==> [1,2]
 
     let ret
     if (ignoreCase) {
       ret =
-        _intersectionWith(list, arrEvaluations, (listVal, otherVal) => {
+        _intersectionWith(arrFirsts, arrEvaluations, (listVal, otherVal) => {
           if (typeof listVal === "string" || typeof otherVal === "string") {
             return listVal?.toString()?.toUpperCase() === otherVal?.toString()?.toUpperCase()
           }
@@ -323,7 +326,7 @@ export default class CommonHelper {
           return listVal == otherVal
         }).length > 0
     } else {
-      ret = _intersection(list, arrEvaluations).length > 0
+      ret = _intersection(arrFirsts, arrEvaluations).length > 0
     }
     return ret
   }
