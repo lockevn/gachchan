@@ -55,7 +55,9 @@ describe("CommonHelper", () => {
 
     expect(CommonHelper.HasAnyOfIntersection(["GOOD", "PERFECT"], ["POTENTIAL", "GOOD"])).toBe(true)
 
-    expect(CommonHelper.HasAnyOfIntersection([1, 2, 3, "GOOD", "PERFECT"], ["potential", "good"], true)).toBe(true)
+    // ignore casing when compare
+    expect(CommonHelper.HasAnyOfIntersection([1, 2, 3, "GOOD", "PERFECT"], ["potential", "good"])).toBe(true)
+    expect(CommonHelper.HasAnyOfIntersection([1, 2, 3, "GOOD", "PERFECT"], ["potential", "good"], false)).toBe(false)
   })
 
   it("Percent", () => {

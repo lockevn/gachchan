@@ -309,7 +309,7 @@ export default class CommonHelper {
    * @param {*} ignoreCase for string value (of either side), ignore case when comparing
    * @returns boolean true if there is an intersection
    */
-  static HasAnyOfIntersection(list, otherList = "", ignoreCase = false) {
+  static HasAnyOfIntersection(list, otherList = "", ignoreCase = true) {
     const arrEvaluations = _flatten([otherList]) // [""]   ==> [""], [[1,2]]   ==> [1,2]
 
     let ret
