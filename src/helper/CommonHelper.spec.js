@@ -52,6 +52,10 @@ describe("CommonHelper", () => {
     expect(CommonHelper.HasAnyOfIntersection([1, 2, 3], [1])).toBe(true)
 
     expect(CommonHelper.HasAnyOfIntersection([1, 2, 3], [3, 4])).toBe(true)
+
+    expect(CommonHelper.HasAnyOfIntersection(["GOOD", "PERFECT"], ["POTENTIAL", "GOOD"])).toBe(true)
+
+    expect(CommonHelper.HasAnyOfIntersection([1, 2, 3, "GOOD", "PERFECT"], ["potential", "good"], true)).toBe(true)
   })
 
   it("Percent", () => {
