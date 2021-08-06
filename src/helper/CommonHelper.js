@@ -408,6 +408,9 @@ export default class CommonHelper {
    * display 1000000 as 1tr, 1000 as 1k
    * Also round the number after converting (100400 ==> 100k, 100500 ==> 101k)
    * vi-VN default thounsand separator is ,
+   * 0 will be returned as "0"
+   * NaN or "" will be returned as ""
+   * "ATC" (which is cannot be converted to number) will be returned as as "ATC"
    * @param {number | string} numberString original number (string) to format. This string must be able to convert to number.
    * @param {number} unitDividen dividen divide number to this
    * @param {number} fractationDigits default is 0 (1000 --> 1,000). if 1, 1000,1 --> 1,000.1
@@ -417,8 +420,9 @@ export default class CommonHelper {
    */
   static NumberToUnitString(numberString, unitDividen = 1, fractationDigits = 0, unit = "", locale = "en-US") {
     // empty string, or text string which is not a number, return
-    if (!numberString) return
-    if (!+numberString) return
+    if (numberString === 0) return "0"
+    if (!numberString) return ""
+    if (!+numberString) return numberString?.toString()
 
     let unitNumbers = (+numberString / unitDividen).toFixed(fractationDigits)
     return new Intl.NumberFormat(locale).format(+unitNumbers) + unit

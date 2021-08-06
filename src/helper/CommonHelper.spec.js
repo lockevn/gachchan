@@ -87,6 +87,7 @@ describe("CommonHelper", () => {
     expect(CommonHelper.ToNumberString(-22.2222, 2, false, false, "%")).toBe("-22.22%")
     expect(CommonHelper.ToNumberString(0, 2, true, false, "%")).toBe("")
     expect(CommonHelper.ToNumberString(0, 2, true, true, "%")).toBe("0%")
+    expect(CommonHelper.ToNumberString(0, 1)).toBe("0")
 
     expect(CommonHelper.ToNumberString(NaN, 2)).toBe("")
     expect(CommonHelper.ToNumberString(null, 2)).toBe("")
@@ -145,6 +146,17 @@ describe("CommonHelper", () => {
 
   it("NumberToUnitString", () => {
     expect(CommonHelper.NumberToUnitString(10000, 1000, 0, "k")).toBe("10k")
+
+    expect(CommonHelper.NumberToUnitString(0, 1)).toBe("0")
+    expect(CommonHelper.NumberToUnitString(NaN, 1)).toBe("")
+    expect(CommonHelper.NumberToUnitString("", 1)).toBe("")
+    expect(CommonHelper.NumberToUnitString("ATC", 1)).toBe("ATC")
+
+    expect(CommonHelper.NumberToUnitString(100, 1, 2)).toBe("100")
+    expect(CommonHelper.NumberToUnitString(100.1321, 1, 2)).toBe("100.13")
+
+    CommonHelper.NumberToUnitString(100000000, 1000000000, 1, "0.1")
+    CommonHelper.NumberToUnitString(40000000, 1000000000, 1, "0")
   })
 
   it("JoinPaths", () => {
