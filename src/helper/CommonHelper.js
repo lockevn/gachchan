@@ -6,62 +6,42 @@ const Decimal = require("decimal.js")
 
 export default class CommonHelper {
   /**
-   * If val can be treated/seen as real actual number (0, 1, 1.1, -1), return val as number.
-   * Anything else (NaN, string "ABC") will be convert to 0
-   * @param {*} val
-   * @returns number
+   * @deprecated use ToNumber() TODO: remove this
    */
   static ToActualNumber(val) {
-    let ret = 0
+    return CommonHelper.ToNumber(val)
+  }
 
-    const convertedToNumberVal = +val
+  /**
+   * @deprecated use ToNumber() TODO: remove this
+   */
+  static FormatNumber(numberString, fractationDigits = 0) {
+    return CommonHelper.ToNumber(numberString, fractationDigits)
+  }
+
+  /**
+   * if provide a number or number-string, this will return a number, with fractationDigits
+   * if provided a string ("AT, ATC, ATO") throw exception
+   * NonNumberValue like null, undefined and NaN is treat as 0
+   * @param {string} numberString
+   * @param {number} fractationDigits number of decimal digit
+   * @param {*} treatNonNumberValueAs
+   * @returns number
+   */
+  static ToNumber(numberString, fractationDigits, treatNonNumberValueAs = 0) {
+    let ret = treatNonNumberValueAs
+
+    const convertedToNumberVal = +numberString
     // note that isNumber(NaN) == true
     if (_isNumber(convertedToNumberVal) && !isNaN(convertedToNumberVal)) {
       ret = convertedToNumberVal
     }
 
+    if (fractationDigits !== undefined) {
+      ret = new Decimal(ret).toDP(fractationDigits).toNumber()
+    }
+
     return ret
-  }
-
-  /**
-   * if provide a number, this will display 1000 as 1,000
-   * if provided a string ("AT, ATC, ATO") return as is
-   * vi-VN default thounsand separator is ,
-   * @param {string} numberString
-   * @param {number} fractationDigits number of decimal digit
-   * @param {string} locale
-   * @returns number
-   */
-  static FormatNumber(numberString, fractationDigits = 0) {
-    return new Decimal(numberString || 0).toDP(fractationDigits).toNumber()
-  }
-
-  /**
-   * // TODO: move to StockHelper
-   * StockCompany represent 1000000 (1 million) as 1,000,000
-   * We need to convert it to 1000000
-   * @param {*} numberString
-   */
-  static StandardizeVolNumber(numberString) {
-    if (typeof numberString === "number") {
-      return numberString
-    }
-
-    // undefined or null
-    if (!numberString) {
-      return numberString
-    }
-
-    let ret
-    if (typeof numberString === "string") {
-      ret = numberString.replace(/,/g, "")
-    }
-    // else{
-    //   // is number, do nothing
-    // }
-
-    // TODO: return ToActualNumber()
-    return +ret
   }
 
   /**
@@ -123,28 +103,6 @@ export default class CommonHelper {
     // console.debug(`${ret.delay} ${ret.timerId} after setTimeout -------- INIT`)
 
     return ret
-  }
-
-  /**
-   * continuous checkWorkingHours and call callbackFn with interval
-   * @param {*} callbackFn
-   * @param {*} interval
-   */
-  static ContinuousExecuteInWorkingHours(callbackFn, interval) {
-    if (!callbackFn) {
-      return
-    }
-
-    let timerId = setInterval(async () => {
-      // only perform callback in trading hours
-      if (CommonHelper.IsInWorkingHours() && CommonHelper.IsInWorkingDays()) {
-        await callbackFn()
-      } else {
-        // console.debug(now, "out of trading hour, I don't refresh signal to save network consumption")
-      }
-    }, interval)
-
-    return timerId
   }
 
   /**
@@ -210,71 +168,6 @@ export default class CommonHelper {
         .padStart(2, 0)
 
     return ret
-  }
-
-  /**
-   *
-   * @param {String} now hhhmm string, like "1130" or "0959"
-   * @returns boolean
-   */
-  static IsInWorkingHours(now) {
-    if (!now) {
-      now = CommonHelper.GetCurrentHoursMinutesString()
-    }
-
-    if (("0845" <= now && now <= "1130") || ("1300" <= now && now <= "1445")) {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  /**
-   *  is in ATO sessions
-   * @param {String} now hhhmm string, like "1130" or "0959"
-   */
-  static IsIn_ATO_Sessions(now) {
-    if (!now) {
-      now = CommonHelper.GetCurrentHoursMinutesString()
-    }
-
-    if ("0845" <= now && now <= "0915") {
-      return true
-    }
-
-    return false
-  }
-  /**
-   *  is in ATC sessions
-   * @param {String} now hhhmm string, like "1130" or "0959"
-   */
-  static IsIn_ATC_Sessions(now) {
-    if (!now) {
-      now = CommonHelper.GetCurrentHoursMinutesString()
-    }
-
-    if ("1430" <= now && now <= "1445") {
-      return true
-    }
-
-    return false
-  }
-
-  /**
-   * return true if current moment is Monday to Friday
-   * @param {Date} now
-   */
-  static IsInWorkingDays(now) {
-    if (!now) {
-      now = new Date()
-    }
-
-    let currentDay = now.getDay() // // Sunday - Saturday : 0 - 6
-    if (0 < currentDay && currentDay < 6) {
-      return true
-    } else {
-      return false
-    }
   }
 
   /**
