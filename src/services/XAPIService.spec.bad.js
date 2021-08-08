@@ -1,8 +1,4 @@
-// JEST
-//During the test the env variable is set to test
-process.env.NODE_ENV = "test"
-
-var { XAPIService } = require("../dist")
+import { XAPIService } from "./XAPIService"
 var svc = new XAPIService("http://xcap.ddns.net:28100/graphql", "", "", "")
 
 describe("XAPIService", () => {

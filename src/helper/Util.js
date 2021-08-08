@@ -1,32 +1,16 @@
-﻿"use strict";
+﻿"use strict"
 
-// this is declare the business class
-class Util {
-  constructor() {}
-
-  /**
-   * random an int number, maximum is max - 1. Max = 10, so return 0 to 9
-   * @param {*} max
-   */
-  static randomIntTo(max) {
-    return parseInt(Math.random() * max);
-  }
-
+/**
+ * Old util class from 2017, will be merged to CommonHelper
+ */
+export default class Util {
   /**
    *
    * @param {*} min
    * @param {*} max
    */
   static GetRandomNumberBetween(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-
-  /**
-   * Round number to 2 digit. 1.22222 => 1.22
-   * @param {*} num
-   */
-  static roundToTwo(num) {
-    return +(Math.round(num + "e+2") + "e-2");
+    return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
   /**
@@ -39,9 +23,9 @@ class Util {
       return strCommaSeparated
         .split(",")
         .filter(segment => segment)
-        .map(e => e.trim());
+        .map(e => e.trim())
     } else {
-      return [];
+      return []
     }
   }
 
@@ -53,11 +37,11 @@ class Util {
    */
   static mergeAndDistinct(arr1, arr2) {
     function onlyUnique(value, index, self) {
-      return self.indexOf(value) === index;
+      return self.indexOf(value) === index
     }
 
-    let distinctArrayOfRoles = arr1.concat(arr2).filter(onlyUnique);
-    return distinctArrayOfRoles;
+    let distinctArrayOfRoles = arr1.concat(arr2).filter(onlyUnique)
+    return distinctArrayOfRoles
   }
 
   /**
@@ -65,9 +49,7 @@ class Util {
    * @param {String} jsonDateString string of this format "/Date(2342353453434)/"
    */
   static parseJsonDate(jsonDateString) {
-    return new Date(
-      parseInt(jsonDateString.replace("/Date(", "").replace(")/", ""))
-    );
+    return new Date(parseInt(jsonDateString.replace("/Date(", "").replace(")/", "")))
   }
 
   /**
@@ -77,26 +59,26 @@ class Util {
    */
   static joinPath(/* path segments */) {
     // Split the inputs into a list of path commands.
-    var parts = [];
+    var parts = []
     for (var i = 0, l = arguments.length; i < l; i++) {
-      parts = parts.concat(arguments[i].split("/"));
+      parts = parts.concat(arguments[i].split("/"))
     }
     // Interpret the path commands to get the new resolved path.
-    var newParts = [];
+    var newParts = []
     for (i = 0, l = parts.length; i < l; i++) {
-      var part = parts[i];
+      var part = parts[i]
       // Remove leading and trailing slashes
       // Also remove "." segments
-      if (!part || part === ".") continue;
+      if (!part || part === ".") continue
       // Interpret ".." to pop the last segment
-      if (part === "..") newParts.pop();
+      if (part === "..") newParts.pop()
       // Push new path segments.
-      else newParts.push(part);
+      else newParts.push(part)
     }
     // Preserve the initial slash if there was one.
-    if (parts[0] === "") newParts.unshift("");
+    if (parts[0] === "") newParts.unshift("")
     // Turn back into a single string path.
-    return newParts.join("/") || (newParts.length ? "/" : ".");
+    return newParts.join("/") || (newParts.length ? "/" : ".")
   }
 
   /**
@@ -105,20 +87,6 @@ class Util {
    * @param {*} path
    */
   static dirname(path) {
-    return join(path, "..");
+    return join(path, "..")
   }
 } // end class
-
-// in order to make this lib live in both node and browser,
-// we export to NodeJs if we have the module
-// otherwise, we assign to the global window object of Browser
-if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
-  /**
-   * Node Module exports.
-   * @public
-   */
-  module.exports = Util;
-} else {
-  window.xcUtil = Util;
-}
-/************** ===================================== */

@@ -1,19 +1,19 @@
-"use strict";
+"use strict"
 
-const axios = require("axios");
-const RemoteLoggingServiceBase = require("./RemoteLoggingServiceBase");
+const axios = require("axios")
+const RemoteLoggingServiceBase = require("./RemoteLoggingServiceBase")
 
 /**
  * query our X API using GraphQL
  */
-class XAPIService extends RemoteLoggingServiceBase {
+export default class XAPIService extends RemoteLoggingServiceBase {
   constructor(graphQLServerUrl, Authorization = "", ApplicationName = "", ApplicationKey = "") {
-    super();
+    super()
 
-    this.graphQLServerUrl = graphQLServerUrl;
-    this.Authorization = Authorization;
-    this.ApplicationName = ApplicationName;
-    this.ApplicationKey = ApplicationKey;
+    this.graphQLServerUrl = graphQLServerUrl
+    this.Authorization = Authorization
+    this.ApplicationName = ApplicationName
+    this.ApplicationKey = ApplicationKey
 
     // this.HttpClient = this.CreateHttpClient(graphQLServerUrl, Authorization, ApplicationName, ApplicationKey);
   }
@@ -31,9 +31,9 @@ class XAPIService extends RemoteLoggingServiceBase {
       headers: {
         Authorization,
         ApplicationName,
-        ApplicationKey
-      }
-    });
+        ApplicationKey,
+      },
+    })
   }
 
   /**
@@ -48,28 +48,14 @@ class XAPIService extends RemoteLoggingServiceBase {
         headers: {
           Authorization: this.Authorization,
           ApplicationName: this.ApplicationName,
-          ApplicationKey: this.ApplicationKey
+          ApplicationKey: this.ApplicationKey,
         },
-        data: { query }
-      });
+        data: { query },
+      })
 
-      return result.data.data;
+      return result.data.data
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
 } // end class
-
-// in order to make this lib live in both node and browser,
-// we export to NodeJs if we have the module
-// otherwise, we assign to the global window object of Browser
-if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
-  /**
-   * Node Module exports.
-   * @public
-   */
-  module.exports = XAPIService;
-} else {
-  window.xcXAPIService = XAPIService;
-}
-/************** ===================================== */

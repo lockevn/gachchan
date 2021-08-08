@@ -53,4 +53,25 @@ describe("StockHelper", () => {
       expect(target.IsInWorkingDays(new Date("2021-08-02"))).toBe(true) // monday
     })
   })
+
+  // describe("generateRandomPriceData", function() {
+  //   it("generateRandomPriceData", function() {
+  //     // mock data, with max variation = 7%
+  //     function generateRandomPriceData(_startingPrice, _limitLength) {
+  //       var arrFakeData = [_startingPrice];
+  //       for (var i = 1; i < _limitLength; i++) {
+  //         var cur = arrFakeData[i - 1];
+  //         var r =
+  //           cur *
+  //           (1 + ((Math.random() > 0.5 ? -1 : 1) * Math.random()) / 14.28);
+  //         arrFakeData.push(xctarget.roundToTwo(r));
+  //       }
+  //       return arrFakeData;
+  //     }
+
+  //     var arr = generateRandomPriceData(100, 10);
+  //     assert.equal(arr.length, 10);
+  //     assert.equal(arr[0], 100);
+  //   });
+  // });
 })

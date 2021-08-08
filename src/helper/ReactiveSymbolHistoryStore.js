@@ -5,12 +5,12 @@
 const _ = require("lodash")
 
 /**
-   * // get datasnapshot, then provide to the actors chain
-      // TODO: PERF: cache the history,
-      // next time, only query the latest price of all symbols, then modify the last point of priceOHLCExtended in memory
-      // periodically refresh the cache (hourly is OK)
-   */
-class ReactiveSymbolHistoryStore {
+ * get datasnapshot, then provide to the actors chain
+ * TODO: PERF: cache the history,
+ * next time, only query the latest price of all symbols, then modify the last point of priceOHLCExtended in memory
+ * periodically refresh the cache (hourly is OK)
+ */
+export default class ReactiveSymbolHistoryStore {
   /**
    * run every 30 seconds, to clear the state cache. It's up to the handler to decide clear what and when.
    * By default, it does nothing.
@@ -38,33 +38,33 @@ class ReactiveSymbolHistoryStore {
   async listSymbolHistory(symbolCategory, symbolId, tickPeriod = "1D", limitLength = 660) {}
 
   constructor() {
-                  // super();
+    // super();
 
-                  /**
-                   * caching state
-                   */
-                  this.state = {
-                    // AAA : {
-                    //   symbolCategory: "VietnamStock",
-                    //   pricesOHLCExtended:
-                    // [{open, high, low, close, ts, v }]
-                    // }
-                  };
+    /**
+     * caching state
+     */
+    this.state = {
+      // AAA : {
+      //   symbolCategory: "VietnamStock",
+      //   pricesOHLCExtended:
+      // [{open, high, low, close, ts, v }]
+      // }
+    }
 
-                  /**
-                   * ref to the firebase path of realtime price
-                   */
-                  this.fb$vietnamStock = null;
+    /**
+     * ref to the firebase path of realtime price
+     */
+    this.fb$vietnamStock = null
 
-                  /**
-                   * Interval to run the cacheInvalidator() check. Default ls 30 000 (30s)
-                   */
-                  this.interval_cacheInvalidator = 30000;
-                  /**
-                   * Interval to sync all latest price to the whole Store. Default ls 60 000 (60s)
-                   */
-                  this.interval_syncAllLatestPricesAtOnce = 60000;
-                }
+    /**
+     * Interval to run the cacheInvalidator() check. Default ls 30 000 (30s)
+     */
+    this.interval_cacheInvalidator = 30000
+    /**
+     * Interval to sync all latest price to the whole Store. Default ls 60 000 (60s)
+     */
+    this.interval_syncAllLatestPricesAtOnce = 60000
+  }
 
   /**
    * Init this Store, setup func, call func from Virtual methods, start all the interval
@@ -81,7 +81,7 @@ class ReactiveSymbolHistoryStore {
         // snapshot is the changed symbol only, E.g.: "GMD"
         this.mergeLatestPriceToStore(
           {
-            [snapshot.key]: snapshot.val()
+            [snapshot.key]: snapshot.val(),
           },
           this.state
         )
@@ -175,24 +175,10 @@ class ReactiveSymbolHistoryStore {
       // logdebug(`Cached ${symbolId} to state`);
       this.state[symbolId] = {
         symbolCategory,
-        pricesOHLCExtended
+        pricesOHLCExtended,
       }
     }
 
     return pricesOHLCExtended
   }
 }
-
-// in order to make this lib live in both node and browser,
-// we export to NodeJs if we have the module
-// otherwise, we assign to the global window object of Browser
-if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
-  /**
-   * Node Module exports.
-   * @public
-   */
-  module.exports = ReactiveSymbolHistoryStore
-} else {
-  window.xcReactiveSymbolHistoryStore = ReactiveSymbolHistoryStore
-}
-/************** ===================================== */

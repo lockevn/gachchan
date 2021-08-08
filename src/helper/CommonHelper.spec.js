@@ -131,11 +131,19 @@ describe("CommonHelper", () => {
   })
 
   describe("Random output", () => {
-    it("GetRandomArrayElement", () => {
+    beforeAll(() => {
       // https://stackoverflow.com/questions/41570273/how-to-test-a-function-that-output-is-random-using-jest
       jest.spyOn(global.Math, "random").mockReturnValue(0.56)
-      expect(target.GetRandomArrayElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])).toBe(6)
+    })
+    afterAll(() => {
       jest.spyOn(global.Math, "random").mockRestore()
+    })
+
+    it("GetRandomIntegerTo", () => {
+      expect(target.GetRandomIntegerTo(10)).toBe(6)
+    })
+    it("GetRandomArrayElement", () => {
+      expect(target.GetRandomArrayElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])).toBe(6)
     })
   })
 })

@@ -182,13 +182,22 @@ export default class CommonHelper {
   }
 
   /**
+   * random an int number, maximum is max - 1. Max = 10, so return 0 to 10
+   * @param {*} max
+   * @returns number integer
+   */
+  static GetRandomIntegerTo(max) {
+    return Math.round(Math.random() * max)
+  }
+
+  /**
    * return random element inside array
    * @param {*} arr
    * @returns
    */
   static GetRandomArrayElement(arr) {
     if (Array.isArray(arr)) {
-      return arr[Math.round(Math.random() * arr.length - 1)]
+      return arr[CommonHelper.GetRandomIntegerTo(arr.length - 1)]
     }
   }
 
@@ -319,5 +328,17 @@ export default class CommonHelper {
 
     let unitNumbers = (+numberString / unitDividen).toFixed(fractationDigits)
     return new Intl.NumberFormat(locale).format(+unitNumbers) + unit
+  }
+
+  // =========== ===================== ===========
+  // =========== string representation ===========
+  // =========== ===================== ===========
+  /**
+   * @deprecated use ToNumber()
+   * Round number to 2 digit. 1.22222 => 1.22
+   * @param {*} num
+   */
+  static roundToTwo(num) {
+    return CommonHelper.ToNumber(num, 2)
   }
 }
