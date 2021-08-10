@@ -1,7 +1,9 @@
 import CommonHelper from "./CommonHelper"
 
-// this will test the ContinuousExecuteBySetTimeout
+console.log("\n\n\nthis will test the ContinuousExecuteBySetTimeout")
+console.log("=================================================")
 
+// use func with all parameters provided
 let index = 0
 let ret = CommonHelper.ContinuousExecuteBySetTimeout(
   async () => {
@@ -16,13 +18,14 @@ let ret = CommonHelper.ContinuousExecuteBySetTimeout(
     }
   },
   5000,
-  
+
   (delay, isPreviousRunSuccess) => {
     console.log(`${delay} ${isPreviousRunSuccess}`)
     return 3000
   }
 )
 
+// use DEFAULT intervalFn with DEFAULT_INTERVAL
 setTimeout(() => {
   console.log(`===================clearing timerId ${ret.delay} ${ret.timerId}`)
   clearTimeout(ret.timerId)

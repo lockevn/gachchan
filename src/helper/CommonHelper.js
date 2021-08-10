@@ -48,36 +48,20 @@ export default class CommonHelper {
    * Continuously call actionFn by setTimeout with interval. The next process will be schedule after current process completed (success or failed)
    * Interval can be determined (randomly) by intervalFn() and delay betwen execution can be vary.
    * @param {*} actionFn support async function
-   * @param {*} intervalFn intervalFn(currentDelay, isPreviousRunSuccess). if currentDelay is undefined, should return the default. if currentDelay has value, should return next delay.
    * @param {*} DEFAULT_INTERVAL if nothing provided or callbackFn success, this is the interval for running. If adjustment happen, it will not exceed 2*DEFAULT_INTERVAL
+   * @param {*} intervalFn intervalFn(currentDelay, isPreviousRunSuccess). if currentDelay is undefined, should return the default. if currentDelay has value, should return next delay.
    */
   static ContinuousExecuteBySetTimeout(actionFn, DEFAULT_INTERVAL = 10000, intervalFn) {
     if (!actionFn || typeof actionFn != "function") {
       return
     }
 
-    // provide the default intervalFn
+    // use the default intervalFn
     if (typeof intervalFn != "function") {
-      // create a default function/behaviour, calculate delay based on previous delay and isPreviousRunSuccess
-      intervalFn = (previousDelay, isPreviousRunSuccess) => {
-        if (isPreviousRunSuccess) {
-          return DEFAULT_INTERVAL // job is done successfully, we back to use DEFAULT_INTERVAL (because prev delay (which is a failed one) can be (e.g. 12345ms), longer than DEFAULT_INTERVAL)
-        }
-
-        // adjust delay to be longer than previousDelay, but maximum is 2 * DEFAULT_INTERVAL
-        let newDelay = previousDelay || DEFAULT_INTERVAL
-        // increase delay, at least 20%
-        newDelay = Math.round(newDelay * (1.2 + Math.random()))
-        if (newDelay > 2 * DEFAULT_INTERVAL) {
-          newDelay = 2 * DEFAULT_INTERVAL
-        }
-        // console.debug("change to different newDelay for next request:", newDelay)
-
-        return newDelay
-      }
+      intervalFn = CommonHelper.ContinuousExecuteBySetTimeoutDefaultIntervalFn
     }
 
-    let delay = intervalFn(undefined, true)
+    let delay = intervalFn(undefined, true, DEFAULT_INTERVAL)
     let isPreviousRunSuccess = true
     let ret = {
       timerId: -1,
@@ -93,7 +77,7 @@ export default class CommonHelper {
       }
 
       // calculate the new delay for the next run
-      delay = intervalFn(delay, isPreviousRunSuccess)
+      delay = intervalFn(delay, isPreviousRunSuccess, DEFAULT_INTERVAL)
       ret.delay = delay
       ret.timerId = setTimeout(run, delay)
       // console.debug(`${ret.delay} ${ret.timerId} after setTimeout`)
@@ -103,6 +87,30 @@ export default class CommonHelper {
     // console.debug(`${ret.delay} ${ret.timerId} after setTimeout -------- INIT`)
 
     return ret
+  }
+
+  /**
+   * create a default function/behaviour, calculate delay based on previous delay and isPreviousRunSuccess.
+   * When calling ContinuousExecuteBySetTimeout() without intervalFn, this func will be used as default implementation
+   * @param {*} previousDelay
+   * @param {*} isPreviousRunSuccess
+   * @returns
+   */
+  static ContinuousExecuteBySetTimeoutDefaultIntervalFn(previousDelay, isPreviousRunSuccess, DEFAULT_INTERVAL) {
+    if (isPreviousRunSuccess) {
+      return DEFAULT_INTERVAL // job is done successfully, we back to use DEFAULT_INTERVAL (because prev delay (which is a failed one) can be (e.g. 12345ms), longer than DEFAULT_INTERVAL)
+    }
+
+    // adjust delay to be longer than previousDelay, but maximum is 2 * DEFAULT_INTERVAL
+    let newDelay = previousDelay || DEFAULT_INTERVAL
+    // increase delay, at least 20%
+    newDelay = Math.round(newDelay * (1.2 + Math.random()))
+    if (newDelay > 2 * DEFAULT_INTERVAL) {
+      newDelay = 2 * DEFAULT_INTERVAL
+    }
+    // console.debug("change to different newDelay for next request:", newDelay)
+
+    return newDelay
   }
 
   /**

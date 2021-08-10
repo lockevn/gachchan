@@ -23,6 +23,8 @@ See more https://www.codementor.io/davidtang/unit-testing-and-tdd-in-node-js-par
 
 Use plugin to auto run https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest
 
+run `npm run testinnode` to test some feature in node (setTimeout, which I don't have time to mock properly in `jest`)
+
 # (NOT READY) Debug
 
 See how https://gist.github.com/paambaati/54d33e409b4f7cf059cc
@@ -43,3 +45,7 @@ If we setup this lib as private project, see this to consume https://lockevn.med
 # (NOT AVAILABLE) build this as github npm package, and consume in other proj
 
 https://www.matthaliski.com/blog/using-private-npm-packages-with-rails-heroku-and-github/
+
+# TODO: move lodash to peepDeps? in package.json
+
+Currently, I see that lodash is bundled inside dist/index.js
