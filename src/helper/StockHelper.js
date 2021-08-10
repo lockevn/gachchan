@@ -55,16 +55,19 @@ export default class StockHelper {
   }
 
   /**
-   *
-   * @param {String} now hhhmm string, like "1130" or "0959"
+   * from "now", if in working day, get hhmm time in hhmm format, like "1130" or "0959", then check
+   * @param {Date} now
    * @returns boolean
    */
   static IsInWorkingHours(now) {
     if (!now) {
-      now = CommonHelper.GetCurrentHoursMinutesString()
+      now = new Date()
     }
 
-    if (("0845" <= now && now <= "1130") || ("1300" <= now && now <= "1445")) {
+    if (!StockHelper.IsInWorkingDays(now)) return false
+
+    const hhmm = CommonHelper.GetCurrentHoursMinutesString(now)
+    if (("0845" <= hhmm && hhmm <= "1130") || ("1300" <= hhmm && hhmm <= "1445")) {
       return true
     } else {
       return false

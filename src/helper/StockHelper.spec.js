@@ -19,18 +19,24 @@ describe("StockHelper", () => {
   })
 
   describe("Mocking times", () => {
-    it("IsInWorkingHours", () => {
-      expect(target.IsInWorkingHours("0845")).toBe(true)
-      expect(target.IsInWorkingHours("0914")).toBe(true)
-      expect(target.IsInWorkingHours("1130")).toBe(true)
+    it("IsInWorkingHours in non working day first Sunday of Aug 2021", () => {
+      expect(target.IsInWorkingHours(new Date("2021-08-01 10:10:10"))).toBe(false) // first sunday of August
+    })
 
-      expect(target.IsInWorkingHours("1131")).toBe(false)
-      expect(target.IsInWorkingHours("1259")).toBe(false)
+    it("IsInWorkingHours in working day first Monday of Aug 2021", () => {
+      expect(target.IsInWorkingHours(new Date("2021-08-02 10:10:10"))).toBe(true) // monday
 
-      expect(target.IsInWorkingHours("1300")).toBe(true)
-      expect(target.IsInWorkingHours("1445")).toBe(true)
+      expect(target.IsInWorkingHours(new Date("2021-08-02 08:45"))).toBe(true)
+      expect(target.IsInWorkingHours(new Date("2021-08-02 09:14"))).toBe(true)
+      expect(target.IsInWorkingHours(new Date("2021-08-02 11:30"))).toBe(true)
 
-      expect(target.IsInWorkingHours("1446")).toBe(false)
+      expect(target.IsInWorkingHours(new Date("2021-08-02 11:31"))).toBe(false)
+      expect(target.IsInWorkingHours(new Date("2021-08-02 12:59"))).toBe(false)
+
+      expect(target.IsInWorkingHours(new Date("2021-08-02 13:00"))).toBe(true)
+      expect(target.IsInWorkingHours(new Date("2021-08-02 14:45"))).toBe(true)
+
+      expect(target.IsInWorkingHours(new Date("2021-08-02 14:46"))).toBe(false)
     })
 
     it("IsIn_ATO_Sessions", () => {

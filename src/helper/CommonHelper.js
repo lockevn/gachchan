@@ -135,6 +135,8 @@ export default class CommonHelper {
    * if now is 14:22, this return 1422.
    * 9:40AM ==> 0940
    * 16:03 (PM) ==> 1603
+   * @param {Date} date
+   * @returns
    */
   static GetCurrentHoursMinutesString(date) {
     if (!date) date = new Date()
