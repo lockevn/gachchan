@@ -1,7 +1,7 @@
 {
   "name": "@lockevn/gachchan",
   "description": "share lib for common helper functions, work in node and browser",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "author": "lockevn",
   "license": "See LICENSE",
   "keywords": [

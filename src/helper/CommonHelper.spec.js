@@ -29,6 +29,11 @@ describe("CommonHelper", () => {
     expect(target.HasAnyOfIntersection(null, null)).toBe(false)
     expect(target.HasAnyOfIntersection(null)).toBe(false)
 
+    expect(target.HasAnyOfIntersection([undefined, undefined, null, null, 3], [undefined])).toBe(true)
+    expect(target.HasAnyOfIntersection([undefined, undefined, null, null, 3], [null])).toBe(true)
+    expect(target.HasAnyOfIntersection([undefined, undefined, 3], [null])).toBe(false)
+    expect(target.HasAnyOfIntersection([undefined, undefined, 3], [4])).toBe(false)
+
     expect(target.HasAnyOfIntersection([1, 2, 3], 4)).toBe(false)
     expect(target.HasAnyOfIntersection([1, 2, 3], [4])).toBe(false)
 

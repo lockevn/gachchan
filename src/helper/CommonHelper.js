@@ -216,6 +216,8 @@ export default class CommonHelper {
    * E.g.: [a,b,c], a ==> true
    * E.g.: [a,b,c], [a] ==> true
    * E.g.: [a,b,c], [A], true ==> true, a==A because of ignoreCase
+   *
+   * value (which is not string) is compared by === (null === null, undefined === undefined)
    * @param {*} firstList
    * @param {*} otherList accept single value or array
    * @param {*} ignoreCase for string value (of either side), ignore case when comparing
@@ -235,7 +237,7 @@ export default class CommonHelper {
             return listVal?.toString()?.toUpperCase() === otherVal?.toString()?.toUpperCase()
           }
 
-          return listVal == otherVal
+          return listVal === otherVal
         }).length > 0
     } else {
       ret = _intersection(arrFirsts, arrEvaluations).length > 0
