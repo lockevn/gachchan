@@ -1,4 +1,4 @@
-import { CommonHelper } from "../../dist"
+import CommonHelper from "./CommonHelper"
 const target = CommonHelper
 
 describe("CommonHelper", () => {
@@ -138,7 +138,9 @@ describe("CommonHelper", () => {
 
   it("JoinPaths", () => {
     expect(target.JoinPaths()).toBe("")
+    // @ts-ignore
     expect(target.JoinPaths(1, 2, 3)).toBe("1/2/3")
+    // @ts-ignore
     expect(target.JoinPaths("/1/", "/2/", 3)).toBe("/1/2/3")
   })
 

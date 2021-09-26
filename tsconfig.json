@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "outDir": "./built",
+    "allowJs": true,
+    "checkJs": true,
+    "target": "es5",
+
+    // https://stackoverflow.com/questions/56238356/understanding-esmoduleinterop-in-tsconfig-file
+    // "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["./src/**/*"]
+}

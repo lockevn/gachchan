@@ -87,6 +87,6 @@ export default class Util {
    * @param {*} path
    */
   static dirname(path) {
-    return join(path, "..")
+    return this.joinPath(path, "..")
   }
 } // end class

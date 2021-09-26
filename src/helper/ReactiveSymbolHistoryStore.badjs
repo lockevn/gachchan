@@ -75,8 +75,10 @@ export default class ReactiveSymbolHistoryStore {
     this.fb$vietnamStock = this.get_fb$VietnamStock()
 
     // hook on latest price on Firebase, modify the latest datapoint in Store
+    // @ts-ignore
     if (_.isEmpty(this.fb$vietnamStock) == false && this.fb$vietnamStock.on) {
       // Hook on live change
+      // @ts-ignore
       this.fb$vietnamStock.on("child_changed", snapshot => {
         // snapshot is the changed symbol only, E.g.: "GMD"
         this.mergeLatestPriceToStore(
@@ -168,8 +170,11 @@ export default class ReactiveSymbolHistoryStore {
     }
 
     // cache miss, we fetch the fresh data from API
+    // @ts-ignore
     let pricesOHLCExtended = await this.listSymbolHistory(...arguments)
+    // @ts-ignore
     if (pricesOHLCExtended) {
+      // @ts-ignore
       pricesOHLCExtended = _.orderBy(pricesOHLCExtended, ["ts"], ["asc"])
 
       // logdebug(`Cached ${symbolId} to state`);

@@ -1,4 +1,4 @@
-import { XAPIService } from "./XAPIService"
+import XAPIService from "./XAPIService"
 var svc = new XAPIService("http://xcap.ddns.net:28100/graphql", "", "", "")
 
 describe("XAPIService", () => {

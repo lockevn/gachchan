@@ -28,7 +28,7 @@ export default class CommonHelper {
    * @param {*} treatNonNumberValueAs
    * @returns number
    */
-  static ToNumber(numberString, fractationDigits, treatNonNumberValueAs = 0) {
+  static ToNumber(numberString, fractationDigits?, treatNonNumberValueAs = 0) {
     let ret = treatNonNumberValueAs
 
     const convertedToNumberVal = +numberString
@@ -51,7 +51,7 @@ export default class CommonHelper {
    * @param {*} DEFAULT_INTERVAL if nothing provided or callbackFn success, this is the interval for running. If adjustment happen, it will not exceed 2*DEFAULT_INTERVAL
    * @param {*} intervalFn intervalFn(currentDelay, isPreviousRunSuccess). if currentDelay is undefined, should return the default. if currentDelay has value, should return next delay.
    */
-  static ContinuousExecuteBySetTimeout(actionFn, DEFAULT_INTERVAL = 10000, intervalFn) {
+  static ContinuousExecuteBySetTimeout(actionFn, DEFAULT_INTERVAL = 10000, intervalFn?) {
     if (!actionFn || typeof actionFn != "function") {
       return
     }
@@ -79,10 +79,12 @@ export default class CommonHelper {
       // calculate the new delay for the next run
       delay = intervalFn(delay, isPreviousRunSuccess, DEFAULT_INTERVAL)
       ret.delay = delay
+      // @ts-ignore
       ret.timerId = setTimeout(run, delay)
       // console.debug(`${ret.delay} ${ret.timerId} after setTimeout`)
     }
 
+    // @ts-ignore
     ret.timerId = setTimeout(run, delay)
     // console.debug(`${ret.delay} ${ret.timerId} after setTimeout -------- INIT`)
 
@@ -146,7 +148,7 @@ export default class CommonHelper {
    * @param {Date} date
    * @returns
    */
-  static GetCurrentHoursMinutesString(date) {
+  static GetCurrentHoursMinutesString(date?) {
     if (!date) date = new Date()
     let currentHoursMinutesString =
       date
@@ -183,11 +185,12 @@ export default class CommonHelper {
   /**
    * return current date time in full format, in specific culture (language) and timezone
    * @param {*} culture
-   * @param {*} timezone
+   * @param {*} timeZone
    * @returns
    */
-  static GetDatetimeNowString(culture = "vi-VN", timezone = "Asia/Saigon") {
-    return new Intl.DateTimeFormat(culture, { timezone, dateStyle: "full", timeStyle: "long", hour12: false }).format(new Date())
+  static GetDatetimeNowString(culture = "vi-VN", timeZone = "Asia/Saigon") {
+    // @ts-ignore
+    return new Intl.DateTimeFormat(culture, { timeZone, dateStyle: "full", timeStyle: "long", hour12: false }).format(new Date())
     // _calculatedCWData_lastUpdated = new Date().toLocaleString("vi-VN", { timezone: "Asia/Saigon", hour12: false })
   }
 
@@ -223,7 +226,7 @@ export default class CommonHelper {
    * @param {*} ignoreCase for string value (of either side), ignore case when comparing
    * @returns boolean true if there is an intersection
    */
-  static HasAnyOfIntersection(firstList, otherList = "", ignoreCase = true) {
+  static HasAnyOfIntersection(firstList, otherList?: string | number | [] | any[], ignoreCase = true) {
     if (!firstList || !otherList) return false
 
     const arrFirsts = _flatten([firstList]) // [""]   ==> [""], [[1,2]]   ==> [1,2]

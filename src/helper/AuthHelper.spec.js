@@ -1,4 +1,4 @@
-var { AuthHelper } = require("../../dist")
+import AuthHelper from "./AuthHelper"
 const target = AuthHelper
 
 describe("AuthHelper", () => {

@@ -1,4 +1,4 @@
-import { Util } from "../../dist"
+import Util from "./Util"
 const target = Util
 
 describe("Util", () => {

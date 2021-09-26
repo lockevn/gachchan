@@ -44,7 +44,7 @@ export default class StockHelper {
 
     let timerId = setInterval(async () => {
       // only perform callback in trading hours
-      if (CommonHelper.IsInWorkingHours() && CommonHelper.IsInWorkingDays()) {
+      if (this.IsInWorkingHours() && this.IsInWorkingDays()) {
         await callbackFn()
       } else {
         // console.debug(now, "out of trading hour, I don't refresh signal to save network consumption")
@@ -59,7 +59,7 @@ export default class StockHelper {
    * @param {Date} now
    * @returns boolean
    */
-  static IsInWorkingHours(now) {
+  static IsInWorkingHours(now?) {
     if (!now) {
       now = new Date()
     }
@@ -109,7 +109,7 @@ export default class StockHelper {
    * return true if current moment is Monday to Friday
    * @param {Date} now
    */
-  static IsInWorkingDays(now) {
+  static IsInWorkingDays(now?) {
     if (!now) {
       now = new Date()
     }

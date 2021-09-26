@@ -1,4 +1,4 @@
-import { StockHelper } from "../../dist"
+import StockHelper from "./StockHelper"
 const target = StockHelper
 
 describe("StockHelper", () => {

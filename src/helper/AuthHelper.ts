@@ -39,7 +39,7 @@ export default class AuthHelper {
    * @returns {[String]} array of satisfy roles
    */
   static hasRoles(requireRoles, userRoles) {
-    let arrRet = []
+    let arrRet: string[] = []
 
     if (!requireRoles || !userRoles || !Array.isArray(userRoles)) {
       // throw Error("require: requireRoles, userRoles");
