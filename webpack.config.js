@@ -38,4 +38,8 @@ module.exports = {
     ],
   },
   mode: "production",
+
+  stats: {
+    errorDetails: true,
+  },
 }
