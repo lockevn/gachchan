@@ -45,7 +45,3 @@ If we setup this lib as private project, see this to consume https://lockevn.med
 # (NOT AVAILABLE) build this as github npm package, and consume in other proj
 
 https://www.matthaliski.com/blog/using-private-npm-packages-with-rails-heroku-and-github/
-
-# TODO: move lodash to peepDeps? in package.json
-
-Currently, I see that lodash is bundled inside dist/index.js

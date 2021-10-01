@@ -2,20 +2,27 @@ import { CommonHelper } from "../../dist"
 const target = CommonHelper
 
 describe("CommonHelper", () => {
-  it("ToNumber", () => {
+  describe("ToNumber", () => {
+    it("Nothing should be 0", () => {
+      // not a actual number, should be 0
+      expect(target.ToNumber("")).toBe(0)
+      expect(target.ToNumber("\t")).toBe(0)
+      expect(target.ToNumber("\r")).toBe(0)
+      expect(target.ToNumber("\n")).toBe(0)
+      expect(target.ToNumber("\r\n")).toBe(0)
+      expect(target.ToNumber(NaN)).toBe(0)
+      expect(target.ToNumber(null)).toBe(0)
+      expect(target.ToNumber(undefined)).toBe(0)
+    })
+
     expect(target.ToNumber("1100")).toBe(1100)
     expect(target.ToNumber("-1100")).toBe(-1100)
     expect(target.ToNumber(-1)).toBe(-1)
     expect(target.ToNumber(-1.1)).toBe(-1.1)
 
-    // not a actual number, should be 0
-    expect(target.ToNumber("")).toBe(0)
     expect(target.ToNumber("ATC")).toBe(0)
     expect(target.ToNumber("0")).toBe(0)
     expect(target.ToNumber(0)).toBe(0)
-    expect(target.ToNumber(NaN)).toBe(0)
-    expect(target.ToNumber(null)).toBe(0)
-    expect(target.ToNumber(undefined)).toBe(0)
 
     expect(target.ToNumber(19.103857566765578635)).toBe(19.103857566765578635)
     expect(target.ToNumber(19.103857566765578635, 0)).toBe(19)

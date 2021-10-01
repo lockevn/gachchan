@@ -47,11 +47,12 @@ export default class CommonHelper {
   /**
    * Continuously call actionFn by setTimeout with interval. The next process will be schedule after current process completed (success or failed)
    * Interval can be determined (randomly) by intervalFn() and delay betwen execution can be vary.
-   * @param {*} actionFn support async function
-   * @param {*} DEFAULT_INTERVAL if nothing provided or callbackFn success, this is the interval for running. If adjustment happen, it will not exceed 2*DEFAULT_INTERVAL
-   * @param {*} intervalFn intervalFn(currentDelay, isPreviousRunSuccess). if currentDelay is undefined, should return the default. if currentDelay has value, should return next delay.
+   * @param {Function} actionFn support async function
+   * @param {Number} DEFAULT_INTERVAL if nothing provided or callbackFn success, this is the interval for running. If adjustment happen, it will not exceed 2*DEFAULT_INTERVAL
+   * @param {Function} intervalFn intervalFn(currentDelay, isPreviousRunSuccess). if currentDelay is undefined, should return the default. if currentDelay has value, should return next delay.
+   * @param {Function} shouldPerformActionFn intervalFn(currentDelay, isPreviousRunSuccess). return true if you want to perform actionFn when timeout happen.
    */
-  static ContinuousExecuteBySetTimeout(actionFn, DEFAULT_INTERVAL = 10000, intervalFn) {
+  static async ContinuousExecuteBySetTimeout(actionFn, DEFAULT_INTERVAL = 10000, intervalFn = undefined, shouldPerformActionFn = () => true) {
     if (!actionFn || typeof actionFn != "function") {
       return
     }
@@ -70,7 +71,9 @@ export default class CommonHelper {
 
     async function run() {
       try {
-        await actionFn()
+        if (shouldPerformActionFn(delay, isPreviousRunSuccess)) {
+          await actionFn()
+        }
         isPreviousRunSuccess = true
       } catch (error) {
         isPreviousRunSuccess = false
@@ -83,6 +86,15 @@ export default class CommonHelper {
       // console.debug(`${ret.delay} ${ret.timerId} after setTimeout`)
     }
 
+    // run immediately when being called, not after wait for the first timeout
+    if (shouldPerformActionFn(delay, isPreviousRunSuccess)) {
+      try {
+        await actionFn()
+        isPreviousRunSuccess = true
+      } catch (error) {
+        isPreviousRunSuccess = false
+      }
+    }
     ret.timerId = setTimeout(run, delay)
     // console.debug(`${ret.delay} ${ret.timerId} after setTimeout -------- INIT`)
 
