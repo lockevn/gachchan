@@ -49,12 +49,13 @@ export default class CommonHelper {
    * Interval can be determined (randomly) by intervalFn() and delay betwen execution can be vary.
    * @param {Function} actionFn support async function
    * @param {Number} DEFAULT_INTERVAL if nothing provided or callbackFn success, this is the interval for running. If adjustment happen, it will not exceed 2*DEFAULT_INTERVAL
-   * @param {Function} intervalFn intervalFn(currentDelay, isPreviousRunSuccess). if currentDelay is undefined, should return the default. if currentDelay has value, should return next delay.
-   * @param {Function} shouldPerformActionFn intervalFn(currentDelay, isPreviousRunSuccess). return true if you want to perform actionFn when timeout happen.
+   * @param {Function} intervalFn intervalFn(currentDelay, isPreviousRunSuccess, DEFAULT_INTERVAL). if currentDelay is undefined, should return the default. if currentDelay has value, should return next delay.
+   * @param {Boolean} executeImmediately if true, invoke actionFn() immediately when calling this function
+   * @param {Function} shouldPerformActionFn intervalFn(currentDelay, isPreviousRunSuccess, DEFAULT_INTERVAL). return true if you want to perform actionFn when timeout happen.
    */
-  static async ContinuousExecuteBySetTimeout(actionFn, DEFAULT_INTERVAL = 10000, intervalFn = undefined, shouldPerformActionFn = () => true) {
+  static async ContinuousExecuteBySetTimeout(actionFn, DEFAULT_INTERVAL = 10000, intervalFn = undefined, executeImmediately = false, shouldPerformActionFn = () => true) {
     if (!actionFn || typeof actionFn != "function") {
-      return
+      return {}
     }
 
     // use the default intervalFn
@@ -62,19 +63,19 @@ export default class CommonHelper {
       intervalFn = CommonHelper.ContinuousExecuteBySetTimeoutDefaultIntervalFn
     }
 
-    let delay = intervalFn(undefined, true, DEFAULT_INTERVAL)
-    let isPreviousRunSuccess = true
+    let delay = intervalFn(undefined, undefined, DEFAULT_INTERVAL)
+    let isPreviousRunSuccess = undefined
     let ret = {
-      timerId: -1,
+      timerId: undefined,
       delay,
     }
 
     async function run() {
       try {
-        if (shouldPerformActionFn(delay, isPreviousRunSuccess)) {
+        if (shouldPerformActionFn(delay, isPreviousRunSuccess, DEFAULT_INTERVAL)) {
           await actionFn()
+          isPreviousRunSuccess = true
         }
-        isPreviousRunSuccess = true
       } catch (error) {
         isPreviousRunSuccess = false
       }
@@ -87,7 +88,7 @@ export default class CommonHelper {
     }
 
     // run immediately when being called, not after wait for the first timeout
-    if (shouldPerformActionFn(delay, isPreviousRunSuccess)) {
+    if (executeImmediately && shouldPerformActionFn(delay, isPreviousRunSuccess, DEFAULT_INTERVAL)) {
       try {
         await actionFn()
         isPreviousRunSuccess = true

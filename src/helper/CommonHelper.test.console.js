@@ -26,7 +26,8 @@ console.log(`
       console.log(`Delay: ${delay}, isPreviousRunSuccess: ${isPreviousRunSuccess}`)
       return 3000
     },
-    () => false
+    true,
+    () => true
   )
 
   // use DEFAULT intervalFn with DEFAULT_INTERVAL
