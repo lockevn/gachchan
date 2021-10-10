@@ -129,7 +129,7 @@ export default class CommonHelper {
   /**
    * change 1 to 1️⃣ (unicode square box character)
    * @param {*} numberString
-   * @returns string
+   * @returns {string}
    */
   static RepresentNumberInIconicDigit(numberString) {
     if (!numberString) {
@@ -157,7 +157,7 @@ export default class CommonHelper {
    * 9:40AM ==> 0940
    * 16:03 (PM) ==> 1603
    * @param {Date} date
-   * @returns
+   * @returns {string}
    */
   static GetCurrentHoursMinutesString(date) {
     if (!date) date = new Date()
@@ -165,12 +165,12 @@ export default class CommonHelper {
       date
         .getHours()
         .toString()
-        .padStart(2, 0) +
+        .padStart(2, "0") +
       "" +
       date
         .getMinutes()
         .toString()
-        .padStart(2, 0)
+        .padStart(2, "0")
 
     return currentHoursMinutesString
   }
@@ -188,7 +188,7 @@ export default class CommonHelper {
       date
         .getSeconds()
         .toString()
-        .padStart(2, 0)
+        .padStart(2, "0")
 
     return ret
   }
@@ -225,15 +225,15 @@ export default class CommonHelper {
   }
 
   /**
-   * check for intersection.
-   * E.g.: [a,b,c], a ==> true
-   * E.g.: [a,b,c], [a] ==> true
-   * E.g.: [a,b,c], [A], true ==> true, a==A because of ignoreCase
+   * check for intersection of number or string
+   * E.g.: [1,2,3], 2 ==> true
+   * E.g.: ["a","b","c"], ["a"] ==> true
+   * E.g.: ["a","b","c"], ["A"], true ==> true, a==A because of ignoreCase
    *
    * value (which is not string) is compared by === (null === null, undefined === undefined)
-   * @param {*} firstList
-   * @param {*} otherList accept single value or array
-   * @param {*} ignoreCase for string value (of either side), ignore case when comparing
+   * @param {number|string|number[]|string[]} firstList
+   * @param {number|string|number[]|string[]} otherList accept single value or array
+   * @param {boolean} ignoreCase if any value is string, cast either values of firstList and otherList toString(), then compare ignore case
    * @returns boolean true if there is an intersection
    */
   static HasAnyOfIntersection(firstList, otherList = "", ignoreCase = true) {
