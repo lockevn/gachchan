@@ -1,6 +1,6 @@
 {
   "name": "@lockevn/gachchan",
-  "version": "5.2.2",
+  "version": "5.2.3",
   "note": "ContinuousExecuteBySetTimeout() with new argument executeImmediately",
   "description": "share lib for common helper functions, work in node and browser",
   "author": "lockevn",

@@ -94,8 +94,7 @@ describe("CommonHelper", () => {
     expect(target.RepresentNumberInIconicDigit(undefined)).toBe("")
     expect(target.RepresentNumberInIconicDigit(null)).toBe("")
     expect(target.RepresentNumberInIconicDigit("")).toBe("")
-    expect(target.RepresentNumberInIconicDigit("1")).toBe("1️⃣")
-    expect(target.RepresentNumberInIconicDigit("0123456789")).toBe("0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣")
+    expect(target.RepresentNumberInIconicDigit("000123456789")).toBe("0️⃣0️⃣0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣")
   })
 
   describe("Mocking date times", () => {
