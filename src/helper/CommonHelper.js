@@ -45,6 +45,19 @@ export default class CommonHelper {
   }
 
   /**
+   * round value to X decimal places https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
+   * 19.103857566765578635.toBe(19.1)
+   * 19.143857566765578635.toBe(19.1)
+   * 19.144857566765578635.toBe(19.1)
+   * @param {*} value
+   * @returns
+   */
+  static RoundNumber(value, decimalPlaces = 1) {
+    const decimalPlacesMultiplier = Math.pow(10, decimalPlaces)
+    return Math.round((value + Number.EPSILON) * decimalPlacesMultiplier) / decimalPlacesMultiplier
+  }
+
+  /**
    * Continuously call actionFn by setTimeout with interval. The next process will be schedule after current process completed (success or failed)
    * Interval can be determined (randomly) by intervalFn() and delay betwen execution can be vary.
    * @param {Function} actionFn support async function

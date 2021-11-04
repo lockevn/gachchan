@@ -30,6 +30,12 @@ describe("CommonHelper", () => {
     expect(target.ToNumber("19.106", 2)).toBe(19.11)
   })
 
+  describe("ToNumber", () => {
+    expect(target.RoundNumber(19.103857566765578635)).toBe(19.1)
+    expect(target.RoundNumber(19.143857566765578635)).toBe(19.1)
+    expect(target.RoundNumber(19.144857566765578635)).toBe(19.1)
+  })
+
   it("HasAnyOfIntersection", () => {
     expect(target.HasAnyOfIntersection([], [])).toBe(false)
     expect(target.HasAnyOfIntersection(undefined, undefined)).toBe(false)
