@@ -142,11 +142,5 @@ export default class CommonHelper {
      * @returns string
      */
     static NumberToUnitString(numberString: number | string, unitDividen?: number, fractationDigits?: number, unit?: string, locale?: string): string;
-    /**
-     * @deprecated use ToNumber()
-     * Round number to 2 digit. 1.22222 => 1.22
-     * @param {*} num
-     */
-    static roundToTwo(num: any): any;
 }
 //# sourceMappingURL=CommonHelper.d.ts.map

@@ -320,6 +320,10 @@ export default class CommonHelper {
     return parts.join(separator).replace(replace, separator)
   }
 
+  // =========== ===================== ===========
+  // =========== string representation ===========
+  // =========== ===================== ===========
+
   /**
    * empty string, null, NaN, undefined return ""
    *  or text string which is not a number, return ""
@@ -341,11 +345,13 @@ export default class CommonHelper {
 
     const prefixSign = showPrefixSign && val > 0 ? "+" : ""
 
+    // TODO: use NumberToUnitString
     return prefixSign + CommonHelper.FormatNumber(val, fractationDigits) + suffix
   }
 
   /**
    * display 1000000 as 1tr, 1000 as 1k
+   * display 1000000 as 1,000,000 (when using en-US locale)
    * Also round the number after converting (100400 ==> 100k, 100500 ==> 101k)
    * vi-VN default thounsand separator is ,
    * 0 will be returned as "0"
@@ -359,6 +365,8 @@ export default class CommonHelper {
    * @returns string
    */
   static NumberToUnitString(numberString, unitDividen = 1, fractationDigits = 0, unit = "", locale = "en-US") {
+    // TODO: swap unitDividen, fractationDigits
+
     // empty string, or text string which is not a number, return
     if (numberString === 0) return "0"
     if (!numberString) return ""
@@ -366,17 +374,5 @@ export default class CommonHelper {
 
     let unitNumbers = (+numberString / unitDividen).toFixed(fractationDigits)
     return new Intl.NumberFormat(locale).format(+unitNumbers) + unit
-  }
-
-  // =========== ===================== ===========
-  // =========== string representation ===========
-  // =========== ===================== ===========
-  /**
-   * @deprecated use ToNumber()
-   * Round number to 2 digit. 1.22222 => 1.22
-   * @param {*} num
-   */
-  static roundToTwo(num) {
-    return CommonHelper.ToNumber(num, 2)
   }
 }

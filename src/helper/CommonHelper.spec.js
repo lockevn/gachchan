@@ -34,6 +34,7 @@ describe("CommonHelper", () => {
     expect(target.RoundNumber(19.103857566765578635)).toBe(19.1)
     expect(target.RoundNumber(19.143857566765578635)).toBe(19.1)
     expect(target.RoundNumber(19.144857566765578635)).toBe(19.1)
+    expect(target.RoundNumber(19.144857566765578635, 2)).toBe(19.14)
   })
 
   it("HasAnyOfIntersection", () => {
@@ -137,8 +138,8 @@ describe("CommonHelper", () => {
     expect(target.NumberToUnitString(100, 1, 2)).toBe("100")
     expect(target.NumberToUnitString(100.1321, 1, 2)).toBe("100.13")
 
-    target.NumberToUnitString(100000000, 1000000000, 1, "0.1")
-    target.NumberToUnitString(40000000, 1000000000, 1, "0")
+    expect(target.NumberToUnitString(40000000, 1, 0, "", "vi-VN")).toBe("40.000.000")
+    expect(target.NumberToUnitString(4000, 1, 0, "%", "vi-VN")).toBe("4.000%")
   })
 
   it("JoinPaths", () => {
