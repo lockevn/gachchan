@@ -1,6 +1,6 @@
 {
   "name": "@lockevn/gachchan",
-  "version": "5.2.5",
+  "version": "5.2.6",
   "note": "Remove lodash from bundle. RoundNumber(). ContinuousExecuteBySetTimeout() with new argument executeImmediately",
   "description": "share lib for common helper functions, work in node and browser",
   "author": "lockevn",
@@ -16,9 +16,13 @@
     "lockevn"
   ],
   "files": [
+    "dist/",
     "src/",
-    "services/",
-    "index.js"
+    "test/",
+    "index.js",
+    "LICENSE",
+    "CHANGELOG.md",
+    "README.md"
   ],
   "main": "dist/index.js",
   "publishConfig": {
