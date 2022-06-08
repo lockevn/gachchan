@@ -129,6 +129,7 @@ export default class CommonHelper {
     static ToNumberString(val: any, fractationDigits?: any, showPrefixSign?: any, showZeroVal?: boolean, suffix?: string): string;
     /**
      * display 1000000 as 1tr, 1000 as 1k
+     * display 1000000 as 1,000,000 (when using en-US locale)
      * Also round the number after converting (100400 ==> 100k, 100500 ==> 101k)
      * vi-VN default thounsand separator is ,
      * 0 will be returned as "0"
