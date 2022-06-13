@@ -51,6 +51,12 @@ export default class CommonHelper {
      */
     static RepresentNumberInIconicDigit(numberString: any): string;
     /**
+     * if now is 2002 12 31 14:22, this return 20021231.
+     * @param {Date} date
+     * @returns {string}
+     */
+    static GetCurrentYearMonthDayString(date: Date): string;
+    /**
      * if now is 14:22, this return 1422.
      * 9:40AM ==> 0940
      * 16:03 (PM) ==> 1603

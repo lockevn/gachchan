@@ -113,6 +113,11 @@ describe("CommonHelper", () => {
     afterAll(() => {
       jest.useRealTimers()
     })
+    
+
+    it("GetCurrentYearMonthDayString", () => {
+      expect(target.GetCurrentYearMonthDayString(new Date(2000, 11, 31))).toBe("20001231")
+    })
 
     it("GetCurrentHoursMinutesString", () => {
       expect(target.GetCurrentHoursMinutesString(new Date(2000, 1, 1, 1, 1, 59))).toBe("0101")

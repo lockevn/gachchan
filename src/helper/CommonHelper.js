@@ -165,6 +165,34 @@ export default class CommonHelper {
     return ret
   }
 
+
+
+  /**
+   * if now is 2002 12 31 14:22, this return 20021231.
+   * @param {Date} date
+   * @returns {string}
+   */
+  static GetCurrentYearMonthDayString(date) {
+    if (!date) date = new Date()
+
+    let ret =
+      date
+        .getFullYear()
+        .toString()
+      +
+      (date.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")
+      +
+      (date.getDate())
+        .toString()
+        .padStart(2, "0")
+
+    return ret
+  }
+
+
+
   /**
    * if now is 14:22, this return 1422.
    * 9:40AM ==> 0940
