@@ -71,6 +71,21 @@ export default class CommonHelper {
      */
     static GetCurrentHoursMinutesSecondsString(date: any): string;
     /**
+     *
+     * @returns string the Date string in format yyyyMMdd (in UTC timezone)
+     */
+    static GetCurrentYearMonthDayStringUTC(date: any): any;
+    /**
+     *
+     * @returns string the Time string in format HHmm (in UTC timezone)
+     */
+    static GetCurrentHoursMinutesStringUTC(date: any): any;
+    /**
+     *
+     * @returns string the Time string in format HHmmss (in UTC timezone)
+     */
+    static GetCurrentHoursMinutesSecondsStringUTC(date: any): any;
+    /**
      * return current date time in full format, in specific culture (language) and timezone
      * @param {*} culture
      * @param {*} timezone

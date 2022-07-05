@@ -1,7 +1,7 @@
 {
   "name": "@lockevn/gachchan",
-  "version": "5.4.0",
-  "note": "GetCurrentYearMonthDayString(). Remove lodash from bundle. RoundNumber(). ContinuousExecuteBySetTimeout() with new argument executeImmediately",
+  "version": "5.5.0",
+  "note": "UTC Util. Remove lodash from bundle. RoundNumber(). ContinuousExecuteBySetTimeout() with new argument executeImmediately",
   "description": "share lib for common helper functions, work in node and browser",
   "author": "lockevn",
   "license": "See LICENSE",

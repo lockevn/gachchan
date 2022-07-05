@@ -235,6 +235,44 @@ export default class CommonHelper {
   }
 
   /**
+   *
+   * @returns string the Date string in format yyyyMMdd (in UTC timezone)
+   */
+  static GetCurrentYearMonthDayStringUTC(date) {
+    if (!date) date = new Date()
+
+    return date
+      .toISOString()
+      .substring(0, 10)
+      .replace(/-/g, "")
+  }
+
+  /**
+   *
+   * @returns string the Time string in format HHmm (in UTC timezone)
+   */
+  static GetCurrentHoursMinutesStringUTC(date) {
+    if (!date) date = new Date()
+
+    return date
+      .toISOString()
+      .substring(11, 16)
+      .replace(/:/g, "")
+  }
+  /**
+   *
+   * @returns string the Time string in format HHmmss (in UTC timezone)
+   */
+  static GetCurrentHoursMinutesSecondsStringUTC(date) {
+    if (!date) date = new Date()
+
+    return date
+      .toISOString()
+      .substring(11, 19)
+      .replace(/:/g, "")
+  }
+
+  /**
    * return current date time in full format, in specific culture (language) and timezone
    * @param {*} culture
    * @param {*} timezone

@@ -113,18 +113,23 @@ describe("CommonHelper", () => {
     afterAll(() => {
       jest.useRealTimers()
     })
-    
 
     it("GetCurrentYearMonthDayString", () => {
-      expect(target.GetCurrentYearMonthDayString(new Date(2000, 11, 31))).toBe("20001231")
+      expect(target.GetCurrentYearMonthDayString(new Date("2000-12-31 10:01:59"))).toBe("20001231")
     })
 
     it("GetCurrentHoursMinutesString", () => {
-      expect(target.GetCurrentHoursMinutesString(new Date(2000, 1, 1, 1, 1, 59))).toBe("0101")
+      expect(target.GetCurrentHoursMinutesString(new Date("2000-01-01 10:01:59"))).toBe("1001")
     })
     it("GetCurrentHoursMinutesSecondsString", () => {
-      expect(target.GetCurrentHoursMinutesSecondsString(new Date(2017, 4, 10))).toBe("000000")
-      expect(target.GetCurrentHoursMinutesSecondsString(new Date(2017, 4, 10, 11, 59, 59))).toBe("115959")
+      expect(target.GetCurrentHoursMinutesSecondsString(new Date("2000-01-01 00:00:00"))).toBe("000000")
+      expect(target.GetCurrentHoursMinutesSecondsString(new Date("2000-01-01 11:59:59"))).toBe("115959")
+    })
+
+    it("GetCurrent date and time string, in UTC", () => {
+      expect(target.GetCurrentHoursMinutesStringUTC(new Date("2000-01-01 06:00:00"))).toBe("2300")
+      expect(target.GetCurrentHoursMinutesSecondsStringUTC(new Date("2000-01-01 06:00:00"))).toBe("230000")
+      expect(target.GetCurrentYearMonthDayStringUTC(new Date("2000-01-01 06:00:00"))).toBe("19991231")
     })
 
     it("GetDatetimeNowString", () => {
