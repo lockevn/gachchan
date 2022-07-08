@@ -165,8 +165,6 @@ export default class CommonHelper {
     return ret
   }
 
-
-
   /**
    * if now is 2002 12 31 14:22, this return 20021231.
    * @param {Date} date
@@ -176,22 +174,15 @@ export default class CommonHelper {
     if (!date) date = new Date()
 
     let ret =
+      date.getFullYear().toString() +
+      (date.getMonth() + 1).toString().padStart(2, "0") +
       date
-        .getFullYear()
-        .toString()
-      +
-      (date.getMonth() + 1)
-        .toString()
-        .padStart(2, "0")
-      +
-      (date.getDate())
+        .getDate()
         .toString()
         .padStart(2, "0")
 
     return ret
   }
-
-
 
   /**
    * if now is 14:22, this return 1422.
@@ -301,6 +292,28 @@ export default class CommonHelper {
     if (Array.isArray(arr)) {
       return arr[CommonHelper.GetRandomIntegerTo(arr.length - 1)]
     }
+  }
+
+  /**
+   * This will modify the input array https://stackoverflow.com/a/2450976
+   * @param {*} array
+   * @returns
+   */
+  static ShuffleArray(array) {
+    let currentIndex = array.length,
+      randomIndex
+
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex)
+      currentIndex--
+
+      // And swap it with the current element.
+      ;[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]]
+    }
+
+    return array
   }
 
   /**

@@ -158,7 +158,7 @@ describe("CommonHelper", () => {
     expect(target.JoinPaths("/1/", "/2/", 3)).toBe("/1/2/3")
   })
 
-  describe("Random output", () => {
+  describe("RandomOutput", () => {
     beforeAll(() => {
       // https://stackoverflow.com/questions/41570273/how-to-test-a-function-that-output-is-random-using-jest
       jest.spyOn(global.Math, "random").mockReturnValue(0.56)
@@ -174,4 +174,42 @@ describe("CommonHelper", () => {
       expect(target.GetRandomArrayElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])).toBe(6)
     })
   })
+
+  describe("RandomArray", () => {
+    it("ShuffleArray", () => {
+      const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+      const ret = []
+
+      const shuffleCount = 1000
+
+      for (let index = 0; index < shuffleCount; index++) {
+        target.ShuffleArray(array)
+        ret.push(array.join("_"))
+      }
+
+      // https://stackoverflow.com/questions/840781/get-all-non-unique-values-i-e-duplicate-more-than-one-occurrence-in-an-array
+      const findDuplicates = arr => {
+        let sorted_arr = arr.slice().sort() // You can define the comparing function here.
+        // JS by default uses a crappy string compare.
+        // (we use slice to clone the array so the
+        // original array won't be modified)
+        let results = []
+        for (let i = 0; i < sorted_arr.length - 1; i++) {
+          if (sorted_arr[i + 1] == sorted_arr[i]) {
+            results.push(sorted_arr[i])
+          }
+        }
+        return results
+      }
+
+      const percentageOfDup = findDuplicates(ret).length / shuffleCount
+      console.log("percentageOfDup", percentageOfDup)
+
+      expect(percentageOfDup > 0.05).toBe(false)
+    })
+  })
+
+  //
+  //
 })

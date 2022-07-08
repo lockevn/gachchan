@@ -105,6 +105,12 @@ export default class CommonHelper {
      */
     static GetRandomArrayElement(arr: any): any;
     /**
+     * This will modify the input array https://stackoverflow.com/a/2450976
+     * @param {*} array
+     * @returns
+     */
+    static ShuffleArray(array: any): any;
+    /**
      * check for intersection of number or string
      * E.g.: [1,2,3], 2 ==> true
      * E.g.: ["a","b","c"], ["a"] ==> true
