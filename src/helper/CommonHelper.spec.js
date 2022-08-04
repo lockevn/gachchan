@@ -155,7 +155,9 @@ describe("CommonHelper", () => {
   it("JoinPaths", () => {
     expect(target.JoinPaths()).toBe("")
     expect(target.JoinPaths(1, 2, 3)).toBe("1/2/3")
+    expect(target.JoinPaths(1, null, 2, undefined, "", 3)).toBe("1/2/3")
     expect(target.JoinPaths("/1/", "/2/", 3)).toBe("/1/2/3")
+    expect(target.JoinPaths("/1/", "", null, "/2/", undefined, null, 3)).toBe("/1/2/3")
   })
 
   describe("RandomOutput", () => {

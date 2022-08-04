@@ -1,6 +1,6 @@
 {
   "name": "@lockevn/gachchan",
-  "version": "5.6.0",
+  "version": "5.6.1",
   "note": "Shuffle. UTC Util. Remove lodash from bundle. RoundNumber(). ContinuousExecuteBySetTimeout() with new argument executeImmediately",
   "description": "share lib for common helper functions, work in node and browser",
   "author": "lockevn",

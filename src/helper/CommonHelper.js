@@ -395,7 +395,7 @@ export default class CommonHelper {
     const parts = Array.prototype.slice.call(arguments) // make array from arguments
 
     var separator = "/"
-    var replace = new RegExp(separator + "{1,}", "g")
+    var replace = new RegExp(separator + "{1,}", "g") // replace multiple to single separator
     return parts.join(separator).replace(replace, separator)
   }
 
