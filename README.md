@@ -6,13 +6,6 @@
 
 > Weekly push (working) code to this lib with fully unit test.
 
-## TODO
-
-- Bundle documentation to output
-  https://www.typescriptlang.org/docs/handbook/declaration-files/dts-from-js.html
-
-* Change to use TypeScript
-
 ## Project setup
 
 This was built as a lib work for both NodeJS and Browser
@@ -31,12 +24,6 @@ Use plugin to auto run https://marketplace.visualstudio.com/items?itemName=Orta.
 
 run `npm run testinnode` to test some feature in node (setTimeout, which I don't have time to mock properly in `jest`)
 
-# (NOT READY) Debug
-
-See how https://gist.github.com/paambaati/54d33e409b4f7cf059cc
-
-But I prefer run node test/index.js for easier
-
 # How to publish this lib?
 
 - `npm run build`
@@ -52,7 +39,3 @@ just put "gachchan": "git+https://github.com/lockevn/gachchan.git#master" into y
 > if you have problem on Heroku (might be a problem with package-lock.json), don't commit the package-lock.json to project repo https://stackoverflow.com/questions/64526838/build-fails-with-host-key-verification-failed-while-installing-node-modules
 
 If we setup this lib as private project, see this to consume https://lockevn.medium.com/consume-private-github-repository-as-npm-package-80733cd135a1
-
-# (NOT AVAILABLE) build this as github npm package, and consume in other proj
-
-https://www.matthaliski.com/blog/using-private-npm-packages-with-rails-heroku-and-github/

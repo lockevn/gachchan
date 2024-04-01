@@ -1,7 +1,7 @@
 {
   "name": "@lockevn/gachchan",
-  "version": "5.6.2",
-  "note": "Shuffle. UTC Util. Remove lodash from bundle. RoundNumber(). ContinuousExecuteBySetTimeout() with new argument executeImmediately",
+  "version": "5.6.3",
+  "note": "HtmlHelper. Shuffle. UTC Util. Remove lodash from bundle. RoundNumber(). ContinuousExecuteBySetTimeout() with new argument executeImmediately",
   "description": "share lib for common helper functions, work in node and browser",
   "author": "lockevn",
   "license": "See LICENSE",
@@ -48,6 +48,7 @@
     "@babel/plugin-proposal-decorators": "^7.14.5",
     "@babel/plugin-transform-runtime": "^7.14.5",
     "@babel/preset-env": "^7.14.8",
+    "@babel/eslint-parser": "^7.18.2",
     "babel-jest": "^27.0.6",
     "babel-loader": "^8.1.0",
     "eslint": "^7.31.0",
@@ -69,6 +70,6 @@
     "coverageDirectory": "../coverage"
   },
   "dependencies": {
-    "@babel/eslint-parser": "^7.18.2"
+    
   }
 }
