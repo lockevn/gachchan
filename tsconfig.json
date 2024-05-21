@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "esnext",
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "noUnusedLocals": true,
+    "noImplicitAny": true,
+
+    // Tells TypeScript to read JS files, as normally they are ignored as source files
+    "allowJs": true,
+    "resolveJsonModule": true,
+
+    // Generate d.ts files
+    "declaration": true,
+    // This compiler run should only output d.ts files
+    "emitDeclarationOnly": true,
+    // go to js file when using IDE functions like "Go to Definition" in VSCode
+    "declarationMap": true,
+
+    // Types should go into this directory.
+    // Removing this would place the .d.ts files next to the .js files
+    "outDir": "dist",
+
+    "types": ["vitest/globals"]
+  }
+}

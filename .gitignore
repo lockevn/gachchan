@@ -1,6 +1,11 @@
-node_modules/
+node_modules
+.DS_Store
+dist
+*.log
+
 coverage
 .idea
 npm-debug.log
 package-lock.json
+pnpm-lock.yaml
 _secret

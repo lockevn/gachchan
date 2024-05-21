@@ -1,7 +1,5 @@
 # Run
-run `npm run test` to execute unit test
-
-See more  https://www.codementor.io/davidtang/unit-testing-and-tdd-in-node-js-part-1-8t714s877
+run `pnpm test` to execute unit test
 
 Use plugin to auto run https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest
 

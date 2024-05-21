@@ -6,7 +6,7 @@ const RemoteLoggingServiceBase = require("./RemoteLoggingServiceBase")
 /**
  * query our X API using GraphQL
  */
-export default class XAPIService extends RemoteLoggingServiceBase {
+export class XAPIService extends RemoteLoggingServiceBase {
   constructor(graphQLServerUrl, Authorization = "", ApplicationName = "", ApplicationKey = "") {
     super()
 
