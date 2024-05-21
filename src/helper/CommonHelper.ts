@@ -2,7 +2,7 @@
 import _intersectionWith from "lodash/intersectionWith"
 import _isNumber from "lodash/isNumber"
 import _flatten from "lodash/flatten"
-const Decimal = require("decimal.js")
+import Decimal from "decimal.js"
 
 export class CommonHelper {
   /**

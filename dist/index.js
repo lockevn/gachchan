@@ -30,7 +30,12 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var src_exports = {};
 __export(src_exports, {
-  default: () => src_default,
+  AuthHelper: () => AuthHelper,
+  CommonHelper: () => CommonHelper,
+  HtmlHelper: () => HtmlHelper,
+  ReactiveSymbolHistoryStore: () => ReactiveSymbolHistoryStore,
+  StockvnHelper: () => StockvnHelper,
+  Util: () => Util,
   foo: () => foo
 });
 module.exports = __toCommonJS(src_exports);
@@ -40,7 +45,7 @@ var import_intersection = __toESM(require("lodash/intersection"));
 var import_intersectionWith = __toESM(require("lodash/intersectionWith"));
 var import_isNumber = __toESM(require("lodash/isNumber"));
 var import_flatten = __toESM(require("lodash/flatten"));
-var Decimal = require("decimal.js");
+var import_decimal = __toESM(require("decimal.js"));
 var CommonHelper = class {
   /**
    * @deprecated use ToNumber() TODO: remove this
@@ -70,7 +75,7 @@ var CommonHelper = class {
       ret = convertedToNumberVal;
     }
     if (fractationDigits !== void 0) {
-      ret = new Decimal(ret).toDP(fractationDigits).toNumber();
+      ret = new import_decimal.default(ret).toDP(fractationDigits).toNumber();
     }
     return ret;
   }
@@ -741,8 +746,13 @@ var ReactiveSymbolHistoryStore = class {
 
 // src/index.ts
 var foo = "foo";
-var src_default = { CommonHelper, Util, HtmlHelper, StockvnHelper, AuthHelper, ReactiveSymbolHistoryStore };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  AuthHelper,
+  CommonHelper,
+  HtmlHelper,
+  ReactiveSymbolHistoryStore,
+  StockvnHelper,
+  Util,
   foo
 });
