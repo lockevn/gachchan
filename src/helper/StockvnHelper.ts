@@ -10,14 +10,14 @@ export class StockvnHelper {
    * We need to convert it to 1000000
    * @param num
    */
-  static StandardizeVolNumber(num: string | number) {
+  static StandardizeVolNumber(num: string | number): number {
     if (typeof num === "number") {
       return num as number
     }
 
     // undefined or null
     if (!num) {
-      return num
+      return NaN
     }
 
     let ret = ""

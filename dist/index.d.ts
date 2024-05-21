@@ -169,7 +169,7 @@ declare class StockvnHelper {
      * We need to convert it to 1000000
      * @param num
      */
-    static StandardizeVolNumber(num: string | number): string | number;
+    static StandardizeVolNumber(num: string | number): number;
     /**
      * continuous checkWorkingHours and call callbackFn with interval
      * @param {*} callbackFn
