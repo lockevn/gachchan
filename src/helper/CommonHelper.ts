@@ -58,8 +58,13 @@ export class CommonHelper {
     executeImmediately = false,
     shouldPerformActionFn = (_0: number, _1?: boolean, _2?: number) => true
   ) {
+    let ret = {
+      timerId: undefined as any,
+      delay: NaN,
+    }
+
     if (!actionFn || typeof actionFn != "function") {
-      return {}
+      return ret
     }
 
     // use the default intervalFn
@@ -69,10 +74,6 @@ export class CommonHelper {
 
     let delay = intervalFn(undefined, undefined, DEFAULT_INTERVAL)
     let isPreviousRunSuccess: boolean | undefined = undefined
-    let ret = {
-      timerId: undefined as any,
-      delay,
-    }
 
     async function run() {
       try {
@@ -103,10 +104,7 @@ export class CommonHelper {
     ret.timerId = setTimeout(run, delay)
     // console.debug(`${ret.delay} ${ret.timerId} after setTimeout -------- INIT`)
 
-    return ret as {
-      timerId?: any
-      delay: number
-    }
+    return ret
   }
 
   /**

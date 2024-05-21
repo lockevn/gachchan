@@ -77,7 +77,7 @@ export class StockvnHelper {
    *  is in ATO sessions
    * @param {String} nowString hhhmm string, like "1130" or "0959"
    */
-  static IsIn_ATO_Sessions(nowString: string) {
+  static IsIn_ATO_Sessions(nowString?: string) {
     if (!nowString) {
       nowString = CommonHelper.GetCurrentHoursMinutesString()
     }
@@ -90,14 +90,14 @@ export class StockvnHelper {
   }
   /**
    *  is in ATC sessions
-   * @param {String} now hhhmm string, like "1130" or "0959"
+   * @param {String} nowString hhhmm string, like "1130" or "0959"
    */
-  static IsIn_ATC_Sessions(now: string) {
-    if (!now) {
-      now = CommonHelper.GetCurrentHoursMinutesString()
+  static IsIn_ATC_Sessions(nowString?: string) {
+    if (!nowString) {
+      nowString = CommonHelper.GetCurrentHoursMinutesString()
     }
 
-    if ("1430" <= now && now <= "1445") {
+    if ("1430" <= nowString && nowString <= "1445") {
       return true
     }
 

@@ -26,7 +26,10 @@ declare class CommonHelper {
      * @param {Boolean} executeImmediately if true, invoke actionFn() immediately (in the beginning) when calling this function
      * @param {Function} shouldPerformActionFn shouldPerformActionFn(currentDelay, isPreviousRunSuccess, DEFAULT_INTERVAL). this function should return true if you want to perform actionFn when timeout happen.
      */
-    static ContinuousExecuteBySetTimeout(actionFn: Function, DEFAULT_INTERVAL?: number, intervalFn?: Function, executeImmediately?: boolean, shouldPerformActionFn?: (_0: number, _1?: boolean, _2?: number) => boolean): Promise<{}>;
+    static ContinuousExecuteBySetTimeout(actionFn: Function, DEFAULT_INTERVAL?: number, intervalFn?: Function, executeImmediately?: boolean, shouldPerformActionFn?: (_0: number, _1?: boolean, _2?: number) => boolean): Promise<{
+        timerId: any;
+        delay: number;
+    }>;
     /**
      * create a default function/behaviour, calculate delay based on previous delay and isPreviousRunSuccess.
      * When calling ContinuousExecuteBySetTimeout() without intervalFn, this func will be used as default implementation
@@ -186,12 +189,12 @@ declare class StockvnHelper {
      *  is in ATO sessions
      * @param {String} nowString hhhmm string, like "1130" or "0959"
      */
-    static IsIn_ATO_Sessions(nowString: string): boolean;
+    static IsIn_ATO_Sessions(nowString?: string): boolean;
     /**
      *  is in ATC sessions
-     * @param {String} now hhhmm string, like "1130" or "0959"
+     * @param {String} nowString hhhmm string, like "1130" or "0959"
      */
-    static IsIn_ATC_Sessions(now: string): boolean;
+    static IsIn_ATC_Sessions(nowString?: string): boolean;
     /**
      * return true if current moment is Monday to Friday
      * @param {Date} now
