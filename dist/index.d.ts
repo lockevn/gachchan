@@ -7,7 +7,7 @@ declare class CommonHelper {
      * @param {number} fractationDigits number of decimal digit
      * @returns number
      */
-    static ToNumber(numberString: number | string, fractationDigits: number, treatNonNumberValueAs?: number): number;
+    static ToNumber(numberString: number | string, fractationDigits?: number, treatNonNumberValueAs?: number): number;
     /**
      * round value to X decimal places https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
      * 19.103857566765578635.toBe(19.1)
@@ -167,9 +167,9 @@ declare class StockvnHelper {
     /**
      * StockCompany usually represent 1000000 (1 million) as 1,000,000
      * We need to convert it to 1000000
-     * @param numberString
+     * @param num
      */
-    static StandardizeVolNumber(numberString: string | number): string | number;
+    static StandardizeVolNumber(num: string | number): string | number;
     /**
      * continuous checkWorkingHours and call callbackFn with interval
      * @param {*} callbackFn

@@ -13,7 +13,7 @@ export class CommonHelper {
    * @param {number} fractationDigits number of decimal digit
    * @returns number
    */
-  static ToNumber(numberString: number | string, fractationDigits: number, treatNonNumberValueAs = 0) {
+  static ToNumber(numberString: number | string, fractationDigits: number = 2, treatNonNumberValueAs = 0) {
     let ret = treatNonNumberValueAs
 
     const convertedToNumberVal = +numberString
@@ -103,7 +103,10 @@ export class CommonHelper {
     ret.timerId = setTimeout(run, delay)
     // console.debug(`${ret.delay} ${ret.timerId} after setTimeout -------- INIT`)
 
-    return ret
+    return ret as {
+      timerId?: any
+      delay: number
+    }
   }
 
   /**

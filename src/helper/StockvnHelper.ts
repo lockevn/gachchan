@@ -8,21 +8,21 @@ export class StockvnHelper {
   /**
    * StockCompany usually represent 1000000 (1 million) as 1,000,000
    * We need to convert it to 1000000
-   * @param numberString
+   * @param num
    */
-  static StandardizeVolNumber(numberString: string | number) {
-    if (typeof numberString === "number") {
-      return numberString
+  static StandardizeVolNumber(num: string | number) {
+    if (typeof num === "number") {
+      return num as number
     }
 
     // undefined or null
-    if (!numberString) {
-      return numberString
+    if (!num) {
+      return num
     }
 
     let ret = ""
-    if (typeof numberString === "string") {
-      ret = numberString.replace(/,/g, "")
+    if (typeof num === "string") {
+      ret = num.replace(/,/g, "")
     }
     // else{
     //   // is number, do nothing
