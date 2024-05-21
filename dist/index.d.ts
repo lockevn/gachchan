@@ -60,7 +60,7 @@ declare class CommonHelper {
      * 9:40AM ==> 094000
      * 16:03 (PM) ==> 160300
      */
-    static GetCurrentHoursMinutesSecondsString(date: Date): string;
+    static GetCurrentHoursMinutesSecondsString(date?: Date): string;
     /**
      *
      * @returns string the Date string in format yyyyMMdd (in UTC timezone)
@@ -75,7 +75,7 @@ declare class CommonHelper {
      *
      * @returns string the Time string in format HHmmss (in UTC timezone)
      */
-    static GetCurrentHoursMinutesSecondsStringUTC(date: Date): string;
+    static GetCurrentHoursMinutesSecondsStringUTC(date?: Date): string;
     /**
      * return current date time in full format, in specific culture (language) and timezone
      * @param {*} culture

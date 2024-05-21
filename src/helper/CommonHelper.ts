@@ -188,7 +188,7 @@ export class CommonHelper {
    * 9:40AM ==> 094000
    * 16:03 (PM) ==> 160300
    */
-  static GetCurrentHoursMinutesSecondsString(date: Date) {
+  static GetCurrentHoursMinutesSecondsString(date?: Date) {
     if (!date) date = new Date()
 
     let ret = CommonHelper.GetCurrentHoursMinutesString(date) + date.getSeconds().toString().padStart(2, "0")
@@ -219,7 +219,7 @@ export class CommonHelper {
    *
    * @returns string the Time string in format HHmmss (in UTC timezone)
    */
-  static GetCurrentHoursMinutesSecondsStringUTC(date: Date) {
+  static GetCurrentHoursMinutesSecondsStringUTC(date?: Date) {
     if (!date) date = new Date()
 
     return date.toISOString().substring(11, 19).replace(/:/g, "")
