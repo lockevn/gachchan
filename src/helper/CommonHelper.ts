@@ -6,29 +6,14 @@ import Decimal from "decimal.js"
 
 export class CommonHelper {
   /**
-   * @deprecated use ToNumber() TODO: remove this
-   */
-  static ToActualNumber(val) {
-    return CommonHelper.ToNumber(val)
-  }
-
-  /**
-   * @deprecated use ToNumber() TODO: remove this
-   */
-  static FormatNumber(numberString, fractationDigits = 0) {
-    return CommonHelper.ToNumber(numberString, fractationDigits)
-  }
-
-  /**
    * if provide a number or number-string, this will return a number, with fractationDigits
    * if provided a string ("AT, ATC, ATO") throw exception
    * NonNumberValue like null, undefined and NaN is treat as 0
    * @param {string} numberString
    * @param {number} fractationDigits number of decimal digit
-   * @param {*} treatNonNumberValueAs
    * @returns number
    */
-  static ToNumber(numberString, fractationDigits, treatNonNumberValueAs = 0) {
+  static ToNumber(numberString: number | string, fractationDigits: number, treatNonNumberValueAs = 0) {
     let ret = treatNonNumberValueAs
 
     const convertedToNumberVal = +numberString
@@ -52,7 +37,7 @@ export class CommonHelper {
    * @param {*} value
    * @returns
    */
-  static RoundNumber(value, decimalPlaces = 1) {
+  static RoundNumber(value: number, decimalPlaces = 1) {
     const decimalPlacesMultiplier = Math.pow(10, decimalPlaces)
     return Math.round((value + Number.EPSILON) * decimalPlacesMultiplier) / decimalPlacesMultiplier
   }
@@ -66,7 +51,13 @@ export class CommonHelper {
    * @param {Boolean} executeImmediately if true, invoke actionFn() immediately (in the beginning) when calling this function
    * @param {Function} shouldPerformActionFn shouldPerformActionFn(currentDelay, isPreviousRunSuccess, DEFAULT_INTERVAL). this function should return true if you want to perform actionFn when timeout happen.
    */
-  static async ContinuousExecuteBySetTimeout(actionFn, DEFAULT_INTERVAL = 10000, intervalFn = undefined, executeImmediately = false, shouldPerformActionFn = () => true) {
+  static async ContinuousExecuteBySetTimeout(
+    actionFn: Function,
+    DEFAULT_INTERVAL = 10000,
+    intervalFn?: Function,
+    executeImmediately = false,
+    shouldPerformActionFn = (_0: number, _1?: boolean, _2?: number) => true
+  ) {
     if (!actionFn || typeof actionFn != "function") {
       return {}
     }
@@ -77,9 +68,9 @@ export class CommonHelper {
     }
 
     let delay = intervalFn(undefined, undefined, DEFAULT_INTERVAL)
-    let isPreviousRunSuccess = undefined
+    let isPreviousRunSuccess: boolean | undefined = undefined
     let ret = {
-      timerId: undefined,
+      timerId: undefined as any,
       delay,
     }
 
@@ -94,7 +85,7 @@ export class CommonHelper {
       }
 
       // calculate the new delay for the next run
-      delay = intervalFn(delay, isPreviousRunSuccess, DEFAULT_INTERVAL)
+      delay = intervalFn?.(delay, isPreviousRunSuccess, DEFAULT_INTERVAL)
       ret.delay = delay
       ret.timerId = setTimeout(run, delay)
       // console.debug(`${ret.delay} ${ret.timerId} after setTimeout`)
@@ -122,7 +113,7 @@ export class CommonHelper {
    * @param {*} isPreviousRunSuccess
    * @returns
    */
-  static ContinuousExecuteBySetTimeoutDefaultIntervalFn(previousDelay, isPreviousRunSuccess, DEFAULT_INTERVAL) {
+  static ContinuousExecuteBySetTimeoutDefaultIntervalFn(previousDelay: number, isPreviousRunSuccess: boolean, DEFAULT_INTERVAL: number) {
     if (isPreviousRunSuccess) {
       return DEFAULT_INTERVAL // job is done successfully, we back to use DEFAULT_INTERVAL (because prev delay (which is a failed one) can be (e.g. 12345ms), longer than DEFAULT_INTERVAL)
     }
@@ -144,7 +135,7 @@ export class CommonHelper {
    * @param {*} numberString
    * @returns {string}
    */
-  static RepresentNumberInIconicDigit(numberString) {
+  static RepresentNumberInIconicDigit(numberString: string) {
     if (!numberString) {
       return ""
     }
@@ -170,7 +161,7 @@ export class CommonHelper {
    * @param {Date} date
    * @returns {string}
    */
-  static GetCurrentYearMonthDayString(date) {
+  static GetCurrentYearMonthDayString(date: Date) {
     if (!date) date = new Date()
 
     let ret = date.getFullYear().toString() + (date.getMonth() + 1).toString().padStart(2, "0") + date.getDate().toString().padStart(2, "0")
@@ -185,7 +176,7 @@ export class CommonHelper {
    * @param {Date} date
    * @returns {string}
    */
-  static GetCurrentHoursMinutesString(date) {
+  static GetCurrentHoursMinutesString(date?: Date) {
     if (!date) date = new Date()
     let currentHoursMinutesString = date.getHours().toString().padStart(2, "0") + "" + date.getMinutes().toString().padStart(2, "0")
 
@@ -197,7 +188,7 @@ export class CommonHelper {
    * 9:40AM ==> 094000
    * 16:03 (PM) ==> 160300
    */
-  static GetCurrentHoursMinutesSecondsString(date) {
+  static GetCurrentHoursMinutesSecondsString(date: Date) {
     if (!date) date = new Date()
 
     let ret = CommonHelper.GetCurrentHoursMinutesString(date) + date.getSeconds().toString().padStart(2, "0")
@@ -209,7 +200,7 @@ export class CommonHelper {
    *
    * @returns string the Date string in format yyyyMMdd (in UTC timezone)
    */
-  static GetCurrentYearMonthDayStringUTC(date) {
+  static GetCurrentYearMonthDayStringUTC(date: Date) {
     if (!date) date = new Date()
 
     return date.toISOString().substring(0, 10).replace(/-/g, "")
@@ -219,7 +210,7 @@ export class CommonHelper {
    *
    * @returns string the Time string in format HHmm (in UTC timezone)
    */
-  static GetCurrentHoursMinutesStringUTC(date) {
+  static GetCurrentHoursMinutesStringUTC(date: Date) {
     if (!date) date = new Date()
 
     return date.toISOString().substring(11, 16).replace(/:/g, "")
@@ -228,7 +219,7 @@ export class CommonHelper {
    *
    * @returns string the Time string in format HHmmss (in UTC timezone)
    */
-  static GetCurrentHoursMinutesSecondsStringUTC(date) {
+  static GetCurrentHoursMinutesSecondsStringUTC(date: Date) {
     if (!date) date = new Date()
 
     return date.toISOString().substring(11, 19).replace(/:/g, "")
@@ -241,7 +232,7 @@ export class CommonHelper {
    * @returns
    */
   static GetDatetimeNowString(culture = "vi-VN", timezone = "Asia/Saigon") {
-    return new Intl.DateTimeFormat(culture, { timezone, dateStyle: "full", timeStyle: "long", hour12: false }).format(new Date())
+    return new Intl.DateTimeFormat(culture, { timezone, timeZone: timezone, dateStyle: "full", timeStyle: "long", hour12: false } as any).format(new Date())
     // _calculatedCWData_lastUpdated = new Date().toLocaleString("vi-VN", { timezone: "Asia/Saigon", hour12: false })
   }
 
@@ -250,7 +241,7 @@ export class CommonHelper {
    * @param {*} max
    * @returns number integer
    */
-  static GetRandomIntegerTo(max) {
+  static GetRandomIntegerTo(max: number) {
     return Math.round(Math.random() * max)
   }
 
@@ -259,7 +250,7 @@ export class CommonHelper {
    * @param {*} arr
    * @returns
    */
-  static GetRandomArrayElement(arr) {
+  static GetRandomArrayElement(arr: any[]) {
     if (Array.isArray(arr)) {
       return arr[CommonHelper.GetRandomIntegerTo(arr.length - 1)]
     }
@@ -270,7 +261,7 @@ export class CommonHelper {
    * @param {*} array
    * @returns
    */
-  static ShuffleArray(array) {
+  static ShuffleArray(array: any[]) {
     let currentIndex = array.length,
       randomIndex
 
@@ -294,12 +285,12 @@ export class CommonHelper {
    * E.g.: ["a","b","c"], ["A"], true ==> true, a==A because of ignoreCase
    *
    * value (which is not string) is compared by === (null === null, undefined === undefined)
-   * @param {number|string|number[]|string[]} firstList
-   * @param {number|string|number[]|string[]} otherList accept single value or array
-   * @param {boolean} ignoreCase if any value is string, cast either values of firstList and otherList toString(), then compare ignore case
+   * @param firstList
+   * @param otherList accept single value or array
+   * @param ignoreCase if any value is string, cast either values of firstList and otherList toString(), then compare ignore case
    * @returns boolean true if there is an intersection
    */
-  static HasAnyOfIntersection(firstList, otherList = "", ignoreCase = true) {
+  static HasAnyOfIntersection(firstList: number | string | number[] | string[], otherList: number | string | number[] | string[] = "", ignoreCase = true) {
     if (!firstList || !otherList) return false
 
     const arrFirsts = _flatten([firstList]) // [""]   ==> [""], [[1,2]]   ==> [1,2]
@@ -328,11 +319,11 @@ export class CommonHelper {
    * @param {*} fractationDigits
    * @returns number
    */
-  static Percent(portion, full, fractationDigits) {
+  static Percent(portion: number, full: number, fractationDigits: number) {
     let ret = (100 * portion) / full
 
     if (fractationDigits > 0) {
-      ret = CommonHelper.FormatNumber(ret, fractationDigits)
+      ret = CommonHelper.ToNumber(ret, fractationDigits)
     }
     return ret
   }
@@ -343,7 +334,7 @@ export class CommonHelper {
    * @param {*} to
    * @returns null if from to is not number
    */
-  static DiffInPercent(from, to, fractationDigits) {
+  static DiffInPercent(from: number, to: number, fractationDigits: number) {
     let ret = null
 
     if (_isNumber(from) && _isNumber(to)) {
@@ -383,7 +374,7 @@ export class CommonHelper {
    * @param {*} showPrefixSign
    * @returns string
    */
-  static ToNumberString(val, fractationDigits = 2, showPrefixSign = false, showZeroVal = true, suffix = "") {
+  static ToNumberString(val?: number | string, fractationDigits = 2, showPrefixSign = false, showZeroVal = true, suffix = "") {
     if (val == 0 && !showZeroVal) {
       return ""
     }
@@ -393,10 +384,10 @@ export class CommonHelper {
       return ""
     }
 
-    const prefixSign = showPrefixSign && val > 0 ? "+" : ""
+    const prefixSign = showPrefixSign && +val > 0 ? "+" : ""
 
     // TODO: use NumberToUnitString
-    return prefixSign + CommonHelper.FormatNumber(val, fractationDigits) + suffix
+    return prefixSign + CommonHelper.ToNumber(val, fractationDigits) + suffix
   }
 
   /**
@@ -414,7 +405,7 @@ export class CommonHelper {
    * @param {string} locale "en-US" "vi-VN"
    * @returns string
    */
-  static NumberToUnitString(numberString, unitDividen = 1, fractationDigits = 0, unit = "", locale = "en-US") {
+  static NumberToUnitString(numberString: number | string, unitDividen = 1, fractationDigits = 0, unit = "", locale = "en-US") {
     // TODO: swap unitDividen, fractationDigits
 
     // empty string, or text string which is not a number, return

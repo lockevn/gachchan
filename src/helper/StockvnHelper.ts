@@ -8,9 +8,9 @@ export class StockvnHelper {
   /**
    * StockCompany usually represent 1000000 (1 million) as 1,000,000
    * We need to convert it to 1000000
-   * @param {*} numberString
+   * @param numberString
    */
-  static StandardizeVolNumber(numberString) {
+  static StandardizeVolNumber(numberString: string | number) {
     if (typeof numberString === "number") {
       return numberString
     }
@@ -20,7 +20,7 @@ export class StockvnHelper {
       return numberString
     }
 
-    let ret
+    let ret = ""
     if (typeof numberString === "string") {
       ret = numberString.replace(/,/g, "")
     }
@@ -28,7 +28,7 @@ export class StockvnHelper {
     //   // is number, do nothing
     // }
 
-    return CommonHelper.ToNumber(ret)
+    return CommonHelper.ToNumber(ret, 0)
   }
 
   /**
@@ -36,7 +36,7 @@ export class StockvnHelper {
    * @param {*} callbackFn
    * @param {*} interval
    */
-  static ContinuousExecuteInWorkingHours(callbackFn, interval) {
+  static ContinuousExecuteInWorkingHours(callbackFn: Function, interval: number) {
     if (!callbackFn) {
       return
     }
@@ -58,7 +58,7 @@ export class StockvnHelper {
    * @param {Date} now
    * @returns boolean
    */
-  static IsInWorkingHours(now) {
+  static IsInWorkingHours(now?: Date) {
     if (!now) {
       now = new Date()
     }
@@ -75,14 +75,14 @@ export class StockvnHelper {
 
   /**
    *  is in ATO sessions
-   * @param {String} now hhhmm string, like "1130" or "0959"
+   * @param {String} nowString hhhmm string, like "1130" or "0959"
    */
-  static IsIn_ATO_Sessions(now) {
-    if (!now) {
-      now = CommonHelper.GetCurrentHoursMinutesString()
+  static IsIn_ATO_Sessions(nowString: string) {
+    if (!nowString) {
+      nowString = CommonHelper.GetCurrentHoursMinutesString()
     }
 
-    if ("0845" <= now && now <= "0915") {
+    if ("0845" <= nowString && nowString <= "0915") {
       return true
     }
 
@@ -92,7 +92,7 @@ export class StockvnHelper {
    *  is in ATC sessions
    * @param {String} now hhhmm string, like "1130" or "0959"
    */
-  static IsIn_ATC_Sessions(now) {
+  static IsIn_ATC_Sessions(now: string) {
     if (!now) {
       now = CommonHelper.GetCurrentHoursMinutesString()
     }
@@ -108,7 +108,7 @@ export class StockvnHelper {
    * return true if current moment is Monday to Friday
    * @param {Date} now
    */
-  static IsInWorkingDays(now) {
+  static IsInWorkingDays(now?: Date) {
     if (!now) {
       now = new Date()
     }

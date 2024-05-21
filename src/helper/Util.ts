@@ -4,21 +4,16 @@
  * Old util class from 2017, will be merged to CommonHelper
  */
 export class Util {
-  /**
-   *
-   * @param {*} min
-   * @param {*} max
-   */
-  static GetRandomNumberBetween(min, max) {
+  static GetRandomNumberBetween(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
 
   /**
    * split string into array, remove empty entries, each output string is trimmed
    * "1,2,3 ,,, 4, 5 ,6" ==> [1,2,3,4,5,6]
-   * @param {*} strCommaSeparated
+   * @param strCommaSeparated
    */
-  static splitByCommaAndTrim(strCommaSeparated) {
+  static splitByCommaAndTrim(strCommaSeparated?: string) {
     if (strCommaSeparated) {
       return strCommaSeparated
         .split(",")
@@ -35,8 +30,8 @@ export class Util {
    * @param {Array} arr1
    * @param {Array} arr2
    */
-  static mergeAndDistinct(arr1, arr2) {
-    function onlyUnique(value, index, self) {
+  static mergeAndDistinct(arr1: any[], arr2: any[]) {
+    function onlyUnique(value: any, index: number, self: any[]) {
       return self.indexOf(value) === index
     }
 
@@ -46,9 +41,9 @@ export class Util {
 
   /**
    * give you the Date object, from the jsonDateString (return from some API services)
-   * @param {String} jsonDateString string of this format "/Date(2342353453434)/"
+   * @param jsonDateString string of this format "/Date(2342353453434)/"
    */
-  static parseJsonDate(jsonDateString) {
+  static parseJsonDate(jsonDateString: string) {
     return new Date(parseInt(jsonDateString.replace("/Date(", "").replace(")/", "")))
   }
 
@@ -57,9 +52,9 @@ export class Util {
    * Does not support using ".." to go above/outside the root.
    * This means that join("foo", "../../bar") will not resolve to "../bar"
    */
-  static joinPath(/* path segments */) {
+  static joinPath(...paths: string[] /* path segments */) {
     // Split the inputs into a list of path commands.
-    var parts = []
+    var parts: any[] = []
     for (var i = 0, l = arguments.length; i < l; i++) {
       parts = parts.concat(arguments[i].split("/"))
     }
@@ -84,9 +79,10 @@ export class Util {
   /**
    * A simple function to get the dirname of a path
    * Trailing slashes are ignored. Leading slash is preserved.
-   * @param {*} path
+   * @param path
    */
-  static dirname(path) {
-    return join(path, "..")
+  static dirname(path: string) {
+    // ts-ignore
+    return this.joinPath(path, "..")
   }
 } // end class

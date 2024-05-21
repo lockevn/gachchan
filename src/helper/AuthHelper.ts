@@ -17,8 +17,6 @@ export class AuthHelper {
   /**
    * merge 2 arrays of roles and reduce to distinct
    * [1,2,3] & [2, 3, 4] ==> return [1,2,3,4]
-   * @param {Array} arr1
-   * @param {Array} arr2
    */
   static mergeRoles(arr1: any[], arr2: any[]) {
     function onlyUnique(value: any, index: number, self: any[]) {
@@ -34,12 +32,12 @@ export class AuthHelper {
    * Examples: given "crm,advisor", if user has "crm", this returns [crm] only
    * given "crm,advisor", if user has "admin", this returns [crm,advisor]
    *
-   * @param {String} requireRoles required roles, to say user is qualified
-   * @param {[String]} userRoles roles of user, to validate with requireRoles
-   * @returns {[String]} array of satisfy roles
+   * @param requireRoles required roles, to say user is qualified
+   * @param userRoles roles of user, to validate with requireRoles
+   * @returns array of satisfy roles
    */
-  static hasRoles(requireRoles, userRoles) {
-    let arrRet = []
+  static hasRoles(requireRoles: string, userRoles: string[]) {
+    let arrRet: string[] = []
 
     if (!requireRoles || !userRoles || !Array.isArray(userRoles)) {
       // throw Error("require: requireRoles, userRoles");
