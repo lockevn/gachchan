@@ -1,3 +1,48 @@
+declare class DateTimeHelper {
+    /**
+     * if now is 2002 12 31 14:22, this return 20021231.
+     * @param {Date} date
+     * @returns {string}
+     */
+    static GetCurrentYearMonthDayString(date: Date): string;
+    /**
+     * if now is 14:22, this return 1422.
+     * 9:40AM ==> 0940
+     * 16:03 (PM) ==> 1603
+     * @param {Date} date
+     * @returns {string}
+     */
+    static GetCurrentHoursMinutesString(date?: Date): string;
+    /**
+     * if now is 14:22:59, this return 142259.
+     * 9:40AM ==> 094000
+     * 16:03 (PM) ==> 160300
+     */
+    static GetCurrentHoursMinutesSecondsString(date?: Date): string;
+    /**
+     *
+     * @returns string the Date string in format yyyyMMdd (in UTC timezone)
+     */
+    static GetCurrentYearMonthDayStringUTC(date: Date): string;
+    /**
+     *
+     * @returns string the Time string in format HHmm (in UTC timezone)
+     */
+    static GetCurrentHoursMinutesStringUTC(date: Date): string;
+    /**
+     *
+     * @returns string the Time string in format HHmmss (in UTC timezone)
+     */
+    static GetCurrentHoursMinutesSecondsStringUTC(date?: Date): string;
+    /**
+     * return current date time in full format, in specific culture (language) and timezone
+     * @param {*} culture
+     * @param {*} timezone
+     * @returns
+     */
+    static GetDatetimeNowString(culture?: string, timezone?: string): string;
+}
+
 declare class CommonHelper {
     /**
      * if provide a number or number-string, this will return a number, with fractationDigits
@@ -43,49 +88,7 @@ declare class CommonHelper {
      * @param {*} numberString
      * @returns {string}
      */
-    static RepresentNumberInIconicDigit(numberString: string): string;
-    /**
-     * if now is 2002 12 31 14:22, this return 20021231.
-     * @param {Date} date
-     * @returns {string}
-     */
-    static GetCurrentYearMonthDayString(date: Date): string;
-    /**
-     * if now is 14:22, this return 1422.
-     * 9:40AM ==> 0940
-     * 16:03 (PM) ==> 1603
-     * @param {Date} date
-     * @returns {string}
-     */
-    static GetCurrentHoursMinutesString(date?: Date): string;
-    /**
-     * if now is 14:22:59, this return 142259.
-     * 9:40AM ==> 094000
-     * 16:03 (PM) ==> 160300
-     */
-    static GetCurrentHoursMinutesSecondsString(date?: Date): string;
-    /**
-     *
-     * @returns string the Date string in format yyyyMMdd (in UTC timezone)
-     */
-    static GetCurrentYearMonthDayStringUTC(date: Date): string;
-    /**
-     *
-     * @returns string the Time string in format HHmm (in UTC timezone)
-     */
-    static GetCurrentHoursMinutesStringUTC(date: Date): string;
-    /**
-     *
-     * @returns string the Time string in format HHmmss (in UTC timezone)
-     */
-    static GetCurrentHoursMinutesSecondsStringUTC(date?: Date): string;
-    /**
-     * return current date time in full format, in specific culture (language) and timezone
-     * @param {*} culture
-     * @param {*} timezone
-     * @returns
-     */
-    static GetDatetimeNowString(culture?: string, timezone?: string): string;
+    static RepresentNumberInIconicDigit(numberString: string | null): string;
     /**
      * random an int number, maximum is max - 1. Max = 10, so return 0 to 10
      * @param {*} max
@@ -164,6 +167,52 @@ declare class CommonHelper {
      * @returns string
      */
     static NumberToUnitString(numberString: number | string, unitDividen?: number, fractationDigits?: number, unit?: string, locale?: string): string;
+    /**
+     * @deprecated since version 6.1.0
+     * if now is 2002 12 31 14:22, this return 20021231.
+     * @param {Date} date
+     * @returns {string}
+     */
+    static GetCurrentYearMonthDayString: typeof DateTimeHelper.GetCurrentYearMonthDayString;
+    /**
+     * @deprecated since version 6.1.0
+     * if now is 14:22, this return 1422.
+     * 9:40AM ==> 0940
+     * 16:03 (PM) ==> 1603
+     * @param {Date} date
+     * @returns {string}
+     */
+    static GetCurrentHoursMinutesString: typeof DateTimeHelper.GetCurrentHoursMinutesString;
+    /**
+     * @deprecated since version 6.1.0
+     * if now is 14:22:59, this return 142259.
+     * 9:40AM ==> 094000
+     * 16:03 (PM) ==> 160300
+     */
+    static GetCurrentHoursMinutesSecondsString: typeof DateTimeHelper.GetCurrentHoursMinutesSecondsString;
+    /**
+     * @deprecated since version 6.1.0
+     * @returns string the Date string in format yyyyMMdd (in UTC timezone)
+     */
+    static GetCurrentYearMonthDayStringUTC: typeof DateTimeHelper.GetCurrentYearMonthDayStringUTC;
+    /**
+     * @deprecated since version 6.1.0
+     * @returns string the Time string in format HHmm (in UTC timezone)
+     */
+    static GetCurrentHoursMinutesStringUTC: typeof DateTimeHelper.GetCurrentHoursMinutesStringUTC;
+    /**
+     * @deprecated since version 6.1.0
+     * @returns string the Time string in format HHmmss (in UTC timezone)
+     */
+    static GetCurrentHoursMinutesSecondsStringUTC: typeof DateTimeHelper.GetCurrentHoursMinutesSecondsStringUTC;
+    /**
+     * @deprecated since version 6.1.0
+     * return current date time in full format, in specific culture (language) and timezone
+     * @param {*} culture
+     * @param {*} timezone
+     * @returns
+     */
+    static GetDatetimeNowString: typeof DateTimeHelper.GetDatetimeNowString;
 }
 
 declare class StockvnHelper {

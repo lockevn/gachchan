@@ -63,7 +63,9 @@ export class StockvnHelper {
       now = new Date()
     }
 
-    if (!StockvnHelper.IsInWorkingDays(now)) return false
+    if (!StockvnHelper.IsInWorkingDays(now)) {
+      return false
+    }
 
     const hhmm = CommonHelper.GetCurrentHoursMinutesString(now)
     if (("0845" <= hhmm && hhmm <= "1130") || ("1300" <= hhmm && hhmm <= "1445")) {

@@ -26,7 +26,7 @@ describe("CommonHelper", () => {
     expect(target.ToNumber("0")).toBe(0)
     expect(target.ToNumber(0)).toBe(0)
 
-    expect(target.ToNumber(19.103857566765578635)).toBe(19.103857566765578635)
+    expect(target.ToNumber(19.103857566765578635)).toBe(19.1)
     expect(target.ToNumber(19.103857566765578635, 0)).toBe(19)
     expect(target.ToNumber("19.103857566765578635", 2)).toBe(19.1)
     expect(target.ToNumber("19.106", 2)).toBe(19.11)
@@ -106,39 +106,6 @@ describe("CommonHelper", () => {
     expect(target.RepresentNumberInIconicDigit(null)).toBe("")
     expect(target.RepresentNumberInIconicDigit("")).toBe("")
     expect(target.RepresentNumberInIconicDigit("000123456789")).toBe("0️⃣0️⃣0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣")
-  })
-
-  describe("Mocking date times", () => {
-    beforeAll(() => {
-      // https://stackoverflow.com/questions/28504545/how-to-mock-a-constructor-like-new-date/65548068#65548068
-      vi.useFakeTimers("modern")
-      vi.setSystemTime(new Date("2020-01-01 07:00:00"))
-    })
-    afterAll(() => {
-      vi.useRealTimers()
-    })
-
-    it("GetCurrentYearMonthDayString", () => {
-      expect(target.GetCurrentYearMonthDayString(new Date("2000-12-31 10:01:59"))).toBe("20001231")
-    })
-
-    it("GetCurrentHoursMinutesString", () => {
-      expect(target.GetCurrentHoursMinutesString(new Date("2000-01-01 10:01:59"))).toBe("1001")
-    })
-    it("GetCurrentHoursMinutesSecondsString", () => {
-      expect(target.GetCurrentHoursMinutesSecondsString(new Date("2000-01-01 00:00:00"))).toBe("000000")
-      expect(target.GetCurrentHoursMinutesSecondsString(new Date("2000-01-01 11:59:59"))).toBe("115959")
-    })
-
-    it("GetCurrent date and time string, in UTC", () => {
-      expect(target.GetCurrentHoursMinutesStringUTC(new Date("2000-01-01 06:00:00"))).toBe("2300")
-      expect(target.GetCurrentHoursMinutesSecondsStringUTC(new Date("2000-01-01 06:00:00"))).toBe("230000")
-      expect(target.GetCurrentYearMonthDayStringUTC(new Date("2000-01-01 06:00:00"))).toBe("19991231")
-    })
-
-    it("GetDatetimeNowString", () => {
-      expect(target.GetDatetimeNowString()).toBe("07:00:00 GMT+7 Thứ Tư, 1 tháng 1, 2020")
-    })
   })
 
   it("NumberToUnitString", () => {

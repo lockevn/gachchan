@@ -1,6 +1,6 @@
 {
   "name": "@lockevn/gachchan",
-  "version": "6.0.6",
+  "version": "6.1.0",
   "releasenote": "HtmlHelper. Shuffle. UTC Util. Remove lodash from bundle. RoundNumber(). ContinuousExecuteBySetTimeout() with new argument executeImmediately",
   "description": "Change to TypeScript from v6. Share lib for common helper functions, work in node and browser",
   "author": "lockevn",
@@ -38,6 +38,7 @@
     "build-fast": "tsup src/index.ts --format cjs,esm",
     "build": "pnpm run build-fast --minify --dts",
     "test": "vitest run",
+    "testwatch": "vitest watch",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
