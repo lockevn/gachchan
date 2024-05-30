@@ -41,6 +41,8 @@ declare class DateTimeHelper {
      * @returns
      */
     static GetDatetimeNowString(culture?: string, timezone?: string): string;
+    /** return the DateTime object like it was get with `new Date()` in a host computer in expected timezone */
+    static GetTimeInGMTTimezone(gmtHour?: number): Date;
 }
 
 declare class CommonHelper {
@@ -228,12 +230,14 @@ declare class StockvnHelper {
      * @param {*} interval
      */
     static ContinuousExecuteInWorkingHours(callbackFn: Function, interval: number): NodeJS.Timeout | undefined;
+    /** return current `hhmm` timestring in GMT7 timezone */
+    static getCurrentGMT7TimeString(): string;
     /**
      * from "now", if in working day, get hhmm time in hhmm format, like "1130" or "0959", then check
      * @param {Date} now
      * @returns boolean
      */
-    static IsInWorkingHours(now?: Date): boolean;
+    static IsInWorkingHours(): boolean;
     /**
      *  is in ATO sessions
      * @param {String} nowString hhhmm string, like "1130" or "0959"
@@ -245,10 +249,9 @@ declare class StockvnHelper {
      */
     static IsIn_ATC_Sessions(nowString?: string): boolean;
     /**
-     * return true if current moment is Monday to Friday
-     * @param {Date} now
+     * return true if current moment is Monday to Friday (Vietnam working days) in GMT+7 timezone
      */
-    static IsInWorkingDays(now?: Date): boolean;
+    static IsInWorkingDays(): boolean;
 }
 
 /**

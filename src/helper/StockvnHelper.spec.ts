@@ -1,12 +1,13 @@
 import { test, assert, expect, it, describe, beforeAll, afterAll } from "vitest"
 import { StockvnHelper } from "./StockvnHelper"
+
 const target = StockvnHelper
 
 describe("StockvnHelper", () => {
   beforeAll(async () => {})
 
   it("StandardizeVolNumber", () => {
-    expect(target.StandardizeVolNumber("")).toBe("")
+    expect(target.StandardizeVolNumber("")).toBeNaN()
 
     expect(target.StandardizeVolNumber("0")).toBe(0)
     expect(target.StandardizeVolNumber(0)).toBe(0)
@@ -20,24 +21,38 @@ describe("StockvnHelper", () => {
   })
 
   describe("Mocking times", () => {
-    it("IsInWorkingHours in non working day first Sunday of Aug 2021", () => {
-      expect(target.IsInWorkingHours(new Date("2021-08-01 10:10:10"))).toBe(false) // first sunday of August
+    it("IsInWorkingHours in working day", () => {
+      const dateMondayVN = new Date("2024-05-27T03:10:10.100Z")
+      vi.setSystemTime(dateMondayVN)
+      expect(target.IsInWorkingHours()).toBe(true)
+
+      const dateMondayVN0845 = new Date("2024-05-27T01:45:00.000Z")
+      vi.setSystemTime(dateMondayVN0845)
+      expect(target.IsInWorkingHours()).toBe(true)
     })
 
-    it("IsInWorkingHours in working day first Monday of Aug 2021", () => {
-      expect(target.IsInWorkingHours(new Date("2021-08-02 10:10:10"))).toBe(true) // monday
+    it("IsInWorkingHours in weekend", () => {
+      const dateSaturday = new Date("2021-07-31 23:15:30 GMT+11:00")
+      vi.setSystemTime(dateSaturday)
+      expect(target.IsInWorkingHours()).toBe(false)
+    })
 
-      expect(target.IsInWorkingHours(new Date("2021-08-02 08:45"))).toBe(true)
-      expect(target.IsInWorkingHours(new Date("2021-08-02 09:14"))).toBe(true)
-      expect(target.IsInWorkingHours(new Date("2021-08-02 11:30"))).toBe(true)
+    it("IsInWorkingHours in working day, but too early", () => {
+      const dateMondayVN0844 = new Date("2024-05-27T01:44:00.000Z")
+      vi.setSystemTime(dateMondayVN0844)
+      expect(target.IsInWorkingHours()).toBe(false)
 
-      expect(target.IsInWorkingHours(new Date("2021-08-02 11:31"))).toBe(false)
-      expect(target.IsInWorkingHours(new Date("2021-08-02 12:59"))).toBe(false)
+      const dateFridayTooEarly = new Date("2024-05-31 06:15:30 GMT+07:00")
+      vi.setSystemTime(dateFridayTooEarly)
+      expect(target.IsInWorkingHours()).toBe(false)
 
-      expect(target.IsInWorkingHours(new Date("2021-08-02 13:00"))).toBe(true)
-      expect(target.IsInWorkingHours(new Date("2021-08-02 14:45"))).toBe(true)
+      const dateMondayInVietnamAndUKTooEarly = new Date("2024-05-27 07:15:30 GMT+07:00")
+      vi.setSystemTime(dateMondayInVietnamAndUKTooEarly)
+      expect(target.IsInWorkingHours()).toBe(false)
 
-      expect(target.IsInWorkingHours(new Date("2021-08-02 14:46"))).toBe(false)
+      const dateMondayInVietnamButSundayInUK = new Date("2024-05-27 06:15:30 GMT+07:00")
+      vi.setSystemTime(dateMondayInVietnamButSundayInUK)
+      expect(target.IsInWorkingHours()).toBe(false)
     })
 
     it("IsIn_ATO_Sessions", () => {
@@ -55,30 +70,17 @@ describe("StockvnHelper", () => {
     })
 
     it("IsInWorkingDays", () => {
-      expect(target.IsInWorkingDays(new Date("2021-07-31"))).toBe(false) // last sat of July
-      expect(target.IsInWorkingDays(new Date("2021-08-01"))).toBe(false) // first sunday of August
-      expect(target.IsInWorkingDays(new Date("2021-08-02"))).toBe(true) // monday
+      const dateFridayInUKandVN = new Date("2024-05-31 00:00:000Z")
+      vi.setSystemTime(dateFridayInUKandVN)
+      expect(target.IsInWorkingDays()).toBe(true)
+
+      const dateFridayLastMinute = new Date("2024-05-31 16:59:000Z")
+      vi.setSystemTime(dateFridayLastMinute)
+      expect(target.IsInWorkingDays()).toBe(true)
+
+      const dateFridayInUK_SatInVN = new Date("2024-05-31 17:00:000Z") // new day in GMT7
+      vi.setSystemTime(dateFridayInUK_SatInVN)
+      expect(target.IsInWorkingDays()).toBe(false)
     })
   })
-
-  // describe("generateRandomPriceData", function() {
-  //   it("generateRandomPriceData", function() {
-  //     // mock data, with max variation = 7%
-  //     function generateRandomPriceData(_startingPrice, _limitLength) {
-  //       var arrFakeData = [_startingPrice];
-  //       for (var i = 1; i < _limitLength; i++) {
-  //         var cur = arrFakeData[i - 1];
-  //         var r =
-  //           cur *
-  //           (1 + ((Math.random() > 0.5 ? -1 : 1) * Math.random()) / 14.28);
-  //         arrFakeData.push(xctarget.roundToTwo(r));
-  //       }
-  //       return arrFakeData;
-  //     }
-
-  //     var arr = generateRandomPriceData(100, 10);
-  //     assert.equal(arr.length, 10);
-  //     assert.equal(arr[0], 100);
-  //   });
-  // });
 })

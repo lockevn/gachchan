@@ -3,6 +3,7 @@ import _intersectionWith from "lodash/intersectionWith"
 import _isNumber from "lodash/isNumber"
 import _flatten from "lodash/flatten"
 import { CommonHelper } from "./CommonHelper"
+import { DateTimeHelper } from "./DateTimeHelper"
 
 export class StockvnHelper {
   /**
@@ -28,7 +29,7 @@ export class StockvnHelper {
     //   // is number, do nothing
     // }
 
-    return CommonHelper.ToNumber(ret, 0)
+    return CommonHelper.ToNumber(ret)
   }
 
   /**
@@ -53,21 +54,24 @@ export class StockvnHelper {
     return timerId
   }
 
+  /** return current `hhmm` timestring in GMT7 timezone */
+  static getCurrentGMT7TimeString() {
+    const gmt7time = DateTimeHelper.GetTimeInGMTTimezone(7)
+    const hhmm = DateTimeHelper.GetCurrentHoursMinutesString(gmt7time)
+    return hhmm
+  }
+
   /**
    * from "now", if in working day, get hhmm time in hhmm format, like "1130" or "0959", then check
    * @param {Date} now
    * @returns boolean
    */
-  static IsInWorkingHours(now?: Date) {
-    if (!now) {
-      now = new Date()
-    }
-
-    if (!StockvnHelper.IsInWorkingDays(now)) {
+  static IsInWorkingHours() {
+    if (!this.IsInWorkingDays()) {
       return false
     }
 
-    const hhmm = CommonHelper.GetCurrentHoursMinutesString(now)
+    const hhmm = this.getCurrentGMT7TimeString()
     if (("0845" <= hhmm && hhmm <= "1130") || ("1300" <= hhmm && hhmm <= "1445")) {
       return true
     } else {
@@ -81,7 +85,7 @@ export class StockvnHelper {
    */
   static IsIn_ATO_Sessions(nowString?: string) {
     if (!nowString) {
-      nowString = CommonHelper.GetCurrentHoursMinutesString()
+      nowString = this.getCurrentGMT7TimeString()
     }
 
     if ("0845" <= nowString && nowString <= "0915") {
@@ -96,7 +100,7 @@ export class StockvnHelper {
    */
   static IsIn_ATC_Sessions(nowString?: string) {
     if (!nowString) {
-      nowString = CommonHelper.GetCurrentHoursMinutesString()
+      nowString = this.getCurrentGMT7TimeString()
     }
 
     if ("1430" <= nowString && nowString <= "1445") {
@@ -107,19 +111,17 @@ export class StockvnHelper {
   }
 
   /**
-   * return true if current moment is Monday to Friday
-   * @param {Date} now
+   * return true if current moment is Monday to Friday (Vietnam working days) in GMT+7 timezone
    */
-  static IsInWorkingDays(now?: Date) {
-    if (!now) {
-      now = new Date()
-    }
+  static IsInWorkingDays() {
+    const gmt7time = DateTimeHelper.GetTimeInGMTTimezone(7)
 
-    let currentDay = now.getDay() // // Sunday - Saturday : 0 - 6
+    // Sunday - Saturday : 0 - 6
+    const currentDay = gmt7time.getDay()
     if (0 < currentDay && currentDay < 6) {
       return true
-    } else {
-      return false
     }
+
+    return false
   }
 }

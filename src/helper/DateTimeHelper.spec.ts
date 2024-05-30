@@ -7,8 +7,7 @@ describe("DateTimeHelper", () => {
   describe("Mocking date times", () => {
     beforeAll(() => {
       // https://stackoverflow.com/questions/28504545/how-to-mock-a-constructor-like-new-date/65548068#65548068
-      vi.useFakeTimers("modern")
-      vi.setSystemTime(new Date("2020-01-01 07:00:00"))
+      vi.setSystemTime(new Date("2020-01-01 00:00:000Z"))
     })
     afterAll(() => {
       vi.useRealTimers()
@@ -20,6 +19,7 @@ describe("DateTimeHelper", () => {
 
     it("GetCurrentHoursMinutesString", () => {
       expect(target.GetCurrentHoursMinutesString(new Date("2000-01-01 10:01:59"))).toBe("1001")
+      expect(target.GetCurrentHoursMinutesString(new Date("2000-01-01 00:11:59"))).toBe("0011")
     })
     it("GetCurrentHoursMinutesSecondsString", () => {
       expect(target.GetCurrentHoursMinutesSecondsString(new Date("2000-01-01 00:00:00"))).toBe("000000")
@@ -34,6 +34,11 @@ describe("DateTimeHelper", () => {
 
     it("GetDatetimeNowString", () => {
       expect(target.GetDatetimeNowString()).toBe("07:00:00 GMT+7 Thứ Tư, 1 tháng 1, 2020")
+    })
+
+    it("GetTimeInGMTTimezone", () => {
+      // 76AM in GMT, is 11hPM yesterday in GMT
+      expect(target.GetTimeInGMTTimezone(7)).toEqual(new Date("2020-01-01T00:00:00.000Z"))
     })
   })
 })

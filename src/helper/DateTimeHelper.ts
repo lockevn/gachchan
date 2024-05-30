@@ -24,7 +24,7 @@ export class DateTimeHelper {
    * @param {Date} date
    * @returns {string}
    */
-  static GetCurrentHoursMinutesString(date?: Date) {
+  static GetCurrentHoursMinutesString(date?: Date): string {
     if (!date) date = new Date()
 
     let currentHoursMinutesString = date.getHours().toString().padStart(2, "0") + "" + date.getMinutes().toString().padStart(2, "0")
@@ -83,5 +83,21 @@ export class DateTimeHelper {
   static GetDatetimeNowString(culture = "vi-VN", timezone = "Asia/Saigon") {
     return new Intl.DateTimeFormat(culture, { timezone, timeZone: timezone, dateStyle: "full", timeStyle: "long", hour12: false } as any).format(new Date())
     // _calculatedCWData_lastUpdated = new Date().toLocaleString("vi-VN", { timezone: "Asia/Saigon", hour12: false })
+  }
+
+  /** return the DateTime object like it was get with `new Date()` in a host computer in expected timezone */
+  static GetTimeInGMTTimezone(gmtHour = 7) {
+    const now = new Date()
+
+    // Adjust for user's local time zone offset
+
+    const utcOffset =
+      // when calling this in GMT+7, it return -420 minutes
+      now.getTimezoneOffset() *
+      // Convert minutes to milliseconds
+      60000
+
+    const timeInExpectedGMTTimezone = new Date(now.getTime() + utcOffset + gmtHour * 60 * 60000) // gmtHour = 7, Add 7 hours for GMT+7
+    return timeInExpectedGMTTimezone
   }
 }
