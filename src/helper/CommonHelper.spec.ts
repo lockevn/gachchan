@@ -150,37 +150,33 @@ describe("CommonHelper", () => {
 
   describe("RandomArray", () => {
     it("ShuffleArray", () => {
-      const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      const SHUFFLE_COUNT = 1000
 
-      const ret = []
+      const array = Array.from({ length: SHUFFLE_COUNT }, (e, i) => i)
+      const arrIterationResult = []
 
-      const shuffleCount = 1000
-
-      for (let index = 0; index < shuffleCount; index++) {
-        target.ShuffleArray(array)
-        ret.push(array.join("_"))
+      for (let index = 0; index < SHUFFLE_COUNT; index++) {
+        const newShuffleArray = target.ShuffleArray(array)
+        arrIterationResult.push(newShuffleArray.join("_"))
       }
 
       // https://stackoverflow.com/questions/840781/get-all-non-unique-values-i-e-duplicate-more-than-one-occurrence-in-an-array
-      const findDuplicates = (arr) => {
-        let sorted_arr = arr.slice().sort() // You can define the comparing function here.
+      const findDuplicates = (arr: string[]) => {
+        let cloned_sorted_arr = arr.slice().sort() // You can define the comparing function here.
         // JS by default uses a crappy string compare.
-        // (we use slice to clone the array so the
-        // original array won't be modified)
+        // (we use slice to clone the array so the original array won't be modified)
         let results = []
-        for (let i = 0; i < sorted_arr.length - 1; i++) {
-          if (sorted_arr[i + 1] == sorted_arr[i]) {
-            results.push(sorted_arr[i])
+        for (let i = 0; i < cloned_sorted_arr.length - 1; i++) {
+          if (cloned_sorted_arr[i + 1] == cloned_sorted_arr[i]) {
+            results.push(cloned_sorted_arr[i])
           }
         }
         return results
       }
 
-      const percentageOfDup = findDuplicates(ret).length / shuffleCount
-      console.log("percentageOfDup", percentageOfDup)
-
-      // TODO: review this
-      expect(percentageOfDup > 0.05).toBe(true)
+      const percentageOfDuplicatedEntry = findDuplicates(arrIterationResult).length / SHUFFLE_COUNT
+      expect(percentageOfDuplicatedEntry < 0.03).toBe(true)
+      // console.debug("findDuplicates(ret).length / SHUFFLE_COUNT = ", findDuplicates(arrIterationResult).length, "/", SHUFFLE_COUNT, "=", percentageOfDuplicatedEntry)
     })
   })
 

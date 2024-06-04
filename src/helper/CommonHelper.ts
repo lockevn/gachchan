@@ -294,10 +294,12 @@ export class CommonHelper {
    * empty string, null, NaN, undefined return ""
    *  or text string which is not a number, return ""
    * format number to string (usage of PercentValueFormatter can use this)
-   * @param {*} val
-   * @param {*} fractationDigits
-   * @param {*} showPrefixSign
-   * @returns string
+   * @param val
+   * @param fractationDigits
+   * @param showPrefixSign
+   * @param showZeroVal
+   * @param suffix
+   * @returns
    */
   static ToNumberString(val?: number | string, fractationDigits = 2, showPrefixSign = false, showZeroVal = true, suffix = "") {
     if (val == 0 && !showZeroVal) {
@@ -310,8 +312,6 @@ export class CommonHelper {
     }
 
     const prefixSign = showPrefixSign && +val > 0 ? "+" : ""
-
-    // TODO: use NumberToUnitString
     return prefixSign + CommonHelper.ToNumber(val, fractationDigits) + suffix
   }
 
@@ -322,17 +322,14 @@ export class CommonHelper {
    * vi-VN default thounsand separator is ,
    * 0 will be returned as "0"
    * NaN or "" will be returned as ""
-   * "ATC" (which is cannot be converted to number) will be returned as as "ATC"
+   * "ATC" (which is cannot be converted to number) will be returned as is "ATC"
    * @param {number | string} numberString original number (string) to format. This string must be able to convert to number.
    * @param {number} unitDividen dividen divide number to this
    * @param {number} fractationDigits default is 0 (1000 --> 1,000). if 1, 1000,1 --> 1,000.1
    * @param {string} unit default is "tr" (triệu đồng VN)
    * @param {string} locale "en-US" "vi-VN"
-   * @returns string
    */
-  static NumberToUnitString(numberString: number | string, unitDividen = 1, fractationDigits = 0, unit = "", locale = "en-US") {
-    // TODO: swap unitDividen, fractationDigits
-
+  static NumberToUnitString(numberString: number | string, unitDividen = 1, fractationDigits = 0, unit = "", locale = "en-US"): string {
     // empty string, or text string which is not a number, return
     if (numberString === 0) return "0"
     if (!numberString) return ""

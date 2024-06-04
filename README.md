@@ -25,3 +25,6 @@ npm i gachchan
 
 https://github.com/sponsors/lockevn
 
+# To publish/release
+
+`pnpm build` then commit code and `/dist` to repo. Create git tag and publish the git tag
