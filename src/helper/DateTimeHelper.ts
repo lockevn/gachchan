@@ -75,14 +75,20 @@ export class DateTimeHelper {
   }
 
   /**
-   * return current date time in full format, in specific culture (language) and timezone
+   * return current date time in full format, in specific culture (language) and timezone.
+   * new Date().toLocaleString("vi-VN", { timezone: "Asia/Saigon", hour12: false })
    * @param {*} culture
    * @param {*} timezone
    * @returns
    */
   static GetDatetimeNowString(culture = "vi-VN", timezone = "Asia/Saigon") {
-    return new Intl.DateTimeFormat(culture, { timezone, timeZone: timezone, dateStyle: "full", timeStyle: "long", hour12: false } as any).format(new Date())
-    // _calculatedCWData_lastUpdated = new Date().toLocaleString("vi-VN", { timezone: "Asia/Saigon", hour12: false })
+    return new Intl.DateTimeFormat(culture, {
+      //
+      timeZone: timezone,
+      dateStyle: "full",
+      timeStyle: "long",
+      hour12: false,
+    } as any).format(new Date())
   }
 
   /** return the DateTime object like it was get with `new Date()` in a host computer in expected timezone */
