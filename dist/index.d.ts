@@ -35,7 +35,8 @@ declare class DateTimeHelper {
      */
     static GetCurrentHoursMinutesSecondsStringUTC(date?: Date): string;
     /**
-     * return current date time in full format, in specific culture (language) and timezone
+     * return current date time in full format, in specific culture (language) and timezone.
+     * new Date().toLocaleString("vi-VN", { timezone: "Asia/Saigon", hour12: false })
      * @param {*} culture
      * @param {*} timezone
      * @returns
@@ -218,6 +219,53 @@ declare class CommonHelper {
     static GetDatetimeNowString: typeof DateTimeHelper.GetDatetimeNowString;
 }
 
+/**
+ * Old util class from 2017, will be merged to CommonHelper
+ */
+declare class Util {
+    static GetRandomNumberBetween(min: number, max: number): number;
+    /**
+     * split string into array, remove empty entries, each output string is trimmed
+     * "1,2,3 ,,, 4, 5 ,6" ==> [1,2,3,4,5,6]
+     * @param strCommaSeparated
+     */
+    static splitByCommaAndTrim(strCommaSeparated?: string): string[];
+    /**
+     * merge 2 arrays of entries and reduce to distinct
+     * [1,2,3] & [2, 3, 4] ==> return [1,2,3,4]
+     * @param {Array} arr1
+     * @param {Array} arr2
+     */
+    static mergeAndDistinct(arr1: any[], arr2: any[]): any[];
+    /**
+     * give you the Date object, from the jsonDateString (return from some API services)
+     * @param jsonDateString string of this format "/Date(2342353453434)/"
+     */
+    static parseJsonDate(jsonDateString: string): Date;
+    /**
+     * Joins path segments.  Preserves initial "/" and resolves ".." and "."
+     * Does not support using ".." to go above/outside the root.
+     * This means that join("foo", "../../bar") will not resolve to "../bar"
+     */
+    static joinPath(...paths: string[]): string;
+    /**
+     * A simple function to get the dirname of a path
+     * Trailing slashes are ignored. Leading slash is preserved.
+     * @param path
+     */
+    static dirname(path: string): string;
+}
+
+declare class HtmlHelper {
+    /**
+     *
+     * @param {string} bodyHtml
+     * @param {string[]} tags [style, script, svg]
+     * @returns
+     */
+    static cleanupHtmlTags(bodyHtml: string, tags: string[]): string;
+}
+
 declare class StockvnHelper {
     /**
      * StockCompany usually represent 1000000 (1 million) as 1,000,000
@@ -279,53 +327,6 @@ declare class AuthHelper {
     static hasRoles(requireRoles: string, userRoles: string[]): string[];
 }
 
-/**
- * Old util class from 2017, will be merged to CommonHelper
- */
-declare class Util {
-    static GetRandomNumberBetween(min: number, max: number): number;
-    /**
-     * split string into array, remove empty entries, each output string is trimmed
-     * "1,2,3 ,,, 4, 5 ,6" ==> [1,2,3,4,5,6]
-     * @param strCommaSeparated
-     */
-    static splitByCommaAndTrim(strCommaSeparated?: string): string[];
-    /**
-     * merge 2 arrays of entries and reduce to distinct
-     * [1,2,3] & [2, 3, 4] ==> return [1,2,3,4]
-     * @param {Array} arr1
-     * @param {Array} arr2
-     */
-    static mergeAndDistinct(arr1: any[], arr2: any[]): any[];
-    /**
-     * give you the Date object, from the jsonDateString (return from some API services)
-     * @param jsonDateString string of this format "/Date(2342353453434)/"
-     */
-    static parseJsonDate(jsonDateString: string): Date;
-    /**
-     * Joins path segments.  Preserves initial "/" and resolves ".." and "."
-     * Does not support using ".." to go above/outside the root.
-     * This means that join("foo", "../../bar") will not resolve to "../bar"
-     */
-    static joinPath(...paths: string[]): string;
-    /**
-     * A simple function to get the dirname of a path
-     * Trailing slashes are ignored. Leading slash is preserved.
-     * @param path
-     */
-    static dirname(path: string): string;
-}
-
-declare class HtmlHelper {
-    /**
-     *
-     * @param {string} bodyHtml
-     * @param {string[]} tags [style, script, svg]
-     * @returns
-     */
-    static cleanupHtmlTags(bodyHtml: string, tags: string[]): string;
-}
-
 declare const foo = "foo";
 
-export { AuthHelper, CommonHelper, HtmlHelper, StockvnHelper, Util, foo };
+export { AuthHelper, CommonHelper, DateTimeHelper, HtmlHelper, StockvnHelper, Util, foo };
