@@ -4,7 +4,7 @@ declare class DateTimeHelper {
      * @param {Date} date
      * @returns {string}
      */
-    static GetCurrentYearMonthDayString(date: Date): string;
+    static GetCurrentYearMonthDayString(date?: Date): string;
     /**
      * if now is 14:22, this return 1422.
      * 9:40AM ==> 0940
@@ -23,12 +23,12 @@ declare class DateTimeHelper {
      *
      * @returns string the Date string in format yyyyMMdd (in UTC timezone)
      */
-    static GetCurrentYearMonthDayStringUTC(date: Date): string;
+    static GetCurrentYearMonthDayStringUTC(date?: Date): string;
     /**
      *
      * @returns string the Time string in format HHmm (in UTC timezone)
      */
-    static GetCurrentHoursMinutesStringUTC(date: Date): string;
+    static GetCurrentHoursMinutesStringUTC(date?: Date): string;
     /**
      *
      * @returns string the Time string in format HHmmss (in UTC timezone)

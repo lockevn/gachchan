@@ -9,7 +9,7 @@ export class DateTimeHelper {
    * @param {Date} date
    * @returns {string}
    */
-  static GetCurrentYearMonthDayString(date: Date) {
+  static GetCurrentYearMonthDayString(date?: Date) {
     if (!date) date = new Date()
 
     let ret = date.getFullYear().toString() + (date.getMonth() + 1).toString().padStart(2, "0") + date.getDate().toString().padStart(2, "0")
@@ -49,7 +49,7 @@ export class DateTimeHelper {
    *
    * @returns string the Date string in format yyyyMMdd (in UTC timezone)
    */
-  static GetCurrentYearMonthDayStringUTC(date: Date) {
+  static GetCurrentYearMonthDayStringUTC(date?: Date) {
     if (!date) date = new Date()
 
     return date.toISOString().substring(0, 10).replace(/-/g, "")
@@ -59,7 +59,7 @@ export class DateTimeHelper {
    *
    * @returns string the Time string in format HHmm (in UTC timezone)
    */
-  static GetCurrentHoursMinutesStringUTC(date: Date) {
+  static GetCurrentHoursMinutesStringUTC(date?: Date) {
     if (!date) date = new Date()
 
     return date.toISOString().substring(11, 16).replace(/:/g, "")
