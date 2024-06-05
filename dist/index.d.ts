@@ -34,6 +34,8 @@ declare class DateTimeHelper {
      * @returns string the Time string in format HHmmss (in UTC timezone)
      */
     static GetCurrentHoursMinutesSecondsStringUTC(date?: Date): string;
+    /** full yearmonthdaytime string in UTC timezone, without ":" char (safe for file naming) */
+    static getCurrentISOStringUTC(): string;
     /**
      * return current date time in full format, in specific culture (language) and timezone.
      * new Date().toLocaleString("vi-VN", { timezone: "Asia/Saigon", hour12: false })
