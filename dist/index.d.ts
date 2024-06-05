@@ -303,6 +303,11 @@ declare class StockvnHelper {
      * return true if current moment is Monday to Friday (Vietnam working days) in GMT+7 timezone
      */
     static IsInWorkingDays(): boolean;
+    /**
+     * return true if s is like HNXINDEX, I3-FIN
+     * @param str SymbolCode (HPG, HNXINDEX, I3-FIN)
+     */
+    static IsCompoundIndexSymbolCode(str: string): boolean;
 }
 
 /**

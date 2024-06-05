@@ -20,6 +20,14 @@ describe("StockvnHelper", () => {
     expect(target.StandardizeVolNumber(1000.11)).toBe(1000.11)
   })
 
+  it("isCompoundIndexSymbolCode", () => {
+    expect(target.IsCompoundIndexSymbolCode("I3-FIN")).toBeTruthy()
+    expect(target.IsCompoundIndexSymbolCode("HNXINDEX")).toBeTruthy()
+
+    expect(target.IsCompoundIndexSymbolCode("HPG")).toBeFalsy()
+    expect(target.IsCompoundIndexSymbolCode("TCB")).toBeFalsy()
+  })
+
   describe("Mocking times", () => {
     it("IsInWorkingHours in working day", () => {
       const dateMondayVN = new Date("2024-05-27T03:10:10.100Z")

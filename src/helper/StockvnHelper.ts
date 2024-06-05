@@ -124,4 +124,20 @@ export class StockvnHelper {
 
     return false
   }
+
+  /**
+   * return true if s is like HNXINDEX, I3-FIN
+   * @param str SymbolCode (HPG, HNXINDEX, I3-FIN)
+   */
+  static IsCompoundIndexSymbolCode(str: string) {
+    if (str.search(/^I\d\-/i) == 0) {
+      return true
+    }
+
+    if (str.search(/INDEX/) >= 0) {
+      return true
+    }
+
+    return false
+  }
 }
