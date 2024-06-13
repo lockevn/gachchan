@@ -54,11 +54,23 @@ export class StockvnHelper {
     return timerId
   }
 
-  /** return current `hhmm` timestring in GMT7 timezone */
+  /** @deprecated use getCurrentGMT7_hhmmTimeString() */
   static getCurrentGMT7TimeString() {
+    return this.getCurrentGMT7HoursMinutesString()
+  }
+
+  /** return current `hhmm` timestring in GMT7 timezone */
+  static getCurrentGMT7HoursMinutesString() {
     const gmt7time = DateTimeHelper.GetTimeInGMTTimezone(7)
     const hhmm = DateTimeHelper.GetCurrentHoursMinutesString(gmt7time)
     return hhmm
+  }
+
+  /** return current `hhmmss` timestring in GMT7 timezone */
+  static getCurrentGMT7HoursMinutesSecondsString() {
+    const gmt7time = DateTimeHelper.GetTimeInGMTTimezone(7)
+    const hhmmss = DateTimeHelper.GetCurrentHoursMinutesSecondsString(gmt7time)
+    return hhmmss
   }
 
   /**

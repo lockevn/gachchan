@@ -281,8 +281,12 @@ declare class StockvnHelper {
      * @param {*} interval
      */
     static ContinuousExecuteInWorkingHours(callbackFn: Function, interval: number): NodeJS.Timeout | undefined;
-    /** return current `hhmm` timestring in GMT7 timezone */
+    /** @deprecated use getCurrentGMT7_hhmmTimeString() */
     static getCurrentGMT7TimeString(): string;
+    /** return current `hhmm` timestring in GMT7 timezone */
+    static getCurrentGMT7HoursMinutesString(): string;
+    /** return current `hhmmss` timestring in GMT7 timezone */
+    static getCurrentGMT7HoursMinutesSecondsString(): string;
     /**
      * from "now", if in working day, get hhmm time in hhmm format, like "1130" or "0959", then check
      * @param {Date} now
