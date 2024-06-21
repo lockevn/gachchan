@@ -46,16 +46,16 @@ export class CommonHelper {
   /**
    * Continuously call actionFn by setTimeout with interval. The next process will be schedule after current process completed (success or failed)
    * Interval can be determined (randomly) by intervalFn() and delay between execution can be vary.
-   * @param {Function} actionFn support async function
-   * @param {Number} DEFAULT_INTERVAL if nothing provided or callbackFn success, this is the interval for running. If adjustment happen, it will not exceed 2*DEFAULT_INTERVAL
-   * @param {Function} intervalFn intervalFn(currentDelay, isPreviousRunSuccess, DEFAULT_INTERVAL). if currentDelay is undefined, should return the default. if currentDelay has value, should return next delay.
-   * @param {Boolean} executeImmediately if true, invoke actionFn() immediately (in the beginning) when calling this function
-   * @param {Function} shouldPerformActionFn shouldPerformActionFn(currentDelay, isPreviousRunSuccess, DEFAULT_INTERVAL). this function should return true if you want to perform actionFn when timeout happen.
+   * @param actionFn support async function
+   * @param DEFAULT_INTERVAL if nothing provided or callbackFn success, this is the interval for running. If adjustment happen, it will not exceed 2*DEFAULT_INTERVAL
+   * @param intervalFn intervalFn(currentDelay, isPreviousRunSuccess, DEFAULT_INTERVAL). if currentDelay is undefined, should return the default. if currentDelay has value, should return next delay.
+   * @param executeImmediately default = false. If true, invoke actionFn() immediately (in the beginning) when calling this function
+   * @param shouldPerformActionFn shouldPerformActionFn(currentDelay, isPreviousRunSuccess, DEFAULT_INTERVAL). this function should return true if you want to perform actionFn when timeout happen.
    */
   static async ContinuousExecuteBySetTimeout(
     actionFn: Function,
-    DEFAULT_INTERVAL = 10000,
-    intervalFn?: Function,
+    DEFAULT_INTERVAL: number = 10000,
+    intervalFn?: (previousDelay: number, isPreviousRunSuccess: boolean, DEFAULT_INTERVAL: number) => number,
     executeImmediately = false,
     shouldPerformActionFn = (_0: number, _1?: boolean, _2?: number) => true
   ): Promise<{
@@ -76,7 +76,7 @@ export class CommonHelper {
       intervalFn = CommonHelper.ContinuousExecuteBySetTimeoutDefaultIntervalFn
     }
 
-    let delay = intervalFn(undefined, undefined, DEFAULT_INTERVAL)
+    let delay = intervalFn(DEFAULT_INTERVAL, true, DEFAULT_INTERVAL)
     let isPreviousRunSuccess: boolean | undefined = undefined
 
     async function run() {
@@ -90,7 +90,7 @@ export class CommonHelper {
       }
 
       // calculate the new delay for the next run
-      delay = intervalFn?.(delay, isPreviousRunSuccess, DEFAULT_INTERVAL)
+      delay = intervalFn?.(delay, isPreviousRunSuccess || false, DEFAULT_INTERVAL) || DEFAULT_INTERVAL
       ret.delay = delay
       ret.timerId = setTimeout(run, delay)
       // console.debug(`${ret.delay} ${ret.timerId} after setTimeout`)
@@ -112,13 +112,15 @@ export class CommonHelper {
   }
 
   /**
-   * create a default function/behaviour, calculate delay based on previous delay and isPreviousRunSuccess.
-   * When calling ContinuousExecuteBySetTimeout() without intervalFn, this func will be used as default implementation
+   * Create a default delay number (calculate delay based on previous delay and isPreviousRunSuccess).
+   * When calling ContinuousExecuteBySetTimeout() without intervalFn, this func will be used as default implementation.
+   * PreviousRunSuccess ==> return DEFAULT_INTERVAL.
+   * PreviousRunFailed ==> return random * (1.2 to 2.0) * DEFAULT_INTERVAL.
    * @param {*} previousDelay
    * @param {*} isPreviousRunSuccess
    * @returns
    */
-  static ContinuousExecuteBySetTimeoutDefaultIntervalFn(previousDelay: number, isPreviousRunSuccess: boolean, DEFAULT_INTERVAL: number) {
+  static ContinuousExecuteBySetTimeoutDefaultIntervalFn(previousDelay: number, isPreviousRunSuccess: boolean, DEFAULT_INTERVAL: number): number {
     if (isPreviousRunSuccess) {
       return DEFAULT_INTERVAL // job is done successfully, we back to use DEFAULT_INTERVAL (because prev delay (which is a failed one) can be (e.g. 12345ms), longer than DEFAULT_INTERVAL)
     }

@@ -70,19 +70,21 @@ declare class CommonHelper {
     /**
      * Continuously call actionFn by setTimeout with interval. The next process will be schedule after current process completed (success or failed)
      * Interval can be determined (randomly) by intervalFn() and delay between execution can be vary.
-     * @param {Function} actionFn support async function
-     * @param {Number} DEFAULT_INTERVAL if nothing provided or callbackFn success, this is the interval for running. If adjustment happen, it will not exceed 2*DEFAULT_INTERVAL
-     * @param {Function} intervalFn intervalFn(currentDelay, isPreviousRunSuccess, DEFAULT_INTERVAL). if currentDelay is undefined, should return the default. if currentDelay has value, should return next delay.
-     * @param {Boolean} executeImmediately if true, invoke actionFn() immediately (in the beginning) when calling this function
-     * @param {Function} shouldPerformActionFn shouldPerformActionFn(currentDelay, isPreviousRunSuccess, DEFAULT_INTERVAL). this function should return true if you want to perform actionFn when timeout happen.
+     * @param actionFn support async function
+     * @param DEFAULT_INTERVAL if nothing provided or callbackFn success, this is the interval for running. If adjustment happen, it will not exceed 2*DEFAULT_INTERVAL
+     * @param intervalFn intervalFn(currentDelay, isPreviousRunSuccess, DEFAULT_INTERVAL). if currentDelay is undefined, should return the default. if currentDelay has value, should return next delay.
+     * @param executeImmediately default = false. If true, invoke actionFn() immediately (in the beginning) when calling this function
+     * @param shouldPerformActionFn shouldPerformActionFn(currentDelay, isPreviousRunSuccess, DEFAULT_INTERVAL). this function should return true if you want to perform actionFn when timeout happen.
      */
-    static ContinuousExecuteBySetTimeout(actionFn: Function, DEFAULT_INTERVAL?: number, intervalFn?: Function, executeImmediately?: boolean, shouldPerformActionFn?: (_0: number, _1?: boolean, _2?: number) => boolean): Promise<{
+    static ContinuousExecuteBySetTimeout(actionFn: Function, DEFAULT_INTERVAL?: number, intervalFn?: (previousDelay: number, isPreviousRunSuccess: boolean, DEFAULT_INTERVAL: number) => number, executeImmediately?: boolean, shouldPerformActionFn?: (_0: number, _1?: boolean, _2?: number) => boolean): Promise<{
         timerId: any;
         delay: number;
     }>;
     /**
-     * create a default function/behaviour, calculate delay based on previous delay and isPreviousRunSuccess.
-     * When calling ContinuousExecuteBySetTimeout() without intervalFn, this func will be used as default implementation
+     * Create a default delay number (calculate delay based on previous delay and isPreviousRunSuccess).
+     * When calling ContinuousExecuteBySetTimeout() without intervalFn, this func will be used as default implementation.
+     * PreviousRunSuccess ==> return DEFAULT_INTERVAL.
+     * PreviousRunFailed ==> return random * (1.2 to 2.0) * DEFAULT_INTERVAL.
      * @param {*} previousDelay
      * @param {*} isPreviousRunSuccess
      * @returns
@@ -281,7 +283,7 @@ declare class StockvnHelper {
      * @param {*} interval
      */
     static ContinuousExecuteInWorkingHours(callbackFn: Function, interval: number): NodeJS.Timeout | undefined;
-    /** @deprecated use getCurrentGMT7_hhmmTimeString() */
+    /** @deprecated use getCurrentGMT7HoursMinutesString() */
     static getCurrentGMT7TimeString(): string;
     /** return current `hhmm` timestring in GMT7 timezone */
     static getCurrentGMT7HoursMinutesString(): string;

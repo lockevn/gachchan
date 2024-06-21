@@ -54,7 +54,7 @@ export class StockvnHelper {
     return timerId
   }
 
-  /** @deprecated use getCurrentGMT7_hhmmTimeString() */
+  /** @deprecated use getCurrentGMT7HoursMinutesString() */
   static getCurrentGMT7TimeString() {
     return this.getCurrentGMT7HoursMinutesString()
   }
