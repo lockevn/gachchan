@@ -1,9 +1,6 @@
-﻿import _intersection from "lodash/intersection"
-import _intersectionWith from "lodash/intersectionWith"
-import _isNumber from "lodash/isNumber"
-import _flatten from "lodash/flatten"
-import Decimal from "decimal.js"
-import { DateTimeHelper } from "./DateTimeHelper"
+﻿import { flatten as _flatten, isNumber as _isNumber, intersectionWith as _intersectionWith, intersection as _intersection } from 'lodash'
+import Decimal from 'decimal.js'
+import { DateTimeHelper } from './DateTimeHelper'
 
 export class CommonHelper {
   /**
@@ -67,12 +64,12 @@ export class CommonHelper {
       delay: NaN,
     }
 
-    if (!actionFn || typeof actionFn != "function") {
+    if (!actionFn || typeof actionFn != 'function') {
       return ret
     }
 
     // use the default intervalFn
-    if (typeof intervalFn != "function") {
+    if (typeof intervalFn != 'function') {
       intervalFn = CommonHelper.ContinuousExecuteBySetTimeoutDefaultIntervalFn
     }
 
@@ -144,21 +141,21 @@ export class CommonHelper {
    */
   static RepresentNumberInIconicDigit(numberString: string | null) {
     if (!numberString) {
-      return ""
+      return ''
     }
 
     let ret = numberString.toString()
     ret = ret
-      .replace(/0/g, "0️⃣")
-      .replace(/1/g, "1️⃣")
-      .replace(/2/g, "2️⃣")
-      .replace(/3/g, "3️⃣")
-      .replace(/4/g, "4️⃣")
-      .replace(/5/g, "5️⃣")
-      .replace(/6/g, "6️⃣")
-      .replace(/7/g, "7️⃣")
-      .replace(/8/g, "8️⃣")
-      .replace(/9/g, "9️⃣")
+      .replace(/0/g, '0️⃣')
+      .replace(/1/g, '1️⃣')
+      .replace(/2/g, '2️⃣')
+      .replace(/3/g, '3️⃣')
+      .replace(/4/g, '4️⃣')
+      .replace(/5/g, '5️⃣')
+      .replace(/6/g, '6️⃣')
+      .replace(/7/g, '7️⃣')
+      .replace(/8/g, '8️⃣')
+      .replace(/9/g, '9️⃣')
 
     return ret
   }
@@ -217,7 +214,7 @@ export class CommonHelper {
    * @param ignoreCase if any value is string, cast either values of firstList and otherList toString(), then compare ignore case
    * @returns boolean true if there is an intersection
    */
-  static HasAnyOfIntersection(firstList: number | string | number[] | string[], otherList: number | string | number[] | string[] = "", ignoreCase = true) {
+  static HasAnyOfIntersection(firstList: number | string | number[] | string[], otherList: number | string | number[] | string[] = '', ignoreCase = true) {
     if (!firstList || !otherList) return false
 
     const arrFirsts = _flatten([firstList]) // [""]   ==> [""], [[1,2]]   ==> [1,2]
@@ -227,7 +224,7 @@ export class CommonHelper {
     if (ignoreCase) {
       ret =
         _intersectionWith(arrFirsts, arrEvaluations, (listVal, otherVal) => {
-          if (typeof listVal === "string" || typeof otherVal === "string") {
+          if (typeof listVal === 'string' || typeof otherVal === 'string') {
             return listVal?.toString()?.toUpperCase() === otherVal?.toString()?.toUpperCase()
           }
 
@@ -283,8 +280,8 @@ export class CommonHelper {
   static JoinPaths() {
     const parts = Array.prototype.slice.call(arguments) // make array from arguments
 
-    var separator = "/"
-    var replace = new RegExp(separator + "{1,}", "g") // replace multiple to single separator
+    var separator = '/'
+    var replace = new RegExp(separator + '{1,}', 'g') // replace multiple to single separator
     return parts.join(separator).replace(replace, separator)
   }
 
@@ -303,17 +300,17 @@ export class CommonHelper {
    * @param suffix
    * @returns
    */
-  static ToNumberString(val?: number | string, fractationDigits = 2, showPrefixSign = false, showZeroVal = true, suffix = "") {
+  static ToNumberString(val?: number | string, fractationDigits = 2, showPrefixSign = false, showZeroVal = true, suffix = '') {
     if (val == 0 && !showZeroVal) {
-      return ""
+      return ''
     }
 
     if (!val && val !== 0) {
       // NaN, undefined, null, ""
-      return ""
+      return ''
     }
 
-    const prefixSign = showPrefixSign && +val > 0 ? "+" : ""
+    const prefixSign = showPrefixSign && +val > 0 ? '+' : ''
     return prefixSign + CommonHelper.ToNumber(val, fractationDigits) + suffix
   }
 
@@ -331,10 +328,10 @@ export class CommonHelper {
    * @param {string} unit default is "tr" (triệu đồng VN)
    * @param {string} locale "en-US" "vi-VN"
    */
-  static NumberToUnitString(numberString: number | string, unitDividen = 1, fractationDigits = 0, unit = "", locale = "en-US"): string {
+  static NumberToUnitString(numberString: number | string, unitDividen = 1, fractationDigits = 0, unit = '', locale = 'en-US'): string {
     // empty string, or text string which is not a number, return
-    if (numberString === 0) return "0"
-    if (!numberString) return ""
+    if (numberString === 0) return '0'
+    if (!numberString) return ''
     if (!+numberString) return numberString?.toString()
 
     let unitNumbers = (+numberString / unitDividen).toFixed(fractationDigits)

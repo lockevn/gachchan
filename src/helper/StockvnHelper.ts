@@ -1,9 +1,6 @@
-﻿import _intersection from "lodash/intersection"
-import _intersectionWith from "lodash/intersectionWith"
-import _isNumber from "lodash/isNumber"
-import _flatten from "lodash/flatten"
-import { CommonHelper } from "./CommonHelper"
-import { DateTimeHelper } from "./DateTimeHelper"
+﻿import { flatten as _flatten, isNumber as _isNumber, intersectionWith as _intersectionWith, intersection as _intersection } from 'lodash'
+import { CommonHelper } from './CommonHelper'
+import { DateTimeHelper } from './DateTimeHelper'
 
 export class StockvnHelper {
   /**
@@ -12,7 +9,7 @@ export class StockvnHelper {
    * @param num
    */
   static StandardizeVolNumber(num: string | number): number {
-    if (typeof num === "number") {
+    if (typeof num === 'number') {
       return num as number
     }
 
@@ -21,9 +18,9 @@ export class StockvnHelper {
       return NaN
     }
 
-    let ret = ""
-    if (typeof num === "string") {
-      ret = num.replace(/,/g, "")
+    let ret = ''
+    if (typeof num === 'string') {
+      ret = num.replace(/,/g, '')
     }
     // else{
     //   // is number, do nothing
@@ -84,7 +81,7 @@ export class StockvnHelper {
     }
 
     const hhmm = this.getCurrentGMT7TimeString()
-    if (("0845" <= hhmm && hhmm <= "1130") || ("1300" <= hhmm && hhmm <= "1445")) {
+    if (('0845' <= hhmm && hhmm <= '1130') || ('1300' <= hhmm && hhmm <= '1445')) {
       return true
     } else {
       return false
@@ -100,7 +97,7 @@ export class StockvnHelper {
       nowString = this.getCurrentGMT7TimeString()
     }
 
-    if ("0845" <= nowString && nowString <= "0915") {
+    if ('0845' <= nowString && nowString <= '0915') {
       return true
     }
 
@@ -115,7 +112,7 @@ export class StockvnHelper {
       nowString = this.getCurrentGMT7TimeString()
     }
 
-    if ("1430" <= nowString && nowString <= "1445") {
+    if ('1430' <= nowString && nowString <= '1445') {
       return true
     }
 

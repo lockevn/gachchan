@@ -1,7 +1,4 @@
-﻿import _intersection from "lodash/intersection"
-import _intersectionWith from "lodash/intersectionWith"
-import _isNumber from "lodash/isNumber"
-import _flatten from "lodash/flatten"
+﻿import { flatten as _flatten, isNumber as _isNumber, intersectionWith as _intersectionWith, intersection as _intersection } from 'lodash'
 
 export class DateTimeHelper {
   /**
@@ -12,7 +9,7 @@ export class DateTimeHelper {
   static GetCurrentYearMonthDayString(date?: Date) {
     if (!date) date = new Date()
 
-    let ret = date.getFullYear().toString() + (date.getMonth() + 1).toString().padStart(2, "0") + date.getDate().toString().padStart(2, "0")
+    let ret = date.getFullYear().toString() + (date.getMonth() + 1).toString().padStart(2, '0') + date.getDate().toString().padStart(2, '0')
 
     return ret
   }
@@ -27,7 +24,7 @@ export class DateTimeHelper {
   static GetCurrentHoursMinutesString(date?: Date): string {
     if (!date) date = new Date()
 
-    let currentHoursMinutesString = date.getHours().toString().padStart(2, "0") + "" + date.getMinutes().toString().padStart(2, "0")
+    let currentHoursMinutesString = date.getHours().toString().padStart(2, '0') + '' + date.getMinutes().toString().padStart(2, '0')
 
     return currentHoursMinutesString
   }
@@ -40,7 +37,7 @@ export class DateTimeHelper {
   static GetCurrentHoursMinutesSecondsString(date?: Date) {
     if (!date) date = new Date()
 
-    let ret = this.GetCurrentHoursMinutesString(date) + date.getSeconds().toString().padStart(2, "0")
+    let ret = this.GetCurrentHoursMinutesString(date) + date.getSeconds().toString().padStart(2, '0')
 
     return ret
   }
@@ -52,7 +49,7 @@ export class DateTimeHelper {
   static GetCurrentYearMonthDayStringUTC(date?: Date) {
     if (!date) date = new Date()
 
-    return date.toISOString().substring(0, 10).replace(/-/g, "")
+    return date.toISOString().substring(0, 10).replace(/-/g, '')
   }
 
   /**
@@ -62,7 +59,7 @@ export class DateTimeHelper {
   static GetCurrentHoursMinutesStringUTC(date?: Date) {
     if (!date) date = new Date()
 
-    return date.toISOString().substring(11, 16).replace(/:/g, "")
+    return date.toISOString().substring(11, 16).replace(/:/g, '')
   }
   /**
    *
@@ -71,12 +68,12 @@ export class DateTimeHelper {
   static GetCurrentHoursMinutesSecondsStringUTC(date?: Date) {
     if (!date) date = new Date()
 
-    return date.toISOString().substring(11, 19).replace(/:/g, "")
+    return date.toISOString().substring(11, 19).replace(/:/g, '')
   }
 
   /** full yearmonthdaytime string in UTC timezone, without ":" char (safe for file naming) */
   static getCurrentISOStringUTC() {
-    return new Date().toISOString().replace(/:/g, "")
+    return new Date().toISOString().replace(/:/g, '')
   }
 
   /**
@@ -86,12 +83,12 @@ export class DateTimeHelper {
    * @param {*} timezone
    * @returns
    */
-  static GetDatetimeNowString(culture = "vi-VN", timezone = "Asia/Saigon") {
+  static GetDatetimeNowString(culture = 'vi-VN', timezone = 'Asia/Saigon') {
     return new Intl.DateTimeFormat(culture, {
       //
       timeZone: timezone,
-      dateStyle: "full",
-      timeStyle: "long",
+      dateStyle: 'full',
+      timeStyle: 'long',
       hour12: false,
     } as any).format(new Date())
   }
