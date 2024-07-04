@@ -134,12 +134,8 @@ export class CommonHelper {
     return newDelay
   }
 
-  /**
-   * change 1 to 1️⃣ (unicode square box character)
-   * @param {*} numberString
-   * @returns {string}
-   */
-  static RepresentNumberInIconicDigit(numberString: string | null) {
+  /** change 1 to 1️⃣ (unicode square box character) */
+  static RepresentNumberInIconicDigit(numberString: string | null): string {
     if (!numberString) {
       return ''
     }
@@ -161,12 +157,21 @@ export class CommonHelper {
   }
 
   /**
-   * random an int number, maximum is max - 1. Max = 10, so return 0 to 10
-   * @param {*} max
+   * random an integer. Max = 10, so return 0 to 10
+   * @param max the maximum number this func can return
    * @returns number integer
    */
   static GetRandomIntegerTo(max: number) {
-    return Math.round(Math.random() * max)
+    return this.GetRandomIntegerFromTo(0, max)
+  }
+
+  /**
+   * random an integer, return value from min to max. (0,10) ==> return any integer from 0 to 10
+   * @returns number integer
+   */
+  static GetRandomIntegerFromTo(min: number, max: number): number {
+    const range = max - min + 1
+    return Math.floor(Math.random() * range) + min
   }
 
   /**
@@ -237,11 +242,7 @@ export class CommonHelper {
   }
 
   /**
-   * return percent of portion to full, 25 50 ==> 50
-   * @param {*} portion
-   * @param {*} full
-   * @param {*} fractationDigits
-   * @returns number
+   * return percent of portion to full, (25, 50) ==> 50
    */
   static Percent(portion: number, full: number, fractationDigits: number) {
     let ret = (100 * portion) / full
@@ -253,9 +254,7 @@ export class CommonHelper {
   }
 
   /**
-   * from 100 to 110, the diff is 10, and is 10%. Return 10
-   * @param {*} from
-   * @param {*} to
+   * from 100 to 110, the diff is 10 (is 10%). This function returns 10
    * @returns null if from to is not number
    */
   static DiffInPercent(from: number, to: number, fractationDigits: number) {
@@ -275,11 +274,8 @@ export class CommonHelper {
   /**
    * join all arguments with "/" seperator.
    * E.g.: JoinPaths("a", b, c)
-   * @returns String
    */
-  static JoinPaths() {
-    const parts = Array.prototype.slice.call(arguments) // make array from arguments
-
+  static JoinPaths(...parts: (string | number)[]) {
     var separator = '/'
     var replace = new RegExp(separator + '{1,}', 'g') // replace multiple to single separator
     return parts.join(separator).replace(replace, separator)

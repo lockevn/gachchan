@@ -90,18 +90,19 @@ declare class CommonHelper {
      * @returns
      */
     static ContinuousExecuteBySetTimeoutDefaultIntervalFn(previousDelay: number, isPreviousRunSuccess: boolean, DEFAULT_INTERVAL: number): number;
-    /**
-     * change 1 to 1️⃣ (unicode square box character)
-     * @param {*} numberString
-     * @returns {string}
-     */
+    /** change 1 to 1️⃣ (unicode square box character) */
     static RepresentNumberInIconicDigit(numberString: string | null): string;
     /**
-     * random an int number, maximum is max - 1. Max = 10, so return 0 to 10
-     * @param {*} max
+     * random an integer. Max = 10, so return 0 to 10
+     * @param max the maximum number this func can return
      * @returns number integer
      */
     static GetRandomIntegerTo(max: number): number;
+    /**
+     * random an integer, return value from min to max. (0,10) ==> return any integer from 0 to 10
+     * @returns number integer
+     */
+    static GetRandomIntegerFromTo(min: number, max: number): number;
     /**
      * return random element inside array
      * @param {*} arr
@@ -128,26 +129,19 @@ declare class CommonHelper {
      */
     static HasAnyOfIntersection(firstList: number | string | number[] | string[], otherList?: number | string | number[] | string[], ignoreCase?: boolean): boolean;
     /**
-     * return percent of portion to full, 25 50 ==> 50
-     * @param {*} portion
-     * @param {*} full
-     * @param {*} fractationDigits
-     * @returns number
+     * return percent of portion to full, (25, 50) ==> 50
      */
     static Percent(portion: number, full: number, fractationDigits: number): number;
     /**
-     * from 100 to 110, the diff is 10, and is 10%. Return 10
-     * @param {*} from
-     * @param {*} to
+     * from 100 to 110, the diff is 10 (is 10%). This function returns 10
      * @returns null if from to is not number
      */
     static DiffInPercent(from: number, to: number, fractationDigits: number): number | null;
     /**
      * join all arguments with "/" seperator.
      * E.g.: JoinPaths("a", b, c)
-     * @returns String
      */
-    static JoinPaths(): string;
+    static JoinPaths(...parts: (string | number)[]): string;
     /**
      * empty string, null, NaN, undefined return ""
      *  or text string which is not a number, return ""
