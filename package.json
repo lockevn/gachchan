@@ -1,7 +1,7 @@
 {
   "name": "@lockevn/gachchan",
-  "version": "6.6.3",
-  "releasenote": "Better Comment. Expose DateTimeHelper. HtmlHelper. Shuffle. UTC Util. Remove lodash from bundle. RoundNumber(). ContinuousExecuteBySetTimeout() with new argument executeImmediately",
+  "version": "6.7.0",
+  "releasenote": "Remove deprecated getCurrentGMT7TimeString(). Better Comment. Expose DateTimeHelper. HtmlHelper. Shuffle. UTC Util. Remove lodash from bundle. RoundNumber(). ContinuousExecuteBySetTimeout() with new argument executeImmediately",
   "description": "Change to TypeScript from v6. Share lib for common helper functions, work in node and browser",
   "author": "lockevn",
   "license": "See LICENSE",

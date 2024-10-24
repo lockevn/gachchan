@@ -277,8 +277,6 @@ declare class StockvnHelper {
      * @param {*} interval
      */
     static ContinuousExecuteInWorkingHours(callbackFn: Function, interval: number): NodeJS.Timeout | undefined;
-    /** @deprecated use getCurrentGMT7HoursMinutesString() */
-    static getCurrentGMT7TimeString(): string;
     /** return current `hhmm` timestring in GMT7 timezone */
     static getCurrentGMT7HoursMinutesString(): string;
     /** return current `hhmmss` timestring in GMT7 timezone */

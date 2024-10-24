@@ -51,11 +51,6 @@ export class StockvnHelper {
     return timerId
   }
 
-  /** @deprecated use getCurrentGMT7HoursMinutesString() */
-  static getCurrentGMT7TimeString() {
-    return this.getCurrentGMT7HoursMinutesString()
-  }
-
   /** return current `hhmm` timestring in GMT7 timezone */
   static getCurrentGMT7HoursMinutesString() {
     const gmt7time = DateTimeHelper.GetTimeInGMTTimezone(7)
@@ -80,7 +75,7 @@ export class StockvnHelper {
       return false
     }
 
-    const hhmm = this.getCurrentGMT7TimeString()
+    const hhmm = this.getCurrentGMT7HoursMinutesString()
     if (('0845' <= hhmm && hhmm <= '1130') || ('1300' <= hhmm && hhmm <= '1445')) {
       return true
     } else {
@@ -94,7 +89,7 @@ export class StockvnHelper {
    */
   static IsIn_ATO_Sessions(nowString?: string) {
     if (!nowString) {
-      nowString = this.getCurrentGMT7TimeString()
+      nowString = this.getCurrentGMT7HoursMinutesString()
     }
 
     if ('0845' <= nowString && nowString <= '0915') {
@@ -109,7 +104,7 @@ export class StockvnHelper {
    */
   static IsIn_ATC_Sessions(nowString?: string) {
     if (!nowString) {
-      nowString = this.getCurrentGMT7TimeString()
+      nowString = this.getCurrentGMT7HoursMinutesString()
     }
 
     if ('1430' <= nowString && nowString <= '1445') {
