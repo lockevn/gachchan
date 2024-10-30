@@ -92,6 +92,10 @@ export class StockvnHelper {
       nowString = this.getCurrentGMT7HoursMinutesString()
     }
 
+    if (!this.IsInWorkingDays()) {
+      return false
+    }
+
     if ('0845' <= nowString && nowString <= '0915') {
       return true
     }
@@ -105,6 +109,10 @@ export class StockvnHelper {
   static IsIn_ATC_Sessions(nowString?: string) {
     if (!nowString) {
       nowString = this.getCurrentGMT7HoursMinutesString()
+    }
+
+    if (!this.IsInWorkingDays()) {
+      return false
     }
 
     if ('1430' <= nowString && nowString <= '1445') {
