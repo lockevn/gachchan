@@ -66,7 +66,7 @@ export class StockvnHelper {
   }
 
   /**
-   * from "now", if in working day, get hhmm time in hhmm format, like "1130" or "0959", then check
+   * from "now", if in working day, get hhmm time in hhmm format, like "1130" or "0959", then check stricly inside 0845-1130 or 1300-1445
    * @param {Date} now
    * @returns boolean
    */
@@ -84,7 +84,7 @@ export class StockvnHelper {
   }
 
   /**
-   *  is in ATO sessions
+   *  is in ATO sessions (stricly inside 0845-0915)
    * @param {String} nowString hhhmm string, like "1130" or "0959"
    */
   static IsIn_ATO_Sessions(nowString?: string) {
@@ -103,7 +103,7 @@ export class StockvnHelper {
     return false
   }
   /**
-   *  is in ATC sessions
+   *  is in ATC sessions (strictly inside 1430-1445)
    * @param {String} nowString hhhmm string, like "1130" or "0959"
    */
   static IsIn_ATC_Sessions(nowString?: string) {
