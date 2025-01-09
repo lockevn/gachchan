@@ -41,6 +41,10 @@ https://github.com/sponsors/lockevn
 - commit code (along with `/dist` folder) to repo
 - Create git tag and publish the git tag
 
+  - `git tag -a v7.0.0`
+  - `git push origin v7.0.0`
+  - We got https://github.com/lockevn/gachchan/tree/v7.0.0
+
 <!-- [![npm version](https://badgen.net/npm/v/gachchan)](https://npm.im/gachchan) [![npm downloads](https://badgen.net/npm/dm/gachchan)](https://npm.im/gachchan) -->
 
 ---
