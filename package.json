@@ -47,9 +47,8 @@
     "prettier": "2.8.4",
     "tsup": "6.6.3",
     "typescript": "4.9.5",
-    "vitest": "0.28.5"
+    "vitest": "^2.1.8"
   },
-  "dependencies": {},
   "peerDependencies": {
     "axios": ">0.21.0",
     "decimal.js": "^10.2.1",
