@@ -1,4 +1,8 @@
-﻿import { flatten as _flatten, isNumber as _isNumber, intersectionWith as _intersectionWith, intersection as _intersection } from 'lodash'
+﻿import _flatten from 'lodash/flatten'
+import _isNumber from 'lodash/isNumber'
+import _intersectionWith from 'lodash/intersectionWith'
+import _intersection from 'lodash/intersection'
+
 import Decimal from 'decimal.js'
 import { DateTimeHelper } from './DateTimeHelper'
 
