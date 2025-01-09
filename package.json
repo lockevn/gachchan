@@ -1,6 +1,6 @@
 {
   "name": "@lockevn/gachchan",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "releasenote": "Fix the way we import lodash. Remove deprecated getCurrentGMT7TimeString(). Better Comment. UTC Util. ContinuousExecuteBySetTimeout() with new argument executeImmediately",
   "description": "Change to TypeScript from v6. Share lib for common helper functions, work in node and browser",
   "author": "lockevn",
