@@ -37,7 +37,7 @@ https://github.com/sponsors/lockevn
 
 # To publish/release
 
-- `pnpm build`
+- `pnpm build` build the output package with `tsup`
 - commit code (along with `/dist` folder) to repo
 - Create git tag and publish the git tag
 
