@@ -1,5 +1,7 @@
 # TODO
 
+## Use parcel to build instead of tsup
+
 ## Bundle documentation to output
 
 https://www.typescriptlang.org/docs/handbook/declaration-files/dts-from-js.html
