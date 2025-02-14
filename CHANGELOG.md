@@ -1,5 +1,9 @@
 ## Change Log
 
+### v7.0.1 (2025/01/09)
+
+Fix the way we import lodash. Remove deprecated getCurrentGMT7TimeString(). Better Comment. UTC Util. ContinuousExecuteBySetTimeout() with new argument executeImmediately
+
 ### v6.2.0 (2024/06/02)
 
 ### v6.0.0 (2024/05/19)
