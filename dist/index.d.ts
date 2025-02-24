@@ -252,6 +252,12 @@ declare class Util {
      * @param path
      */
     static dirname(path: string): string;
+    /** convert camelCase to snake_case
+     * @example someHereIsGood ==> some_here_is_good. CAPITALIZED ==> c_a_p_i_t_a_l_i_z_e_d
+     */
+    static camelToSnakeCase(str: string): string;
+    /** (from source), create new object contains mapped fields */
+    static objectMapKeys(source: Record<string, any>, keyMap: Record<string, string>): any;
 }
 
 declare class HtmlHelper {
@@ -276,7 +282,7 @@ declare class StockvnHelper {
      * @param {*} callbackFn
      * @param {*} interval
      */
-    static ContinuousExecuteInWorkingHours(callbackFn: Function, interval: number): NodeJS.Timeout | undefined;
+    static ContinuousExecuteInWorkingHours(callbackFn: Function, interval: number): number | undefined;
     /** return current `hhmm` timestring in GMT7 timezone */
     static getCurrentGMT7HoursMinutesString(): string;
     /** return current `hhmmss` timestring in GMT7 timezone */

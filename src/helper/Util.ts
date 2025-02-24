@@ -1,4 +1,4 @@
-﻿"use strict"
+﻿'use strict'
 
 /**
  * Old util class from 2017, will be merged to CommonHelper
@@ -16,7 +16,7 @@ export class Util {
   static splitByCommaAndTrim(strCommaSeparated?: string) {
     if (strCommaSeparated) {
       return strCommaSeparated
-        .split(",")
+        .split(',')
         .filter((segment) => segment)
         .map((e) => e.trim())
     } else {
@@ -44,7 +44,7 @@ export class Util {
    * @param jsonDateString string of this format "/Date(2342353453434)/"
    */
   static parseJsonDate(jsonDateString: string) {
-    return new Date(parseInt(jsonDateString.replace("/Date(", "").replace(")/", "")))
+    return new Date(parseInt(jsonDateString.replace('/Date(', '').replace(')/', '')))
   }
 
   /**
@@ -56,7 +56,7 @@ export class Util {
     // Split the inputs into a list of path commands.
     var parts: any[] = []
     for (var i = 0, l = arguments.length; i < l; i++) {
-      parts = parts.concat(arguments[i].split("/"))
+      parts = parts.concat(arguments[i].split('/'))
     }
     // Interpret the path commands to get the new resolved path.
     var newParts = []
@@ -64,16 +64,16 @@ export class Util {
       var part = parts[i]
       // Remove leading and trailing slashes
       // Also remove "." segments
-      if (!part || part === ".") continue
+      if (!part || part === '.') continue
       // Interpret ".." to pop the last segment
-      if (part === "..") newParts.pop()
+      if (part === '..') newParts.pop()
       // Push new path segments.
       else newParts.push(part)
     }
     // Preserve the initial slash if there was one.
-    if (parts[0] === "") newParts.unshift("")
+    if (parts[0] === '') newParts.unshift('')
     // Turn back into a single string path.
-    return newParts.join("/") || (newParts.length ? "/" : ".")
+    return newParts.join('/') || (newParts.length ? '/' : '.')
   }
 
   /**
@@ -83,6 +83,23 @@ export class Util {
    */
   static dirname(path: string) {
     // ts-ignore
-    return this.joinPath(path, "..")
+    return this.joinPath(path, '..')
+  }
+
+  /** convert camelCase to snake_case
+   * @example someHereIsGood ==> some_here_is_good. CAPITALIZED ==> c_a_p_i_t_a_l_i_z_e_d
+   */
+  static camelToSnakeCase(str: string): string {
+    const snakeCase = str.replace(/([A-Z])/g, (match, p1) => `_${p1.toLowerCase()}`)
+
+    return snakeCase.startsWith('_') ? snakeCase.slice(1) : snakeCase
+  }
+
+  /** (from source), create new object contains mapped fields */
+  static objectMapKeys(source: Record<string, any>, keyMap: Record<string, string>) {
+    return Object.entries(keyMap).reduce((o, [key, newKey]) => {
+      o[newKey] = source[key]
+      return o
+    }, {} as any)
   }
 } // end class
