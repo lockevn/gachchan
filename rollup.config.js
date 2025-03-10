@@ -10,11 +10,11 @@ export default {
   input: 'src/index.ts',
   output: [
     // {
-    //   file: 'lakdak.umd.js',
+    //   file: 'gachchan.umd.js',
     //   format: 'umd'
     // },
     // {
-    //   file: 'lakdak.es.js',
+    //   file: 'gachchan.es.js',
     //   format: 'es'
     // },
     {
@@ -36,8 +36,8 @@ export default {
 //     target: 'esnext',
 //     lib: {
 //       entry: path.resolve(__dirname, 'src/index.ts'),
-//       name: 'Lakdak',
-//       fileName: (format) => `lakdak.${format}.js`
+//       name: 'Lakgachchandak',
+//       fileName: (format) => `gachchan.${format}.js`
 //     },
 //     rollupOptions: {
 //       // https://rollupjs.org/guide/en/#big-list-of-options

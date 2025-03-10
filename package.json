@@ -1,6 +1,6 @@
 {
   "name": "@lockevn/gachchan",
-  "version": "7.1.0",
+  "version": "7.1.1",
   "releasenote": "Use Parcel to build. Add utils to Util. Fix the way we import lodash. Remove deprecated getCurrentGMT7TimeString(). Better Comment. UTC Util. ContinuousExecuteBySetTimeout() with new argument executeImmediately",
   "description": "Change to TypeScript from v6. Share lib for common helper functions, work in node and browser",
   "author": "lockevn",
@@ -33,8 +33,8 @@
   "module": "./dist/gachchan.es.mjs",
   "exports": {
     ".": {
-      "require": "./dist/lakdak.umd.cjs",
-      "import": "./dist/lakdak.es.mjs"
+      "require": "./dist/gachchan.umd.cjs",
+      "import": "./dist/gachchan.es.mjs"
     }
   },
   "types": "./dist/types/index.d.ts",
