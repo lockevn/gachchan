@@ -13,8 +13,8 @@ describe('CommonHelper', () => {
       expect(target.ToNumber('\n')).toBe(0)
       expect(target.ToNumber('\r\n')).toBe(0)
       expect(target.ToNumber(NaN)).toBe(0)
-      expect(target.ToNumber(null)).toBe(0)
-      expect(target.ToNumber(undefined)).toBe(0)
+      expect(target.ToNumber(null as unknown as string)).toBe(0)
+      expect(target.ToNumber(undefined as unknown as string)).toBe(0)
     })
 
     expect(target.ToNumber('1100')).toBe(1100)
@@ -43,14 +43,18 @@ describe('CommonHelper', () => {
 
   it('HasAnyOfIntersection', () => {
     expect(target.HasAnyOfIntersection([], [])).toBe(false)
-    expect(target.HasAnyOfIntersection(undefined, undefined)).toBe(false)
-    expect(target.HasAnyOfIntersection(null, null)).toBe(false)
-    expect(target.HasAnyOfIntersection(null)).toBe(false)
+    expect(target.HasAnyOfIntersection(undefined as unknown as string, undefined)).toBe(false)
+    expect(target.HasAnyOfIntersection(null as unknown as string, null as unknown as string)).toBe(false)
+    expect(target.HasAnyOfIntersection(null as unknown as string)).toBe(false)
 
-    expect(target.HasAnyOfIntersection([undefined, undefined, null, null, 3], [undefined])).toBe(true)
-    expect(target.HasAnyOfIntersection([undefined, undefined, null, null, 3], [null])).toBe(true)
-    expect(target.HasAnyOfIntersection([undefined, undefined, 3], [null])).toBe(false)
-    expect(target.HasAnyOfIntersection([undefined, undefined, 3], [4])).toBe(false)
+    expect(
+      target.HasAnyOfIntersection([undefined as unknown as string, undefined as unknown as string, null as unknown as string, null as unknown as string, 3], [undefined as unknown as string])
+    ).toBe(true)
+    expect(target.HasAnyOfIntersection([undefined as unknown as string, undefined as unknown as string, null as unknown as string, null as unknown as string, 3], [null as unknown as string])).toBe(
+      true
+    )
+    expect(target.HasAnyOfIntersection([undefined as unknown as string, undefined as unknown as string, 3], [null as unknown as string])).toBe(false)
+    expect(target.HasAnyOfIntersection([undefined as unknown as string, undefined as unknown as string, 3], [4])).toBe(false)
 
     expect(target.HasAnyOfIntersection([1, 2, 3], 4)).toBe(false)
     expect(target.HasAnyOfIntersection([1, 2, 3], [4])).toBe(false)
@@ -78,11 +82,11 @@ describe('CommonHelper', () => {
   })
 
   it('DiffInPercent', () => {
-    expect(target.DiffInPercent(null, 90)).toBe(null)
-    expect(target.DiffInPercent('ATC', 90)).toBe(null)
-    expect(target.DiffInPercent(10, 'ATC')).toBe(null)
+    expect(target.DiffInPercent(null as unknown as number, 90)).toBe(null)
+    expect(target.DiffInPercent('ATC' as unknown as number, 90)).toBe(null)
+    expect(target.DiffInPercent(10, 'ATC' as unknown as number)).toBe(null)
 
-    expect(target.DiffInPercent(NaN, 10)).toBe(NaN)
+    expect(target.DiffInPercent(NaN, 10)).toBe(null)
 
     expect(target.DiffInPercent(100, 110)).toBe(10)
     expect(target.DiffInPercent(100, 90)).toBe(-10)
@@ -97,7 +101,7 @@ describe('CommonHelper', () => {
     expect(target.ToNumberString(0, 1)).toBe('0')
 
     expect(target.ToNumberString(NaN, 2)).toBe('')
-    expect(target.ToNumberString(null, 2)).toBe('')
+    expect(target.ToNumberString(null as unknown as string, 2)).toBe('')
     expect(target.ToNumberString(undefined, 2)).toBe('')
   })
 

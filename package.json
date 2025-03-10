@@ -1,7 +1,7 @@
 {
   "name": "@lockevn/gachchan",
-  "version": "7.0.2",
-  "releasenote": "Add utils to Util. Fix the way we import lodash. Remove deprecated getCurrentGMT7TimeString(). Better Comment. UTC Util. ContinuousExecuteBySetTimeout() with new argument executeImmediately",
+  "version": "7.1.0",
+  "releasenote": "Use Parcel to build. Add utils to Util. Fix the way we import lodash. Remove deprecated getCurrentGMT7TimeString(). Better Comment. UTC Util. ContinuousExecuteBySetTimeout() with new argument executeImmediately",
   "description": "Change to TypeScript from v6. Share lib for common helper functions, work in node and browser",
   "author": "lockevn",
   "license": "See LICENSE",
@@ -27,26 +27,42 @@
     "CHANGELOG.md",
     "README.md"
   ],
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "type": "module",
+  "source": "src/index.ts",
+  "main": "./dist/gachchan.umd.cjs",
+  "module": "./dist/gachchan.es.mjs",
   "exports": {
-    "require": "./dist/index.js",
-    "import": "./dist/index.mjs"
+    ".": {
+      "require": "./dist/lakdak.umd.cjs",
+      "import": "./dist/lakdak.es.mjs"
+    }
   },
-  "types": "./dist/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "scripts": {
-    "build-fast": "tsup src/index.ts --format cjs,esm",
-    "build": "pnpm run build-fast --minify --dts",
-    "test": "vitest run",
-    "testwatch": "vitest watch",
-    "prepublishOnly": "pnpm run build"
+    "dev": "parcel watch",
+    "prebuild": "rimraf dist",
+    "lint": "eslint . --fix",
+    "check": "tsc --noEmit --skipLibCheck",
+    "build": "parcel build",
+    "test": "vitest",
+    "test:watch": "vitest watch",
+    "test:run": "vitest run",
+    "coverage": "vitest run --coverage",
+    "release": "npm run lint && npm run check && npm run test:run && npm run build"
   },
   "devDependencies": {
-    "@egoist/prettier-config": "1.0.0",
     "@types/lodash": "^4.17.4",
-    "prettier": "2.8.4",
-    "tsup": "6.6.3",
-    "typescript": "4.9.5",
+    "@parcel/bundler-library": "latest",
+    "@parcel/config-default": "latest",
+    "@parcel/packager-ts": "latest",
+    "@parcel/transformer-typescript-tsc": "latest",
+    "@parcel/transformer-typescript-types": "latest",
+    "@types/node": "latest",
+    "eslint": "latest",
+    "husky": "latest",
+    "parcel": "latest",
+    "rimraf": "latest",
+    "typescript": "latest",
     "vitest": "latest"
   },
   "peerDependencies": {

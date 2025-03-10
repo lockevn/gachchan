@@ -1,5 +1,6 @@
 ﻿import _flatten from 'lodash/flatten.js'
 import _isNumber from 'lodash/isNumber.js'
+import _isFinite from 'lodash/isFinite.js'
 import _intersectionWith from 'lodash/intersectionWith.js'
 import _intersection from 'lodash/intersection.js'
 
@@ -139,7 +140,7 @@ export class CommonHelper {
   }
 
   /** change 1 to 1️⃣ (unicode square box character) */
-  static RepresentNumberInIconicDigit(numberString: string | null): string {
+  static RepresentNumberInIconicDigit(numberString: string | null | undefined): string {
     if (!numberString) {
       return ''
     }
@@ -223,7 +224,7 @@ export class CommonHelper {
    * @param ignoreCase if any value is string, cast either values of firstList and otherList toString(), then compare ignore case
    * @returns boolean true if there is an intersection
    */
-  static HasAnyOfIntersection(firstList: number | string | number[] | string[], otherList: number | string | number[] | string[] = '', ignoreCase = true) {
+  static HasAnyOfIntersection(firstList: number | string | (number | string)[], otherList: number | string | (number | string)[] = '', ignoreCase = true) {
     if (!firstList || !otherList) return false
 
     const arrFirsts = _flatten([firstList]) // [""]   ==> [""], [[1,2]]   ==> [1,2]
@@ -248,23 +249,19 @@ export class CommonHelper {
   /**
    * return percent of portion to full, (25, 50) ==> 50
    */
-  static Percent(portion: number, full: number, fractationDigits: number) {
+  static Percent(portion: number, full: number, fractationDigits?: number) {
     let ret = (100 * portion) / full
-
-    if (fractationDigits > 0) {
-      ret = CommonHelper.ToNumber(ret, fractationDigits)
-    }
-    return ret
+    return CommonHelper.ToNumber(ret, fractationDigits)
   }
 
   /**
    * from 100 to 110, the diff is 10 (is 10%). This function returns 10
    * @returns null if from to is not number
    */
-  static DiffInPercent(from: number, to: number, fractationDigits: number) {
+  static DiffInPercent(from: number, to: number, fractationDigits?: number) {
     let ret = null
 
-    if (_isNumber(from) && _isNumber(to)) {
+    if (_isFinite(from) && _isFinite(to)) {
       ret = CommonHelper.Percent(to - from, from, fractationDigits)
     }
 
@@ -279,10 +276,13 @@ export class CommonHelper {
    * join all arguments with "/" seperator.
    * E.g.: JoinPaths("a", b, c)
    */
-  static JoinPaths(...parts: (string | number)[]) {
+  static JoinPaths(...parts: (string | number | null | undefined)[]) {
     var separator = '/'
     var replace = new RegExp(separator + '{1,}', 'g') // replace multiple to single separator
-    return parts.join(separator).replace(replace, separator)
+    return parts
+      .filter((p) => p)
+      .join(separator)
+      .replace(replace, separator)
   }
 
   // =========== ===================== ===========

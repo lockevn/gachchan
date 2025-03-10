@@ -1,13 +1,30 @@
 {
   "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "files.associations": {
+    "*.json": "jsonc"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "files.autoSave": "afterDelay",
+  "typescript.referencesCodeLens.enabled": true,
+
   "files.exclude": {
-    // "**/package-lock.json": true,
-    // "**/pnpm-lock.yaml": true,
-    // "dist/**": true
+    "**/package-lock.json": true,
+    "**/pnpm-lock.yaml": true
+    // "**/dist/": true
   },
   "search.exclude": {
+    "**/node_modules": true,
+    "**/coverage": true,
+
+    "**/yarn.lock": true,
     "**/package-lock.json": true,
     "**/pnpm-lock.yaml": true,
     "dist/**": true
-  }
+  },
+
+  "js/ts.implicitProjectConfig.experimentalDecorators": true
 }

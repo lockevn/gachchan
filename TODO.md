@@ -1,9 +1,5 @@
 # TODO
 
-## Use Parcel to bundle
-
-Remove `tsup`
-
 ## (NOT READY) Debug
 
 See how https://gist.github.com/paambaati/54d33e409b4f7cf059cc

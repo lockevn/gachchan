@@ -1,29 +1,58 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "esnext",
     "module": "esnext",
+    "moduleResolution": "node",
+
+    "lib": ["esnext"],
+
     "strict": true,
     "esModuleInterop": true,
-    "moduleResolution": "node",
     "skipLibCheck": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noImplicitAny": true,
 
     // Tells TypeScript to read JS files, as normally they are ignored as source files
     // "allowJs": true,
     // "resolveJsonModule": true,
+    // "checkJs": true,
 
     // Generate d.ts files
     "declaration": true,
+    "removeComments": false,
+    "sourceMap": true,
     // This compiler run should only output d.ts files
     // "emitDeclarationOnly": true,
     // go to js file when using IDE functions like "Go to Definition" in VSCode
     "declarationMap": true,
+    "emitDecoratorMetadata": true,
+
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+
+    
+
+    // "isolatedModules": true,
+    // "esModuleInterop": true,
+    // "incremental": true,
+    // "strictNullChecks": false,
+    // "noImplicitAny": false,
+    // "useDefineForClassFields": true,
+    // "strictBindCallApply": false,
+    // "forceConsistentCasingInFileNames": false,
+    // "noFallthroughCasesInSwitch": false
 
     // Types should go into this directory.
     // Removing this would place the .d.ts files next to the .js files
     "outDir": "dist",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
 
     "types": ["vitest/globals"]
-  }
+  },
+
+  "include": ["vite.config.*", "env.d.ts", "src/**/*", "rollup.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
+  "exclude": ["node_modules", "dist"]
 }

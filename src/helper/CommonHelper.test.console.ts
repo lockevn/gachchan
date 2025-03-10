@@ -1,4 +1,4 @@
-import CommonHelper from "./CommonHelper"
+import { CommonHelper } from './CommonHelper'
 
 console.log(`
 ————————————————————————————————————————————————————————————————————
@@ -15,14 +15,14 @@ console.log(`
 
       if (Math.random() > 0.5) {
         console.log(`❌`)
-        throw new Error("oops in actionFn execution") // to inform the LOOPER to change interval for next request
+        throw new Error('oops in actionFn execution') // to inform the LOOPER to change interval for next request
       } else {
         console.log(`✅`)
       }
     },
     5000,
 
-    (delay, isPreviousRunSuccess) => {
+    (delay: number, isPreviousRunSuccess: boolean) => {
       console.log(`Delay: ${delay}, isPreviousRunSuccess: ${isPreviousRunSuccess}`)
       return 3000
     },
@@ -43,7 +43,7 @@ console.log(`
 
     if (Math.random() > 0.5) {
       console.log(`                                                      ❌`)
-      throw new Error("oops in actionFn execution") // to inform the LOOPER to change interval for next request
+      throw new Error('oops in actionFn execution') // to inform the LOOPER to change interval for next request
     } else {
       console.log(`                                                      ✅`)
     }

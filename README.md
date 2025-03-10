@@ -32,7 +32,7 @@ https://github.com/sponsors/lockevn
 # To publish/release
 
 - change `package.json` version string
-- `pnpm build` build the output package with `tsup`
+- `pnpm build` build the output package
 - commit code (along with `/dist` folder) to repo
 - Create git tag and publish the git tag
 
@@ -46,13 +46,9 @@ https://github.com/sponsors/lockevn
 
 ---
 
-> ### TECH NOTE: this repo is ignited from `my-ts-lib`
+> ### TECH NOTE: build with Parcel
 
-Search for `my-ts-lib` and replace it with your custom package name.
-
-- Package manager [pnpm](https://pnpm.js.org/), safe and fast
+- Parcel to build https://dev.to/ihaback/create-your-own-typescript-library-with-parceljs-3dh7
+- Package manager [pnpm](https://pnpm.js.org/)
 - Release with [semantic-release](https://npm.im/semantic-release)
-- Bundle with [tsup](https://github.com/egoist/tsup)
 - Test with https://vitest.dev
-
-To skip CI (GitHub action), add `skip-ci` to commit message. To skip release, add `skip-release` to commit message.
