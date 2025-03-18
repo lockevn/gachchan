@@ -21,4 +21,12 @@ export class TextHelper {
 
     return ret
   }
+
+  /** convert true false to yes/no or icon of yes/no */
+  static boolToYesNo(b?: boolean, withText = false) {
+    const text = b ? 'yes' : 'no '
+    const icon = b ? '✅' : '🚫'
+
+    return icon + (withText ? text : '')
+  }
 }

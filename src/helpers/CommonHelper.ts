@@ -138,6 +138,11 @@ export class CommonHelper {
     return newDelay
   }
 
+  /** by combining ISOTimeString and nanoid */
+  static createRandomString() {
+    return `${new Date().toISOString().substring(0, 10)}_${nanoid()}`
+  }
+
   /**
    * random an integer. Max = 10, so return 0 to 10
    * @param max the maximum number this func can return
@@ -275,6 +280,19 @@ export class CommonHelper {
       .filter((p) => p)
       .join(separator)
       .replace(replace, separator)
+  }
+
+  /**
+   * Checks if a string is a valid URL.
+   * @param str The string to check.
+   */
+  static isURL(str: string): boolean {
+    try {
+      new URL(str)
+      return true
+    } catch (error) {
+      return false
+    }
   }
 
   // =========== ===================== ===========
