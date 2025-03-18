@@ -2,11 +2,37 @@
 
 ## Install
 
-In your project (which you want to use `gachchan`), Specify `"gachchan": "github:lockevn/gachchan#v6.7.2"` in your project, which `v6.7.2` is the version (a tag on `gachchan` repo)
+run `npm i gachchan`
 
-Then run `npm i gachchan`
+## Notable Dependencies
 
-### How we setup Deps
+- nanoid
+
+Peers
+
+- lodash
+- decimal.js
+- axios
+
+## Sponsors
+
+https://github.com/sponsors/lockevn
+
+---
+
+# To publish/release
+
+- change `package.json` version string
+- `pnpm ci` and `pnpm release` to build the output package
+- Create git tag and publish the git tag
+
+[![npm version](https://badgen.net/npm/v/gachchan)](https://npm.im/gachchan) [![npm downloads](https://badgen.net/npm/dm/gachchan)](https://npm.im/gachchan)
+
+---
+
+# Development
+
+### TECH NOTE: How we setup Deps
 
 This lib `gachchan` use `_intersection from 'lodash/intersection'` to import function from `lodash`
 
@@ -25,40 +51,7 @@ This lib `gachchan` use `_intersection from 'lodash/intersection'` to import fun
     The import statements in `gachchan` expect to find `lodash` in `node_modules`
   - If `tts-wallet` doesn't install `lodash`, you'll get runtime errors about missing modules
 
-## Notable Dependencies
-
-- nanoid
-
-Peers
-
-- lodash
-- decimal.js
-- axios
-
----
-
-## Sponsors
-
-https://github.com/sponsors/lockevn
-
-# To publish/release
-
-- change `package.json` version string
-- `pnpm build` build the output package
-- commit code (along with `/dist` folder) to repo
-- Create git tag and publish the git tag
-
-  - `git tag -a v7.0.0`
-  - `git push origin v7.0.0`
-  - We got https://github.com/lockevn/gachchan/tree/v7.0.0
-
-<!-- [![npm version](https://badgen.net/npm/v/gachchan)](https://npm.im/gachchan) [![npm downloads](https://badgen.net/npm/dm/gachchan)](https://npm.im/gachchan) -->
-
----
-
----
-
-> ### TECH NOTE: build with Parcel
+### TECH NOTE: build with Parcel
 
 - Parcel to build https://dev.to/ihaback/create-your-own-typescript-library-with-parceljs-3dh7
 - Package manager [pnpm](https://pnpm.js.org/)
