@@ -7,7 +7,7 @@ export default {
     'node_modules',
     '.parcel-cache',
     'dist',
-    '.eslintrc.js',
+    //
     'package.json',
     'package-lock.json',
     'coverage',

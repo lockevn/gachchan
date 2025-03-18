@@ -4,7 +4,7 @@
     "module": "esnext",
     "moduleResolution": "node",
 
-    "lib": ["esnext"],
+    "lib": ["esnext", "dom"],
 
     "strict": true,
     "esModuleInterop": true,
@@ -30,8 +30,6 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
 
-    
-
     // "isolatedModules": true,
     // "esModuleInterop": true,
     // "incremental": true,
@@ -53,6 +51,6 @@
     "types": ["vitest/globals"]
   },
 
-  "include": ["vite.config.*", "env.d.ts", "src/**/*", "rollup.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
+  "include": ["vite.config.*", "env.d.ts", "src/**/*.ts", "rollup.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
   "exclude": ["node_modules", "dist"]
 }
