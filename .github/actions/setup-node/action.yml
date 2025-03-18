@@ -1,0 +1,19 @@
+name: 'Setup Node Environment'
+description: 'Sets up Node.js, installs dependencies, and configures the environment'
+# Composite actions are generally the better approach for reusing steps across jobs
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        registry-url: 'https://registry.npmjs.org/' # npm registry
+        # scope: '@gurucore'
+
+    - name: Install dependencies
+      # ci Installs dependencies strictly based on the lockfile, ensuring reproducibility., Ensures exact versions, does not modify lockfile
+      # --ignore-scripts: Skips lifecycle scripts during installation (good in CI)
+      run: npm i --ignore-scripts
+      shell: bash

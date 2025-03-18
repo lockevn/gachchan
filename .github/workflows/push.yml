@@ -1,0 +1,36 @@
+name: Push (CI check)
+
+on:
+  push:
+    branches: ['**'] # Trigger the workflow on all pushes to any branches
+
+# Workflow-level environment variables (available to all jobs). Note that the different is they are vars and secrets
+env:
+  AWS_S3_REGION: ${{ vars.AWS_S3_REGION }}
+
+jobs:
+  continuous-integration:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        # you'll need to check out the code in each job since GitHub Actions jobs run in separate environments.
+
+      - name: Check commit message for skipCI string
+        id: check_message
+        run: |
+          if git log -1 --pretty=%B | grep -q "skipCI"; then
+            echo "'skipCI' tag found in commit message, skipping CI workflow"            
+            echo "JOB_SKIP=true" >> $GITHUB_ENV
+          else            
+            echo "JOB_SKIP=false" >> $GITHUB_ENV
+          fi
+
+      - name: Setup Node
+        if: env.JOB_SKIP != 'true'
+        uses: ./.github/actions/setup-node
+
+      - name: Run CI script
+        if: env.JOB_SKIP != 'true'
+        run: npm run ci

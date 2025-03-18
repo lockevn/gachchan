@@ -1,0 +1,29 @@
+name: Publish to npmjs
+
+on:
+  push:
+    tags:
+      - 'v*' # Trigger the workflow on tag pushes like v1.0.0
+# Workflow-level environment variables (available to all jobs)
+env:
+  ENVIRONMENT: production
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }} # Ensure you have a NPM_TOKEN secret in your GitHub repository
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Ensure you have a NPM_TOKEN secret in your GitHub repository
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        # you'll need to check out the code in each job since GitHub Actions jobs run in separate environments.
+
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+
+      - name: Run build script for releasing
+        run: npm run release
+
+      - name: Publish to npmjs as public visible
+        run: npm publish --access public
