@@ -1,8 +1,8 @@
 {
   "name": "gachchan",
   "version": "7.1.1",
-  "description": "Change to TypeScript from v6. Share lib for common helper functions, work in node and browser",
-  "releasenote": "Use Parcel to build.",
+  "description": "Shared lib (work in node and browser) for common functionalities",
+  "releasenote": "Change to TypeScript from v6. Use Parcel to build.",
   "author": "lockevn",
   "license": "LICENSE",
   "keywords": [
