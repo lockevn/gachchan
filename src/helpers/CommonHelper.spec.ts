@@ -142,6 +142,9 @@ describe('CommonHelper', () => {
       expect(target.getRandomIntegerWithin(0, 10)).toBe(6)
 
       expect(target.getRandomIntegerWithin(2, 10)).toBe(7)
+
+      expect(target.getRandomIntegerWithin(11, 19)).toBeLessThan(20)
+      expect(target.getRandomIntegerWithin(11, 19)).toBeGreaterThan(10)
     })
 
     it('GetRandomArrayElement', () => {

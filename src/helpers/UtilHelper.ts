@@ -4,10 +4,6 @@
  * Old util class from 2017, will be merged to CommonHelper
  */
 export class UtilHelper {
-  static GetRandomNumberBetween(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1) + min)
-  }
-
   /**
    * split string into array, remove empty entries, each output string is trimmed
    * "1,2,3 ,,, 4, 5 ,6" ==> [1,2,3,4,5,6]
@@ -76,16 +72,6 @@ export class UtilHelper {
     return newParts.join('/') || (newParts.length ? '/' : '.')
   }
 
-  /**
-   * A simple function to get the dirname of a path
-   * Trailing slashes are ignored. Leading slash is preserved.
-   * @param path
-   */
-  static dirname(path: string) {
-    // ts-ignore
-    return this.joinPath(path, '..')
-  }
-
   /** convert camelCase to snake_case
    * @example someHereIsGood ==> some_here_is_good. CAPITALIZED ==> c_a_p_i_t_a_l_i_z_e_d
    */
@@ -122,7 +108,7 @@ export class UtilHelper {
    * @param objOrArray object or array
    * @returns Transformed object/array with camelCase keys
    */
-  static convertKeysToCamelCase(objOrArray: any[] | object) {
+  static convertKeysToCamelCase(objOrArray: any[] | object): any[] | object {
     if (!objOrArray) return objOrArray
 
     if (Array.isArray(objOrArray)) {
@@ -132,7 +118,7 @@ export class UtilHelper {
     if (objOrArray !== null && typeof objOrArray === 'object') {
       return Object.keys(objOrArray).reduce((acc: Record<string, any>, key: string) => {
         const camelKey = UtilHelper.toCamelCase(key) // Convert key to camelCase
-        acc[camelKey] = UtilHelper.convertKeysToCamelCase(objOrArray[key]) // Recursively handle nested objects
+        acc[camelKey] = UtilHelper.convertKeysToCamelCase((objOrArray as Record<string, any>)[key]) // Recursively handle nested objects
         return acc
       }, {})
     }

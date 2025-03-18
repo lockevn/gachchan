@@ -3,13 +3,6 @@ import { UtilHelper } from './UtilHelper'
 const target = UtilHelper
 
 describe('Util', () => {
-  describe('GetRandomNumberBetween(10, 20)', () => {
-    it('GetRandomNumberBetween(10, 20)', () => {
-      expect(target.GetRandomNumberBetween(11, 19)).toBeLessThan(20)
-      expect(target.GetRandomNumberBetween(11, 19)).toBeGreaterThan(10)
-    })
-  })
-
   describe('splitByCommaAndTrim()', () => {
     it('1,2,3 ,,, 4, 5 ,6 should be [1,2,3,4,5,6]', () => {
       let actual = target.splitByCommaAndTrim('1,2,3 ,,, 4, 5 ,6')
@@ -148,8 +141,8 @@ describe('Util', () => {
     })
 
     it('handles null and undefined', () => {
-      expect(target.convertKeysToCamelCase(null)).toBe(null)
-      expect(target.convertKeysToCamelCase(undefined)).toBe(undefined)
+      expect(target.convertKeysToCamelCase(null as unknown as object)).toBe(null)
+      expect(target.convertKeysToCamelCase(undefined as unknown as object)).toBe(undefined)
     })
 
     it('handles empty object and array', () => {
