@@ -5,7 +5,6 @@ import _intersectionWith from 'lodash/intersectionWith.js'
 import _intersection from 'lodash/intersection.js'
 
 import Decimal from 'decimal.js'
-import { DateTimeHelper } from './DateTimeHelper'
 
 export class CommonHelper {
   /**
@@ -16,7 +15,7 @@ export class CommonHelper {
    * @param {number} fractationDigits number of decimal digit
    * @returns number
    */
-  static ToNumber(numberString: number | string, fractationDigits: number = 2, treatNonNumberValueAs = 0) {
+  static toNumber(numberString: number | string, fractationDigits: number = 2, treatNonNumberValueAs = 0) {
     let ret = treatNonNumberValueAs
 
     const convertedToNumberVal = +numberString
@@ -40,7 +39,7 @@ export class CommonHelper {
    * @param {*} value
    * @returns
    */
-  static RoundNumber(value: number, decimalPlaces = 1) {
+  static roundNumber(value: number, decimalPlaces = 1) {
     const decimalPlacesMultiplier = Math.pow(10, decimalPlaces)
     return Math.round((value + Number.EPSILON) * decimalPlacesMultiplier) / decimalPlacesMultiplier
   }
@@ -54,7 +53,7 @@ export class CommonHelper {
    * @param executeImmediately default = false. If true, invoke actionFn() immediately (in the beginning) when calling this function
    * @param shouldPerformActionFn shouldPerformActionFn(currentDelay, isPreviousRunSuccess, DEFAULT_INTERVAL). this function should return true if you want to perform actionFn when timeout happen.
    */
-  static async ContinuousExecuteBySetTimeout(
+  static async continuousExecuteBySetTimeout(
     actionFn: Function,
     DEFAULT_INTERVAL: number = 10000,
     intervalFn?: (previousDelay: number, isPreviousRunSuccess: boolean, DEFAULT_INTERVAL: number) => number,
@@ -75,7 +74,7 @@ export class CommonHelper {
 
     // use the default intervalFn
     if (typeof intervalFn != 'function') {
-      intervalFn = CommonHelper.ContinuousExecuteBySetTimeoutDefaultIntervalFn
+      intervalFn = CommonHelper.continuousExecuteBySetTimeoutDefaultIntervalFn
     }
 
     let delay = intervalFn(DEFAULT_INTERVAL, true, DEFAULT_INTERVAL)
@@ -122,7 +121,7 @@ export class CommonHelper {
    * @param {*} isPreviousRunSuccess
    * @returns
    */
-  static ContinuousExecuteBySetTimeoutDefaultIntervalFn(previousDelay: number, isPreviousRunSuccess: boolean, DEFAULT_INTERVAL: number): number {
+  static continuousExecuteBySetTimeoutDefaultIntervalFn(previousDelay: number, isPreviousRunSuccess: boolean, DEFAULT_INTERVAL: number): number {
     if (isPreviousRunSuccess) {
       return DEFAULT_INTERVAL // job is done successfully, we back to use DEFAULT_INTERVAL (because prev delay (which is a failed one) can be (e.g. 12345ms), longer than DEFAULT_INTERVAL)
     }
@@ -139,42 +138,20 @@ export class CommonHelper {
     return newDelay
   }
 
-  /** change 1 to 1️⃣ (unicode square box character) */
-  static RepresentNumberInIconicDigit(numberString: string | null | undefined): string {
-    if (!numberString) {
-      return ''
-    }
-
-    let ret = numberString.toString()
-    ret = ret
-      .replace(/0/g, '0️⃣')
-      .replace(/1/g, '1️⃣')
-      .replace(/2/g, '2️⃣')
-      .replace(/3/g, '3️⃣')
-      .replace(/4/g, '4️⃣')
-      .replace(/5/g, '5️⃣')
-      .replace(/6/g, '6️⃣')
-      .replace(/7/g, '7️⃣')
-      .replace(/8/g, '8️⃣')
-      .replace(/9/g, '9️⃣')
-
-    return ret
-  }
-
   /**
    * random an integer. Max = 10, so return 0 to 10
    * @param max the maximum number this func can return
    * @returns number integer
    */
-  static GetRandomIntegerTo(max: number) {
-    return this.GetRandomIntegerFromTo(0, max)
+  static getRandomIntegerTo(max: number) {
+    return this.getRandomIntegerWithin(0, max)
   }
 
   /**
-   * random an integer, return value from min to max. (0,10) ==> return any integer from 0 to 10
+   * random an integer, return value from min to max (include min and max). (0,10) ==> return any integer from 0 to 10
    * @returns number integer
    */
-  static GetRandomIntegerFromTo(min: number, max: number): number {
+  static getRandomIntegerWithin(min: number, max: number): number {
     const range = max - min + 1
     return Math.floor(Math.random() * range) + min
   }
@@ -184,9 +161,9 @@ export class CommonHelper {
    * @param {*} arr
    * @returns
    */
-  static GetRandomArrayElement(arr: any[]) {
+  static getRandomArrayElement(arr: any[]) {
     if (Array.isArray(arr)) {
-      return arr[CommonHelper.GetRandomIntegerTo(arr.length - 1)]
+      return arr[CommonHelper.getRandomIntegerTo(arr.length - 1)]
     }
   }
 
@@ -195,7 +172,7 @@ export class CommonHelper {
    * @param {*} array
    * @returns
    */
-  static ShuffleArray(array: any[]) {
+  static shuffleArray(array: any[]) {
     let currentIndex = array.length,
       randomIndex
 
@@ -224,7 +201,7 @@ export class CommonHelper {
    * @param ignoreCase if any value is string, cast either values of firstList and otherList toString(), then compare ignore case
    * @returns boolean true if there is an intersection
    */
-  static HasAnyOfIntersection(firstList: number | string | (number | string)[], otherList: number | string | (number | string)[] = '', ignoreCase = true) {
+  static hasAnyOfIntersection(firstList: number | string | (number | string)[], otherList: number | string | (number | string)[] = '', ignoreCase = true) {
     if (!firstList || !otherList) return false
 
     const arrFirsts = _flatten([firstList]) // [""]   ==> [""], [[1,2]]   ==> [1,2]
@@ -249,20 +226,20 @@ export class CommonHelper {
   /**
    * return percent of portion to full, (25, 50) ==> 50
    */
-  static Percent(portion: number, full: number, fractationDigits?: number) {
+  static percent(portion: number, full: number, fractationDigits?: number) {
     let ret = (100 * portion) / full
-    return CommonHelper.ToNumber(ret, fractationDigits)
+    return CommonHelper.toNumber(ret, fractationDigits)
   }
 
   /**
    * from 100 to 110, the diff is 10 (is 10%). This function returns 10
    * @returns null if from to is not number
    */
-  static DiffInPercent(from: number, to: number, fractationDigits?: number) {
+  static diffInPercent(from: number, to: number, fractationDigits?: number) {
     let ret = null
 
     if (_isFinite(from) && _isFinite(to)) {
-      ret = CommonHelper.Percent(to - from, from, fractationDigits)
+      ret = CommonHelper.percent(to - from, from, fractationDigits)
     }
 
     return ret
@@ -276,7 +253,7 @@ export class CommonHelper {
    * join all arguments with "/" seperator.
    * E.g.: JoinPaths("a", b, c)
    */
-  static JoinPaths(...parts: (string | number | null | undefined)[]) {
+  static joinPaths(...parts: (string | number | null | undefined)[]) {
     var separator = '/'
     var replace = new RegExp(separator + '{1,}', 'g') // replace multiple to single separator
     return parts
@@ -300,7 +277,7 @@ export class CommonHelper {
    * @param suffix
    * @returns
    */
-  static ToNumberString(val?: number | string, fractationDigits = 2, showPrefixSign = false, showZeroVal = true, suffix = '') {
+  static toNumberString(val?: number | string, fractationDigits = 2, showPrefixSign = false, showZeroVal = true, suffix = '') {
     if (val == 0 && !showZeroVal) {
       return ''
     }
@@ -311,7 +288,7 @@ export class CommonHelper {
     }
 
     const prefixSign = showPrefixSign && +val > 0 ? '+' : ''
-    return prefixSign + CommonHelper.ToNumber(val, fractationDigits) + suffix
+    return prefixSign + CommonHelper.toNumber(val, fractationDigits) + suffix
   }
 
   /**
@@ -328,7 +305,7 @@ export class CommonHelper {
    * @param unit default is "tr" (triệu đồng VN)
    * @param locale "en-US" "vi-VN"
    */
-  static NumberToUnitString(numberString: number | string, unitDividen = 1, fractationDigits = 0, unit = '', locale = 'en-US'): string {
+  static numberToUnitString(numberString: number | string, unitDividen = 1, fractationDigits = 0, unit = '', locale = 'en-US'): string {
     // empty string, or text string which is not a number, return
     if (numberString === 0) return '0'
     if (!numberString) return ''
@@ -338,58 +315,7 @@ export class CommonHelper {
     return new Intl.NumberFormat(locale).format(+unitNumbers) + unit
   }
 
-  // @deprecated
-
-  /**
-   * @deprecated since version 6.1.0
-   * if now is 2002 12 31 14:22, this return 20021231.
-   * @param {Date} date
-   * @returns {string}
-   */
-  static GetCurrentYearMonthDayString = DateTimeHelper.GetCurrentYearMonthDayString
-
-  /**
-   * @deprecated since version 6.1.0
-   * if now is 14:22, this return 1422.
-   * 9:40AM ==> 0940
-   * 16:03 (PM) ==> 1603
-   * @param {Date} date
-   * @returns {string}
-   */
-  static GetCurrentHoursMinutesString = DateTimeHelper.GetCurrentHoursMinutesString
-
-  /**
-   * @deprecated since version 6.1.0
-   * if now is 14:22:59, this return 142259.
-   * 9:40AM ==> 094000
-   * 16:03 (PM) ==> 160300
-   */
-  static GetCurrentHoursMinutesSecondsString = DateTimeHelper.GetCurrentHoursMinutesSecondsString
-
-  /**
-   * @deprecated since version 6.1.0
-   * @returns string the Date string in format yyyyMMdd (in UTC timezone)
-   */
-  static GetCurrentYearMonthDayStringUTC = DateTimeHelper.GetCurrentYearMonthDayStringUTC
-
-  /**
-   * @deprecated since version 6.1.0
-   * @returns string the Time string in format HHmm (in UTC timezone)
-   */
-  static GetCurrentHoursMinutesStringUTC = DateTimeHelper.GetCurrentHoursMinutesStringUTC
-
-  /**
-   * @deprecated since version 6.1.0
-   * @returns string the Time string in format HHmmss (in UTC timezone)
-   */
-  static GetCurrentHoursMinutesSecondsStringUTC = DateTimeHelper.GetCurrentHoursMinutesSecondsStringUTC
-
-  /**
-   * @deprecated since version 6.1.0
-   * return current date time in full format, in specific culture (language) and timezone
-   * @param {*} culture
-   * @param {*} timezone
-   * @returns
-   */
-  static GetDatetimeNowString = DateTimeHelper.GetDatetimeNowString
+  // #region @deprecated
+  //
+  // #endregion
 }

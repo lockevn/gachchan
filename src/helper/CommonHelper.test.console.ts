@@ -8,7 +8,7 @@ console.log(`
 ;(async () => {
   // use func with all parameters provided
   let index = 0
-  let ret = await CommonHelper.ContinuousExecuteBySetTimeout(
+  let ret = await CommonHelper.continuousExecuteBySetTimeout(
     async () => {
       index++
       console.log(`${index} Do job`)
@@ -37,7 +37,7 @@ console.log(`
   }, 17000)
 
   let index2 = 0
-  let ret2 = await CommonHelper.ContinuousExecuteBySetTimeout(async () => {
+  let ret2 = await CommonHelper.continuousExecuteBySetTimeout(async () => {
     index2++
     console.log(`                                                      ##${index2} Do job`)
 

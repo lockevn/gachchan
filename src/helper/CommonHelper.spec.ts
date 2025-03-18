@@ -7,132 +7,125 @@ describe('CommonHelper', () => {
   describe('ToNumber', () => {
     test('Nothing should be 0', () => {
       // not a actual number, should be 0
-      expect(target.ToNumber('')).toBe(0)
-      expect(target.ToNumber('\t')).toBe(0)
-      expect(target.ToNumber('\r')).toBe(0)
-      expect(target.ToNumber('\n')).toBe(0)
-      expect(target.ToNumber('\r\n')).toBe(0)
-      expect(target.ToNumber(NaN)).toBe(0)
-      expect(target.ToNumber(null as unknown as string)).toBe(0)
-      expect(target.ToNumber(undefined as unknown as string)).toBe(0)
+      expect(target.toNumber('')).toBe(0)
+      expect(target.toNumber('\t')).toBe(0)
+      expect(target.toNumber('\r')).toBe(0)
+      expect(target.toNumber('\n')).toBe(0)
+      expect(target.toNumber('\r\n')).toBe(0)
+      expect(target.toNumber(NaN)).toBe(0)
+      expect(target.toNumber(null as unknown as string)).toBe(0)
+      expect(target.toNumber(undefined as unknown as string)).toBe(0)
     })
 
-    expect(target.ToNumber('1100')).toBe(1100)
-    expect(target.ToNumber('-1100')).toBe(-1100)
-    expect(target.ToNumber(-1)).toBe(-1)
-    expect(target.ToNumber(-1.1)).toBe(-1.1)
+    expect(target.toNumber('1100')).toBe(1100)
+    expect(target.toNumber('-1100')).toBe(-1100)
+    expect(target.toNumber(-1)).toBe(-1)
+    expect(target.toNumber(-1.1)).toBe(-1.1)
 
-    expect(target.ToNumber('ATC')).toBe(0)
-    expect(target.ToNumber('0')).toBe(0)
-    expect(target.ToNumber(0)).toBe(0)
+    expect(target.toNumber('ATC')).toBe(0)
+    expect(target.toNumber('0')).toBe(0)
+    expect(target.toNumber(0)).toBe(0)
 
-    expect(target.ToNumber(19.103857566765578635)).toBe(19.1)
-    expect(target.ToNumber(19.103857566765578635, 0)).toBe(19)
-    expect(target.ToNumber('19.103857566765578635', 2)).toBe(19.1)
-    expect(target.ToNumber('19.106', 2)).toBe(19.11)
+    expect(target.toNumber(19.103857566765578635)).toBe(19.1)
+    expect(target.toNumber(19.103857566765578635, 0)).toBe(19)
+    expect(target.toNumber('19.103857566765578635', 2)).toBe(19.1)
+    expect(target.toNumber('19.106', 2)).toBe(19.11)
   })
 
   describe('RoundNumber', () => {
     test('RoundNumber default', () => {
-      expect(target.RoundNumber(19.103857566765578635)).toBe(19.1)
-      expect(target.RoundNumber(19.143857566765578635)).toBe(19.1)
-      expect(target.RoundNumber(19.144857566765578635)).toBe(19.1)
-      expect(target.RoundNumber(19.144857566765578635, 2)).toBe(19.14)
+      expect(target.roundNumber(19.103857566765578635)).toBe(19.1)
+      expect(target.roundNumber(19.143857566765578635)).toBe(19.1)
+      expect(target.roundNumber(19.144857566765578635)).toBe(19.1)
+      expect(target.roundNumber(19.144857566765578635, 2)).toBe(19.14)
     })
   })
 
   it('HasAnyOfIntersection', () => {
-    expect(target.HasAnyOfIntersection([], [])).toBe(false)
-    expect(target.HasAnyOfIntersection(undefined as unknown as string, undefined)).toBe(false)
-    expect(target.HasAnyOfIntersection(null as unknown as string, null as unknown as string)).toBe(false)
-    expect(target.HasAnyOfIntersection(null as unknown as string)).toBe(false)
+    expect(target.hasAnyOfIntersection([], [])).toBe(false)
+    expect(target.hasAnyOfIntersection(undefined as unknown as string, undefined)).toBe(false)
+    expect(target.hasAnyOfIntersection(null as unknown as string, null as unknown as string)).toBe(false)
+    expect(target.hasAnyOfIntersection(null as unknown as string)).toBe(false)
 
     expect(
-      target.HasAnyOfIntersection([undefined as unknown as string, undefined as unknown as string, null as unknown as string, null as unknown as string, 3], [undefined as unknown as string])
+      target.hasAnyOfIntersection([undefined as unknown as string, undefined as unknown as string, null as unknown as string, null as unknown as string, 3], [undefined as unknown as string])
     ).toBe(true)
-    expect(target.HasAnyOfIntersection([undefined as unknown as string, undefined as unknown as string, null as unknown as string, null as unknown as string, 3], [null as unknown as string])).toBe(
+    expect(target.hasAnyOfIntersection([undefined as unknown as string, undefined as unknown as string, null as unknown as string, null as unknown as string, 3], [null as unknown as string])).toBe(
       true
     )
-    expect(target.HasAnyOfIntersection([undefined as unknown as string, undefined as unknown as string, 3], [null as unknown as string])).toBe(false)
-    expect(target.HasAnyOfIntersection([undefined as unknown as string, undefined as unknown as string, 3], [4])).toBe(false)
+    expect(target.hasAnyOfIntersection([undefined as unknown as string, undefined as unknown as string, 3], [null as unknown as string])).toBe(false)
+    expect(target.hasAnyOfIntersection([undefined as unknown as string, undefined as unknown as string, 3], [4])).toBe(false)
 
-    expect(target.HasAnyOfIntersection([1, 2, 3], 4)).toBe(false)
-    expect(target.HasAnyOfIntersection([1, 2, 3], [4])).toBe(false)
+    expect(target.hasAnyOfIntersection([1, 2, 3], 4)).toBe(false)
+    expect(target.hasAnyOfIntersection([1, 2, 3], [4])).toBe(false)
 
-    expect(target.HasAnyOfIntersection([1, 2, 3], 1)).toBe(true)
-    expect(target.HasAnyOfIntersection([1, 2, 3], [1])).toBe(true)
+    expect(target.hasAnyOfIntersection([1, 2, 3], 1)).toBe(true)
+    expect(target.hasAnyOfIntersection([1, 2, 3], [1])).toBe(true)
 
-    expect(target.HasAnyOfIntersection([1, 2, 3], [3, 4])).toBe(true)
+    expect(target.hasAnyOfIntersection([1, 2, 3], [3, 4])).toBe(true)
 
-    expect(target.HasAnyOfIntersection(['GOOD', 'PERFECT'], ['POTENTIAL', 'GOOD'])).toBe(true)
+    expect(target.hasAnyOfIntersection(['GOOD', 'PERFECT'], ['POTENTIAL', 'GOOD'])).toBe(true)
 
     // auto flatten
-    expect(target.HasAnyOfIntersection('PERFECT', ['potential', 'good', 'perfect'])).toBe(true)
-    expect(target.HasAnyOfIntersection(['potential', 'good', 'perfect'], 'PERFECT')).toBe(true)
+    expect(target.hasAnyOfIntersection('PERFECT', ['potential', 'good', 'perfect'])).toBe(true)
+    expect(target.hasAnyOfIntersection(['potential', 'good', 'perfect'], 'PERFECT')).toBe(true)
 
     // ignore casing when compare
-    expect(target.HasAnyOfIntersection([1, 2, 3, 'GOOD', 'PERFECT'], ['potential', 'good'])).toBe(true)
-    expect(target.HasAnyOfIntersection([1, 2, 3, 'GOOD', 'PERFECT'], ['potential', 'good'], false)).toBe(false)
+    expect(target.hasAnyOfIntersection([1, 2, 3, 'GOOD', 'PERFECT'], ['potential', 'good'])).toBe(true)
+    expect(target.hasAnyOfIntersection([1, 2, 3, 'GOOD', 'PERFECT'], ['potential', 'good'], false)).toBe(false)
   })
 
   it('Percent', () => {
-    expect(target.Percent(25, 50)).toBe(50)
-    expect(target.Percent(25, 25)).toBe(100)
-    expect(target.Percent(2, 3, 2)).toBe(66.67)
+    expect(target.percent(25, 50)).toBe(50)
+    expect(target.percent(25, 25)).toBe(100)
+    expect(target.percent(2, 3, 2)).toBe(66.67)
   })
 
   it('DiffInPercent', () => {
-    expect(target.DiffInPercent(null as unknown as number, 90)).toBe(null)
-    expect(target.DiffInPercent('ATC' as unknown as number, 90)).toBe(null)
-    expect(target.DiffInPercent(10, 'ATC' as unknown as number)).toBe(null)
+    expect(target.diffInPercent(null as unknown as number, 90)).toBe(null)
+    expect(target.diffInPercent('ATC' as unknown as number, 90)).toBe(null)
+    expect(target.diffInPercent(10, 'ATC' as unknown as number)).toBe(null)
 
-    expect(target.DiffInPercent(NaN, 10)).toBe(null)
+    expect(target.diffInPercent(NaN, 10)).toBe(null)
 
-    expect(target.DiffInPercent(100, 110)).toBe(10)
-    expect(target.DiffInPercent(100, 90)).toBe(-10)
+    expect(target.diffInPercent(100, 110)).toBe(10)
+    expect(target.diffInPercent(100, 90)).toBe(-10)
   })
 
   it('ToNumberString', () => {
-    expect(target.ToNumberString(22.2222, 2, true, false, '%')).toBe('+22.22%')
-    expect(target.ToNumberString(22.2222, 2, false, false, '%')).toBe('22.22%')
-    expect(target.ToNumberString(-22.2222, 2, false, false, '%')).toBe('-22.22%')
-    expect(target.ToNumberString(0, 2, true, false, '%')).toBe('')
-    expect(target.ToNumberString(0, 2, true, true, '%')).toBe('0%')
-    expect(target.ToNumberString(0, 1)).toBe('0')
+    expect(target.toNumberString(22.2222, 2, true, false, '%')).toBe('+22.22%')
+    expect(target.toNumberString(22.2222, 2, false, false, '%')).toBe('22.22%')
+    expect(target.toNumberString(-22.2222, 2, false, false, '%')).toBe('-22.22%')
+    expect(target.toNumberString(0, 2, true, false, '%')).toBe('')
+    expect(target.toNumberString(0, 2, true, true, '%')).toBe('0%')
+    expect(target.toNumberString(0, 1)).toBe('0')
 
-    expect(target.ToNumberString(NaN, 2)).toBe('')
-    expect(target.ToNumberString(null as unknown as string, 2)).toBe('')
-    expect(target.ToNumberString(undefined, 2)).toBe('')
-  })
-
-  it('RepresentNumberInIconicDigit', () => {
-    expect(target.RepresentNumberInIconicDigit(undefined)).toBe('')
-    expect(target.RepresentNumberInIconicDigit(null)).toBe('')
-    expect(target.RepresentNumberInIconicDigit('')).toBe('')
-    expect(target.RepresentNumberInIconicDigit('000123456789')).toBe('0️⃣0️⃣0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣')
+    expect(target.toNumberString(NaN, 2)).toBe('')
+    expect(target.toNumberString(null as unknown as string, 2)).toBe('')
+    expect(target.toNumberString(undefined, 2)).toBe('')
   })
 
   it('NumberToUnitString', () => {
-    expect(target.NumberToUnitString(10000, 1000, 0, 'k')).toBe('10k')
+    expect(target.numberToUnitString(10000, 1000, 0, 'k')).toBe('10k')
 
-    expect(target.NumberToUnitString(0, 1)).toBe('0')
-    expect(target.NumberToUnitString(NaN, 1)).toBe('')
-    expect(target.NumberToUnitString('', 1)).toBe('')
-    expect(target.NumberToUnitString('ATC', 1)).toBe('ATC')
+    expect(target.numberToUnitString(0, 1)).toBe('0')
+    expect(target.numberToUnitString(NaN, 1)).toBe('')
+    expect(target.numberToUnitString('', 1)).toBe('')
+    expect(target.numberToUnitString('ATC', 1)).toBe('ATC')
 
-    expect(target.NumberToUnitString(100, 1, 2)).toBe('100')
-    expect(target.NumberToUnitString(100.1321, 1, 2)).toBe('100.13')
+    expect(target.numberToUnitString(100, 1, 2)).toBe('100')
+    expect(target.numberToUnitString(100.1321, 1, 2)).toBe('100.13')
 
-    expect(target.NumberToUnitString(40000000, 1, 0, '', 'vi-VN')).toBe('40.000.000')
-    expect(target.NumberToUnitString(4000, 1, 0, '%', 'vi-VN')).toBe('4.000%')
+    expect(target.numberToUnitString(40000000, 1, 0, '', 'vi-VN')).toBe('40.000.000')
+    expect(target.numberToUnitString(4000, 1, 0, '%', 'vi-VN')).toBe('4.000%')
   })
 
   it('JoinPaths', () => {
-    expect(target.JoinPaths()).toBe('')
-    expect(target.JoinPaths(1, 2, 3)).toBe('1/2/3')
-    expect(target.JoinPaths(1, null, 2, undefined, '', 3)).toBe('1/2/3')
-    expect(target.JoinPaths('/1/', '/2/', 3)).toBe('/1/2/3')
-    expect(target.JoinPaths('/1/', '', null, '/2/', undefined, null, 3)).toBe('/1/2/3')
+    expect(target.joinPaths()).toBe('')
+    expect(target.joinPaths(1, 2, 3)).toBe('1/2/3')
+    expect(target.joinPaths(1, null, 2, undefined, '', 3)).toBe('1/2/3')
+    expect(target.joinPaths('/1/', '/2/', 3)).toBe('/1/2/3')
+    expect(target.joinPaths('/1/', '', null, '/2/', undefined, null, 3)).toBe('/1/2/3')
   })
 
   describe('RandomOutput', () => {
@@ -145,14 +138,14 @@ describe('CommonHelper', () => {
     })
 
     it('GetRandomIntegerTo', () => {
-      expect(target.GetRandomIntegerTo(10)).toBe(6)
-      expect(target.GetRandomIntegerFromTo(0, 10)).toBe(6)
+      expect(target.getRandomIntegerTo(10)).toBe(6)
+      expect(target.getRandomIntegerWithin(0, 10)).toBe(6)
 
-      expect(target.GetRandomIntegerFromTo(2, 10)).toBe(7)
+      expect(target.getRandomIntegerWithin(2, 10)).toBe(7)
     })
 
     it('GetRandomArrayElement', () => {
-      expect(target.GetRandomArrayElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])).toBe(6)
+      expect(target.getRandomArrayElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])).toBe(6)
     })
   })
 
@@ -164,7 +157,7 @@ describe('CommonHelper', () => {
       const arrIterationResult = []
 
       for (let index = 0; index < SHUFFLE_COUNT; index++) {
-        const newShuffleArray = target.ShuffleArray(array)
+        const newShuffleArray = target.shuffleArray(array)
         arrIterationResult.push(newShuffleArray.join('_'))
       }
 
