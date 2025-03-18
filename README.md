@@ -12,7 +12,6 @@ Peers
 
 - lodash
 - decimal.js
-- axios
 
 ## Sponsors
 

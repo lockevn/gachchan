@@ -31,4 +31,5 @@ dist-ssr
 .cache
 coverage
 
-dist/tsconfig.tsbuildinfo
+dist
+

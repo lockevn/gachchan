@@ -1,8 +1,8 @@
 {
   "name": "gachchan",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "description": "Shared lib (work in node and browser) for common functionalities",
-  "releasenote": "Change to TypeScript from v6. Use Parcel to build.",
+  "releasenote": "Use lodash nanoid decimal.js (which is quite small) as direct deps to avoid confusing for consuming-projects. Change to TypeScript from v6. Use Parcel to build.",
   "author": "lockevn",
   "license": "GPL-3.0-only",
   "keywords": [
@@ -55,7 +55,9 @@
     "release": "npm run check && npm run build"
   },
   "dependencies": {
-    "nanoid": "^5.1.4"
+    "nanoid": "^5.1.4",
+    "decimal.js": "^10.5.0",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.4",
@@ -71,11 +73,7 @@
     "typescript": "latest",
     "vitest": "latest"
   },
-  "peerDependencies": {
-    "axios": ">0.21.0",
-    "decimal.js": "^10.2.1",
-    "lodash": "^4.17.21"
-  },
+  "peerDependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "npm run precommit"
