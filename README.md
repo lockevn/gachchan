@@ -25,6 +25,18 @@ This lib `gachchan` use `_intersection from 'lodash/intersection'` to import fun
     The import statements in `gachchan` expect to find `lodash` in `node_modules`
   - If `tts-wallet` doesn't install `lodash`, you'll get runtime errors about missing modules
 
+## Notable Dependencies
+
+- nanoid
+
+Peers
+
+- lodash
+- decimal.js
+- axios
+
+---
+
 ## Sponsors
 
 https://github.com/sponsors/lockevn
