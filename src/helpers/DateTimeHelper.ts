@@ -6,10 +6,10 @@ import _intersection from 'lodash/intersection.js'
 export class DateTimeHelper {
   /**
    * if now is 2002 12 31 14:22, this return 20021231.
-   * @param {Date} date
-   * @returns {string}
+   * @param date
+   * @returns
    */
-  static GetCurrentYearMonthDayString(date?: Date) {
+  static getCurrentYearMonthDayString(date?: Date): string {
     if (!date) date = new Date()
 
     let ret = date.getFullYear().toString() + (date.getMonth() + 1).toString().padStart(2, '0') + date.getDate().toString().padStart(2, '0')
@@ -24,7 +24,7 @@ export class DateTimeHelper {
    * @param {Date} date
    * @returns {string}
    */
-  static GetCurrentHoursMinutesString(date?: Date): string {
+  static getCurrentHoursMinutesString(date?: Date): string {
     if (!date) date = new Date()
 
     let currentHoursMinutesString = date.getHours().toString().padStart(2, '0') + '' + date.getMinutes().toString().padStart(2, '0')
@@ -37,10 +37,10 @@ export class DateTimeHelper {
    * 9:40AM ==> 094000
    * 16:03 (PM) ==> 160300
    */
-  static GetCurrentHoursMinutesSecondsString(date?: Date) {
+  static getCurrentHoursMinutesSecondsString(date?: Date) {
     if (!date) date = new Date()
 
-    let ret = this.GetCurrentHoursMinutesString(date) + date.getSeconds().toString().padStart(2, '0')
+    let ret = this.getCurrentHoursMinutesString(date) + date.getSeconds().toString().padStart(2, '0')
 
     return ret
   }
@@ -49,7 +49,7 @@ export class DateTimeHelper {
    *
    * @returns string the Date string in format yyyyMMdd (in UTC timezone)
    */
-  static GetCurrentYearMonthDayStringUTC(date?: Date) {
+  static getCurrentYearMonthDayStringUTC(date?: Date) {
     if (!date) date = new Date()
 
     return date.toISOString().substring(0, 10).replace(/-/g, '')
@@ -59,7 +59,7 @@ export class DateTimeHelper {
    *
    * @returns string the Time string in format HHmm (in UTC timezone)
    */
-  static GetCurrentHoursMinutesStringUTC(date?: Date) {
+  static getCurrentHoursMinutesStringUTC(date?: Date) {
     if (!date) date = new Date()
 
     return date.toISOString().substring(11, 16).replace(/:/g, '')
@@ -68,7 +68,7 @@ export class DateTimeHelper {
    *
    * @returns string the Time string in format HHmmss (in UTC timezone)
    */
-  static GetCurrentHoursMinutesSecondsStringUTC(date?: Date) {
+  static getCurrentHoursMinutesSecondsStringUTC(date?: Date) {
     if (!date) date = new Date()
 
     return date.toISOString().substring(11, 19).replace(/:/g, '')
@@ -86,7 +86,7 @@ export class DateTimeHelper {
    * @param {*} timezone
    * @returns
    */
-  static GetDatetimeNowString(culture = 'vi-VN', timezone = 'Asia/Saigon') {
+  static getDatetimeNowString(culture = 'vi-VN', timezone = 'Asia/Saigon') {
     return new Intl.DateTimeFormat(culture, {
       //
       timeZone: timezone,
@@ -97,11 +97,10 @@ export class DateTimeHelper {
   }
 
   /** return the DateTime object like it was get with `new Date()` in a host computer in expected timezone */
-  static GetTimeInGMTTimezone(gmtHour = 7) {
+  static getTimeInGMTTimezone(gmtHour = 7) {
     const now = new Date()
 
     // Adjust for user's local time zone offset
-
     const utcOffset =
       // when calling this in GMT+7, it return -420 minutes
       now.getTimezoneOffset() *
