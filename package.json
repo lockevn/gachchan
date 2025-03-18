@@ -1,25 +1,31 @@
 {
   "name": "gachchan",
-  "version": "7.1.1",
+  "version": "8.0.0",
   "description": "Shared lib (work in node and browser) for common functionalities",
   "releasenote": "Change to TypeScript from v6. Use Parcel to build.",
   "author": "lockevn",
-  "license": "LICENSE",
+  "license": "GPL-3.0-only",
   "keywords": [
-    "node",
+    "nodejs",
     "browser",
     "lib",
     "utils",
-    "common"
+    "common",
+    "javascript",
+    "typescript",
+    "tested",
+    "shared-library"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gurucore/gachchan.git"
+  },
   "publishConfig": {
     "access": "public"
   },
   "files": [
     "dist/",
     "src/",
-    "test/",
-    "index.js",
     "LICENSE",
     "CHANGELOG.md",
     "README.md"
@@ -42,9 +48,14 @@
     "check": "tsc --noEmit --skipLibCheck",
     "build": "parcel build",
     "test": "vitest",
-    "test:watch": "vitest watch",
     "test:run": "vitest run",
-    "release": "npm run lint && npm run check && npm run test:run && npm run build"
+    "empty1": "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+    "precommit": "npm run lint && npm run check",
+    "ci": "npm run check && npm run test:run",
+    "release": "npm run check && npm run build"
+  },
+  "dependencies": {
+    "nanoid": "^5.1.4"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.4",
@@ -64,5 +75,13 @@
     "axios": ">0.21.0",
     "decimal.js": "^10.2.1",
     "lodash": "^4.17.21"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit"
+    }
+  },
+  "stackblitz": {
+    "startCommand": "pnpm test:run"
   }
 }

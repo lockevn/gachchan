@@ -1,5 +1,11 @@
 ## Change Log
 
+### v8.0.0 (2025/03/18)
+
+- Refactor, remove non-common business (stock) from this repo
+- Import good function from @gurucore/lakdak
+- Release as npm `gachchan`
+
 ### v7.0.1 (2025/01/09)
 
 Fix the way we import lodash. Remove deprecated getCurrentGMT7TimeString(). Better Comment. UTC Util. ContinuousExecuteBySetTimeout() with new argument executeImmediately

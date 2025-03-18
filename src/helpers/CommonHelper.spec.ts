@@ -180,6 +180,10 @@ describe('CommonHelper', () => {
     it('GetRandomArrayElement', () => {
       expect(target.getRandomArrayElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])).toBe(6)
     })
+
+    it('createRandomString', () => {
+      expect(target.createRandomString()).not.toBeNull()
+    })
   })
 
   describe('RandomArray', () => {

@@ -5,6 +5,7 @@ import _intersectionWith from 'lodash/intersectionWith.js'
 import _intersection from 'lodash/intersection.js'
 
 import Decimal from 'decimal.js'
+import { nanoid } from 'nanoid'
 
 export class CommonHelper {
   /**
