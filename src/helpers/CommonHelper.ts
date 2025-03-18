@@ -224,6 +224,21 @@ export class CommonHelper {
   }
 
   /**
+   * merge 2 arrays of entries and reduce to distinct
+   * [1,2,3] & [2, 3, 4] ==> return [1,2,3,4]
+   * @param {Array} arr1
+   * @param {Array} arr2
+   */
+  static mergeAndDistinct(arr1: any[], arr2: any[]) {
+    function onlyUnique(value: any, index: number, self: any[]) {
+      return self.indexOf(value) === index
+    }
+
+    let distinctArrayOfRoles = arr1.concat(arr2).filter(onlyUnique)
+    return distinctArrayOfRoles
+  }
+
+  /**
    * return percent of portion to full, (25, 50) ==> 50
    */
   static percent(portion: number, full: number, fractationDigits?: number) {
@@ -367,6 +382,30 @@ export class CommonHelper {
     }
 
     return objOrArray // If it's not an object or array, return as-is
+  }
+
+  /**
+   * split string into array, remove empty entries, each output string is trimmed
+   * "1,2,3 ,,, 4, 5 ,6" ==> [1,2,3,4,5,6]
+   * @param strCommaSeparated
+   */
+  static splitByCommaAndTrim(strCommaSeparated?: string) {
+    if (strCommaSeparated) {
+      return strCommaSeparated
+        .split(',')
+        .filter((segment) => segment)
+        .map((e) => e.trim())
+    } else {
+      return []
+    }
+  }
+
+  /**
+   * give you the Date object, from the jsonDateString (return from some API services)
+   * @param jsonDateString string of this format "/Date(2342353453434)/"
+   */
+  static parseJsonDate(jsonDateString: string) {
+    return new Date(parseInt(jsonDateString.replace('/Date(', '').replace(')/', '')))
   }
 
   // #region @deprecated
