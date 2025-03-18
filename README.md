@@ -26,7 +26,7 @@ https://github.com/sponsors/lockevn
 - `pnpm ci` and `pnpm release` to build the output package
 - Create git tag and publish the git tag
 
-[![npm version](https://badgen.net/npm/v/gachchan)](https://npm.im/gachchan) [![npm downloads](https://badgen.net/npm/dm/gachchan)](https://npm.im/gachchan)
+[![npm version](https://badgen.net/npm/v/gachchan)](https://npm.im/gachchan) [![npm downloads](https://badgen.net/npm/dt/gachchan)](https://npm.im/gachchan)
 
 ---
 
