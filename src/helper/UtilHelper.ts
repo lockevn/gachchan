@@ -3,7 +3,7 @@
 /**
  * Old util class from 2017, will be merged to CommonHelper
  */
-export class Util {
+export class UtilHelper {
   static GetRandomNumberBetween(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
@@ -95,11 +95,48 @@ export class Util {
     return snakeCase.startsWith('_') ? snakeCase.slice(1) : snakeCase
   }
 
-  /** (from source), create new object contains mapped fields */
+  /** (from source), create new object contains mapped fields.
+   * @example {a:1, b:2, c:3} with map {a:AA, b:BB} ==> {AA:1, BB:2} (and omit c:3)
+   */
   static objectMapKeys(source: Record<string, any>, keyMap: Record<string, string>) {
     return Object.entries(keyMap).reduce((o, [key, newKey]) => {
       o[newKey] = source[key]
       return o
     }, {} as any)
+  }
+
+  /**
+   * Convert snake_case to camelCase
+   * @param str
+   * @returns
+   */
+  static toCamelCase(str: string): string {
+    if (!str) return str // empty string case
+
+    const cleanedStr = str.startsWith('_') ? str.substring(1) : str // Handle leading underscore by removing it first
+    return cleanedStr.replace(/_./g, (match) => match.charAt(1).toUpperCase())
+  }
+
+  /**
+   * Recursively converts object keys from snake_case to camelCase
+   * @param objOrArray object or array
+   * @returns Transformed object/array with camelCase keys
+   */
+  static convertKeysToCamelCase(objOrArray: any[] | object) {
+    if (!objOrArray) return objOrArray
+
+    if (Array.isArray(objOrArray)) {
+      return objOrArray.map(UtilHelper.convertKeysToCamelCase) // Recursively apply to array elements
+    }
+
+    if (objOrArray !== null && typeof objOrArray === 'object') {
+      return Object.keys(objOrArray).reduce((acc: Record<string, any>, key: string) => {
+        const camelKey = UtilHelper.toCamelCase(key) // Convert key to camelCase
+        acc[camelKey] = UtilHelper.convertKeysToCamelCase(objOrArray[key]) // Recursively handle nested objects
+        return acc
+      }, {})
+    }
+
+    return objOrArray // If it's not an object or array, return as-is
   }
 } // end class

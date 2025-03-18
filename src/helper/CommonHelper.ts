@@ -1,4 +1,4 @@
-﻿import _flatten from 'lodash/flatten.js'
+import _flatten from 'lodash/flatten.js'
 import _isNumber from 'lodash/isNumber.js'
 import _isFinite from 'lodash/isFinite.js'
 import _intersectionWith from 'lodash/intersectionWith.js'
@@ -322,11 +322,11 @@ export class CommonHelper {
    * 0 will be returned as "0"
    * NaN or "" will be returned as ""
    * "ATC" (which is cannot be converted to number) will be returned as is "ATC"
-   * @param {number | string} numberString original number (string) to format. This string must be able to convert to number.
-   * @param {number} unitDividen dividen divide number to this
-   * @param {number} fractationDigits default is 0 (1000 --> 1,000). if 1, 1000,1 --> 1,000.1
-   * @param {string} unit default is "tr" (triệu đồng VN)
-   * @param {string} locale "en-US" "vi-VN"
+   * @param numberString original number (string) to format. This string must be able to convert to number.
+   * @param unitDividen dividen divide number to this
+   * @param fractationDigits default is 0 (1000 --> 1,000). if 1, 1000,1 --> 1,000.1
+   * @param unit default is "tr" (triệu đồng VN)
+   * @param locale "en-US" "vi-VN"
    */
   static NumberToUnitString(numberString: number | string, unitDividen = 1, fractationDigits = 0, unit = '', locale = 'en-US'): string {
     // empty string, or text string which is not a number, return
