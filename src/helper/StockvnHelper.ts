@@ -12,7 +12,7 @@ export class StockvnHelper {
    * We need to convert it to 1000000
    * @param num
    */
-  static StandardizeVolNumber(num: string | number): number {
+  static standardizeVolNumber(num: string | number): number {
     if (typeof num === 'number') {
       return num as number
     }
@@ -30,7 +30,7 @@ export class StockvnHelper {
     //   // is number, do nothing
     // }
 
-    return CommonHelper.ToNumber(ret)
+    return CommonHelper.toNumber(ret)
   }
 
   /**
@@ -38,14 +38,14 @@ export class StockvnHelper {
    * @param {*} callbackFn
    * @param {*} interval
    */
-  static ContinuousExecuteInWorkingHours(callbackFn: Function, interval: number) {
+  static continuousExecuteInWorkingHours(callbackFn: Function, interval: number) {
     if (!callbackFn) {
       return
     }
 
     let timerId = setInterval(async () => {
       // only perform callback in trading hours
-      if (this.IsInWorkingHours() && this.IsInWorkingDays()) {
+      if (this.isInWorkingHours() && this.isInWorkingDays()) {
         await callbackFn()
       } else {
         // console.debug(now, "out of trading hour, I don't refresh signal to save network consumption")
@@ -74,8 +74,8 @@ export class StockvnHelper {
    * @param {Date} now
    * @returns boolean
    */
-  static IsInWorkingHours() {
-    if (!this.IsInWorkingDays()) {
+  static isInWorkingHours() {
+    if (!this.isInWorkingDays()) {
       return false
     }
 
@@ -91,12 +91,12 @@ export class StockvnHelper {
    *  is in ATO sessions (stricly inside 0845-0915)
    * @param {String} nowString hhhmm string, like "1130" or "0959"
    */
-  static IsIn_ATO_Sessions(nowString?: string) {
+  static isIn_ATO_Sessions(nowString?: string) {
     if (!nowString) {
       nowString = this.getCurrentGMT7HoursMinutesString()
     }
 
-    if (!this.IsInWorkingDays()) {
+    if (!this.isInWorkingDays()) {
       return false
     }
 
@@ -110,12 +110,12 @@ export class StockvnHelper {
    *  is in ATC sessions (strictly inside 1430-1445)
    * @param {String} nowString hhhmm string, like "1130" or "0959"
    */
-  static IsIn_ATC_Sessions(nowString?: string) {
+  static isIn_ATC_Sessions(nowString?: string) {
     if (!nowString) {
       nowString = this.getCurrentGMT7HoursMinutesString()
     }
 
-    if (!this.IsInWorkingDays()) {
+    if (!this.isInWorkingDays()) {
       return false
     }
 
@@ -129,7 +129,7 @@ export class StockvnHelper {
   /**
    * return true if current moment is Monday to Friday (Vietnam working days) in GMT+7 timezone
    */
-  static IsInWorkingDays() {
+  static isInWorkingDays() {
     const gmt7time = DateTimeHelper.GetTimeInGMTTimezone(7)
 
     // Sunday - Saturday : 0 - 6
@@ -145,7 +145,7 @@ export class StockvnHelper {
    * return true if s is like HNXINDEX, I3-FIN
    * @param str SymbolCode (HPG, HNXINDEX, I3-FIN)
    */
-  static IsCompoundIndexSymbolCode(str: string) {
+  static isCompoundIndexSymbolCode(str: string) {
     if (str.search(/^I\d\-/i) == 0) {
       return true
     }
